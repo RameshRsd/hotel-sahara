@@ -1,0 +1,108 @@
+body{
+    margin: 0;
+    padding:0;
+    top:0;
+}
+.main-nav{background-color: #333;
+    
+}
+.pull-left img{max-width:50%;}
+.main-nav .pull-right li{margin-top:15px;}
+
+@media only screen and (max-width: 768px) {
+        .main-nav{text-align:center;}
+        .pull-left img{max-width:100%;}
+        .main-nav .pull-right li{margin:0 5px; text-align:center; display:inline-block;}
+        .main-nav .pull-right{margin:0; padding:0;}
+		.img{text-align:center;}
+		.main-nav .pull-right{display:none;}
+		.header_top .contactinfo{display:none;}
+    h1{color:#1b93d0; font-size: 15px;}
+}
+@media only screen and (width: 400px) {
+    .contact .hidden{display: none;}
+
+}
+.header-bottom {border-bottom-style:solid;
+    border-bottom-color:#f3f3f3;
+    border-bottom-width:1px;
+}
+#slider, #news-section{  border-bottom-style:solid;
+                        border-bottom-color:#f3f3f3;
+                        border-bottom-width:1px;
+                        margin:20px 0;
+    
+}
+#news-section h3,h4,h5,h6,li,a,p{
+    color:#bdbbb9;
+}
+h1{color:#1b93d0;}
+#news-section .panel-default{
+                        border-bottom-style:solid;
+                        border-bottom-color:#f3f3f3;
+                        border-bottom-width:1px;
+                        padding-bottom:20px;
+                        
+    
+}
+h3, h4{
+	color: #1c8b98;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin: 0 auto 10px;
+    text-align: center;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 3;
+	
+}
+p{text-align:justify;}
+#news-section .panel-heading{padding:10px;}
+#news-section .panel-default li{display:inline; text-align:center;
+}
+#news-section .panel-default h6:hover{color:#FE980F;}
+#news-section .panel-default ul{margin:0; padding:0;}
+
+.internship li{list-style:circle; color:#1c8b98;}
+.internship span{color:#FE980F;}
+.internship li:hover{color:#FE980F;}
+.comanyinfo a:hover{background-color:#1c8b98; color:#fff;}.companyinfo a{padding:10px; margin:20px 0; background-color:#1c8b98; color:#fff;}
+
+
+.mainmenu .main-menu{position:relative;}
+.top_nav #sidebar-menu .menu_section li{display: inline-block;}
+.nav-md .container.body .right_col {margin-left: 0; }
+.main_container .content-sec{margin-top: 80px;}
+
+.right_col .content-sec .x_panel{
+    border:1px solid #96223c;
+}
+.main_container .report {
+    width: 700px;
+    margin:0 auto 20px;
+    padding:10px;
+    text-align: center;
+    border:2px solid #96223c;
+}
+.main_container .report button{
+    width: 500px;
+    margin:0 auto;
+    text-align: center;
+    color:#000;
+}
+.main_container .report table{
+    width: 600px;
+    margin:0 auto;
+    text-align: center;
+    color:#000;
+}
+.main_container .report h5{
+    color: #fff;
+    font-weight: bolder;
+    margin: -19px 225px 10px;
+    background-color: #96223c;
+    width: 220px;
+    border: 1px solid #96223c;
+}
+
