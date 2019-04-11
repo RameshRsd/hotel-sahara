@@ -107,7 +107,7 @@
                                                 <td>
                                                     @foreach($RoomData as $data)
                                                     @if($Value->id == $data->room_id)
-                                                            {{count($data)}}
+                                                            
                                                         @endif
                                                         @endforeach
                                                 </td>

@@ -93,8 +93,8 @@ class CustomerController extends ServerController
             $this->data('zoneData', Zone::all());
             $this->data('server', Server::all());
             $this->data('countryData', Country::all());
-            $this->data('customerData', Customer::orderBy('id', 'DESC')->get());
-            return view($this->pagePath.'Customer.viewCustomer',$this->data);
+			$customerData = Customer::orderBy('id', 'DESC')->paginate(30);
+            return view($this->pagePath.'Customer.viewCustomer',$this->data,compact('customerData'));
         }
         if($request->isMethod('post')){
 
