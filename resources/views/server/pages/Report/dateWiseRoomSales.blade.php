@@ -105,11 +105,8 @@
                                                 <td>{{++$key}}</td>
                                                 <td>{{$Value->room_no}}</td>
                                                 <td>
-                                                    @foreach($RoomData as $data)
-                                                    @if($Value->id == $data->room_id)
-                                                            
-                                                        @endif
-                                                        @endforeach
+                                                    @php $room_data_value=$RoomData->where('room_id',$Value->id)->count(); @endphp
+                                                {{$room_data_value}}
                                                 </td>
                                             </tr>
                                             @endforeach

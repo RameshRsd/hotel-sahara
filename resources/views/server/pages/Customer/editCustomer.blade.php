@@ -64,14 +64,14 @@
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
                                         <select name="id_type" id="id_type" class="form-control input-sm">
-                                            <option value="{{$updateCustomer->id_type}}">{{$updateCustomer->id_type}}</option>
-											<option value="Pan-Card">Pan Card</option>
-                                            <option value="Citizenship">Citizenship</option>
-                                            <option value="Passport">Passport</option>
-                                            <option value="Driving License">Driving License</option>
-                                            <option value="Voter Card">Voter Card</option>
-                                            <option value="Vehicle No.">Vehicle No.</option>
-                                            <option value="Others">Others</option>
+                                            <option value="">Choose..</option>
+											<option value="Pan-Card" @if($updateCustomer->id_type=='Pan-Card') selected @endif>Pan Card</option>
+                                            <option value="Citizenship" @if($updateCustomer->id_type=='Citizenship') selected @endif>Citizenship</option>
+                                            <option value="Passport" @if($updateCustomer->id_type=='Passport') selected @endif>Passport</option>
+                                            <option value="Driving License" @if($updateCustomer->id_type=='Driving License') selected @endif>Driving License</option>
+                                            <option value="Voter Card" @if($updateCustomer->id_type=='Voter Card') selected @endif>Voter Card</option>
+                                            <option value="Vehicle No." @if($updateCustomer->id_type=='Vehicle No.') selected @endif>Vehicle No.</option>
+                                            <option value="Others" @if($updateCustomer->id_type=='Others') selected @endif>Others</option>
                                         </select>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
@@ -84,13 +84,7 @@
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
                                         <select class=" input-sm form-control" id="country_name" name="country_id">
                                             @foreach($country_list as $cat)
-                                                @if($cat->id == $updateCustomer->country_id)
-                                                <option value="{{$cat->id}}">{{$cat->country_name}}</option>
-                                                @endif
-                                            @endforeach
-                                                <option value="">[Select Country]</option>
-                                            @foreach($country_list as $cat)
-                                                <option value="{{$cat->id}}">{{$cat->country_name}}</option>
+                                                <option value="{{$cat->id}}" @if($cat->id == $updateCustomer->country_id) selected @endif>{{$cat->country_name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
