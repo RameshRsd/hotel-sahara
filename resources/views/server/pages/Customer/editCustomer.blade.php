@@ -65,6 +65,7 @@
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
                                         <select name="id_type" id="id_type" class="form-control input-sm">
                                             <option value="{{$updateCustomer->id_type}}">{{$updateCustomer->id_type}}</option>
+											<option value="Pan-No">Pan No.</option>
                                             <option value="Citizenship">Citizenship</option>
                                             <option value="Passport">Passport</option>
                                             <option value="Driving License">Driving License</option>

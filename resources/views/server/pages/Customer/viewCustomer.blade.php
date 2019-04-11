@@ -128,6 +128,10 @@
                                             <td colspan="11">Record Not Found</td>
                                         </tr>
                                      @endif
+									    <tr>
+                                            <td colspan="11">{{ $customerData->links() }}</td>
+                                        </tr>
+
                                 </table>
                             </div>
                         </div>
