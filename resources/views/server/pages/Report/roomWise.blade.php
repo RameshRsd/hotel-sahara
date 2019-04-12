@@ -82,6 +82,18 @@
                                                 @endif
                                             </select>
                                         </div>
+                                        <div class="col-sm-1">
+                                            <label for="">Room No.</label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <select name="room_id" id="" class="form-control input-sm">
+                                                <option value="">[Select Room]</option>
+                                                @foreach($RoomDataValue as $Value)
+                                                    <option value="{{$Value->id}}" @if(request('room_id') == $Value->id) selected @endif>{{$Value->room_no}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
                                         <div class="clearfix"></div>
                                         <div class="col-sm-2">
                                             <button type="submit" class="btn btn-default" style="background-color: #757575; color:#fff; width: 100%;">Search</button>
@@ -103,24 +115,25 @@
                                         @foreach ($RoomData as $key=>$category)
                                             <tr>
                                                 <th>{{++$key}}</th>
-                                                <th>{!! $category->room_no !!}</th>
-                                                <th>{!! Count($category->roomCheck) !!}</th>
+                                                <th>
+                                                    @if($category->room_status == 'CheckedIn')
+                                                        <a href="{{url('admin/'.$category->id.'/RoomStatus')}}" class="btn btn-danger btn-xs">{!! $category->room_no !!}</a>
+                                                        @elseif($category->room_status == 'CheckedOut')
+                                                        <a href="#" class="btn btn-success btn-xs">{!! $category->room_no !!}</a>
+                                                    @else
+                                                        <a href=#"" class="btn btn-warning btn-xs">{!! $category->room_no !!}</a>
+                                                    @endif
+                                                </th>
+                                                <th>{!! count($category->roomCheck) !!}</th>
                                             </tr>
                                         @endforeach
-                                        {{--@foreach($RoomData as $key=>$value)--}}
-                                        {{--<tr>--}}
-                                            {{--<th>{{++$key}}</th>--}}
-                                            {{--<th>{{$value->room_no}}</th>--}}
-                                            {{--<th>--}}
-                                                {{--@foreach($RoomCheck as $room)--}}
-                                                    {{--@if($room->room_id == $value->id)--}}
-                                                       {{--{{count('value')}}--}}
-
-                                                        {{--@endif--}}
-                                                    {{--@endforeach--}}
-                                            {{--</th>--}}
-                                        {{--</tr>--}}
-                                            {{--@endforeach--}}
+                                        </tbody>
+                                        <tbody>
+                                        <tr>
+                                            <th colspan="2" style="text-align: right;">Total</th>
+                                            @php $total = \App\RoomCheck::all()->count(); @endphp
+                                            <th>{{$total}} Room Sales</th>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

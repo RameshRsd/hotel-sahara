@@ -82,16 +82,36 @@
                                                 @endif
                                             </select>
                                         </div>
+                                        <div class="col-sm-1">
+                                            <label for="">Room No.</label>
+                                        </div>
+                                        <div class="col-sm-1">
+                                            <select name="room_id" id="" class="form-control input-sm">
+                                                <option value="">[Select Room]</option>
+                                                @foreach($RoomDataValue as $Value)
+                                                        <option value="{{$Value->id}}" @if(request('room_id') == $Value->id) selected @endif>{{$Value->room_no}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="clearfix"></div>
                                         <div class="col-sm-2">
                                             <button type="submit" class="btn btn-default" style="background-color: #757575; color:#fff; width: 100%;">Search</button>
                                         </div>
                                     </form>
-                                </div>w
+                                </div>
+
                             </div>
                             <div class="x_panel">
                                 <div class="x_content">
                                     <table class="table-condensed table-bordered table-hover" style="width: 100%;">
+                                        @if(request('date1') && !request('date2'))
+                                            Dated on : <b>{{request('date1')}}</b><br>
+                                        @endif
+                                        @if(request('date1') && request('date2'))
+                                            From : <b>{{request('date1')}}</b> to <b>{{request('date2')}}</b><br>
+                                        @endif
+                                        Total : <i style="color:Green; font-weight: bolder;">{{count($RoomData)}}</i> Room @if(count($RoomData)<=1)Sale @else Sales @endif !
+
                                         <thead>
                                         <tr>
                                             <th>SN</th>
@@ -103,13 +123,27 @@
                                             @foreach($RoomDataValue as $key=>$Value)
                                             <tr>
                                                 <td>{{++$key}}</td>
-                                                <td>{{$Value->room_no}}</td>
+                                                <td>
+                                                    @if($Value->room_status == 'CheckedIn')
+                                                        <a href="{{url('admin/'.$Value->id.'/RoomStatus')}}" class="btn btn-danger btn-xs">{!! $Value->room_no !!}</a>
+                                                    @elseif($Value->room_status == 'CheckedOut')
+                                                        <a href="#" class="btn btn-success btn-xs">{!! $Value->room_no !!}</a>
+                                                    @else
+                                                        <a href=#"" class="btn btn-warning btn-xs">{!! $Value->room_no !!}</a>
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     @php $room_data_value=$RoomData->where('room_id',$Value->id)->count(); @endphp
                                                 {{$room_data_value}}
                                                 </td>
                                             </tr>
                                             @endforeach
+                                        </tbody>
+                                        <tbody>
+                                        <tr>
+                                            <th colspan="2" style="text-align: right;">Total</th>
+                                            <th>{{count($RoomData)}} Room Sales</th>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>

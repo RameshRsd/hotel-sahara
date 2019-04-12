@@ -12,7 +12,6 @@ class Room extends Model
     public function roomCheck(){
         return $this->hasMany('App\RoomCheck', 'room_id');
     }
-
     public function customers(){
         return $this->hasMany(Customer::class);
     }
