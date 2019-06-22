@@ -13,6 +13,6 @@ class Room extends Model
         return $this->hasMany('App\RoomCheck', 'room_id');
     }
     public function customers(){
-        return $this->hasMany(Customer::class);
+        return $this->hasMany(Customer::class,'customer_id');
     }
 }
