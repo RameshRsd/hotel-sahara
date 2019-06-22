@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 11, 2019 at 08:14 AM
+-- Generation Time: Jun 13, 2019 at 03:11 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.9
 
@@ -19,8 +19,454 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
+-- Database: `phpmyadmin`
+--
+CREATE DATABASE IF NOT EXISTS `phpmyadmin` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin;
+USE `phpmyadmin`;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__bookmark`
+--
+
+CREATE TABLE `pma__bookmark` (
+  `id` int(11) NOT NULL,
+  `dbase` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `user` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `label` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `query` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Bookmarks';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__central_columns`
+--
+
+CREATE TABLE `pma__central_columns` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_length` text COLLATE utf8_bin,
+  `col_collation` varchar(64) COLLATE utf8_bin NOT NULL,
+  `col_isNull` tinyint(1) NOT NULL,
+  `col_extra` varchar(255) COLLATE utf8_bin DEFAULT '',
+  `col_default` text COLLATE utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Central list of columns';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__column_info`
+--
+
+CREATE TABLE `pma__column_info` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `column_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `comment` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `mimetype` varchar(255) CHARACTER SET utf8 NOT NULL DEFAULT '',
+  `transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `input_transformation_options` varchar(255) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Column information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__designer_settings`
+--
+
+CREATE TABLE `pma__designer_settings` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `settings_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Settings related to Designer';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__export_templates`
+--
+
+CREATE TABLE `pma__export_templates` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `export_type` varchar(10) COLLATE utf8_bin NOT NULL,
+  `template_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `template_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved export templates';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__favorite`
+--
+
+CREATE TABLE `pma__favorite` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Favorite tables';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__history`
+--
+
+CREATE TABLE `pma__history` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `sqlquery` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='SQL history for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__navigationhiding`
+--
+
+CREATE TABLE `pma__navigationhiding` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `item_type` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Hidden items of navigation tree';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__pdf_pages`
+--
+
+CREATE TABLE `pma__pdf_pages` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `page_nr` int(10) UNSIGNED NOT NULL,
+  `page_descr` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='PDF relation pages for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__recent`
+--
+
+CREATE TABLE `pma__recent` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tables` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Recently accessed tables';
+
+--
+-- Dumping data for table `pma__recent`
+--
+
+INSERT INTO `pma__recent` (`username`, `tables`) VALUES
+('root', '[{\"db\":\"sahara_db\",\"table\":\"room_checks\"}]');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__relation`
+--
+
+CREATE TABLE `pma__relation` (
+  `master_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `master_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_db` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_table` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `foreign_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Relation table';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__savedsearches`
+--
+
+CREATE TABLE `pma__savedsearches` (
+  `id` int(5) UNSIGNED NOT NULL,
+  `username` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `search_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Saved searches';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_coords`
+--
+
+CREATE TABLE `pma__table_coords` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `pdf_page_number` int(11) NOT NULL DEFAULT '0',
+  `x` float UNSIGNED NOT NULL DEFAULT '0',
+  `y` float UNSIGNED NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table coordinates for phpMyAdmin PDF output';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_info`
+--
+
+CREATE TABLE `pma__table_info` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT '',
+  `display_field` varchar(64) COLLATE utf8_bin NOT NULL DEFAULT ''
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Table information for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__table_uiprefs`
+--
+
+CREATE TABLE `pma__table_uiprefs` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `prefs` text COLLATE utf8_bin NOT NULL,
+  `last_update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Tables'' UI preferences';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__tracking`
+--
+
+CREATE TABLE `pma__tracking` (
+  `db_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `table_name` varchar(64) COLLATE utf8_bin NOT NULL,
+  `version` int(10) UNSIGNED NOT NULL,
+  `date_created` datetime NOT NULL,
+  `date_updated` datetime NOT NULL,
+  `schema_snapshot` text COLLATE utf8_bin NOT NULL,
+  `schema_sql` text COLLATE utf8_bin,
+  `data_sql` longtext COLLATE utf8_bin,
+  `tracking` set('UPDATE','REPLACE','INSERT','DELETE','TRUNCATE','CREATE DATABASE','ALTER DATABASE','DROP DATABASE','CREATE TABLE','ALTER TABLE','RENAME TABLE','DROP TABLE','CREATE INDEX','DROP INDEX','CREATE VIEW','ALTER VIEW','DROP VIEW') COLLATE utf8_bin DEFAULT NULL,
+  `tracking_active` int(1) UNSIGNED NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Database changes tracking for phpMyAdmin';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__userconfig`
+--
+
+CREATE TABLE `pma__userconfig` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `timevalue` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `config_data` text COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User preferences storage for phpMyAdmin';
+
+--
+-- Dumping data for table `pma__userconfig`
+--
+
+INSERT INTO `pma__userconfig` (`username`, `timevalue`, `config_data`) VALUES
+('root', '2018-09-14 04:07:37', '{\"collation_connection\":\"utf8mb4_unicode_ci\"}');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__usergroups`
+--
+
+CREATE TABLE `pma__usergroups` (
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL,
+  `tab` varchar(64) COLLATE utf8_bin NOT NULL,
+  `allowed` enum('Y','N') COLLATE utf8_bin NOT NULL DEFAULT 'N'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='User groups with configured menu items';
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pma__users`
+--
+
+CREATE TABLE `pma__users` (
+  `username` varchar(64) COLLATE utf8_bin NOT NULL,
+  `usergroup` varchar(64) COLLATE utf8_bin NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin COMMENT='Users and their assignments to user groups';
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `pma__central_columns`
+--
+ALTER TABLE `pma__central_columns`
+  ADD PRIMARY KEY (`db_name`,`col_name`);
+
+--
+-- Indexes for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `db_name` (`db_name`,`table_name`,`column_name`);
+
+--
+-- Indexes for table `pma__designer_settings`
+--
+ALTER TABLE `pma__designer_settings`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_user_type_template` (`username`,`export_type`,`template_name`);
+
+--
+-- Indexes for table `pma__favorite`
+--
+ALTER TABLE `pma__favorite`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`,`db`,`table`,`timevalue`);
+
+--
+-- Indexes for table `pma__navigationhiding`
+--
+ALTER TABLE `pma__navigationhiding`
+  ADD PRIMARY KEY (`username`,`item_name`,`item_type`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  ADD PRIMARY KEY (`page_nr`),
+  ADD KEY `db_name` (`db_name`);
+
+--
+-- Indexes for table `pma__recent`
+--
+ALTER TABLE `pma__recent`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__relation`
+--
+ALTER TABLE `pma__relation`
+  ADD PRIMARY KEY (`master_db`,`master_table`,`master_field`),
+  ADD KEY `foreign_field` (`foreign_db`,`foreign_table`);
+
+--
+-- Indexes for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `u_savedsearches_username_dbname` (`username`,`db_name`,`search_name`);
+
+--
+-- Indexes for table `pma__table_coords`
+--
+ALTER TABLE `pma__table_coords`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`pdf_page_number`);
+
+--
+-- Indexes for table `pma__table_info`
+--
+ALTER TABLE `pma__table_info`
+  ADD PRIMARY KEY (`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__table_uiprefs`
+--
+ALTER TABLE `pma__table_uiprefs`
+  ADD PRIMARY KEY (`username`,`db_name`,`table_name`);
+
+--
+-- Indexes for table `pma__tracking`
+--
+ALTER TABLE `pma__tracking`
+  ADD PRIMARY KEY (`db_name`,`table_name`,`version`);
+
+--
+-- Indexes for table `pma__userconfig`
+--
+ALTER TABLE `pma__userconfig`
+  ADD PRIMARY KEY (`username`);
+
+--
+-- Indexes for table `pma__usergroups`
+--
+ALTER TABLE `pma__usergroups`
+  ADD PRIMARY KEY (`usergroup`,`tab`,`allowed`);
+
+--
+-- Indexes for table `pma__users`
+--
+ALTER TABLE `pma__users`
+  ADD PRIMARY KEY (`username`,`usergroup`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `pma__bookmark`
+--
+ALTER TABLE `pma__bookmark`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__column_info`
+--
+ALTER TABLE `pma__column_info`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__export_templates`
+--
+ALTER TABLE `pma__export_templates`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__history`
+--
+ALTER TABLE `pma__history`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__pdf_pages`
+--
+ALTER TABLE `pma__pdf_pages`
+  MODIFY `page_nr` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `pma__savedsearches`
+--
+ALTER TABLE `pma__savedsearches`
+  MODIFY `id` int(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
 -- Database: `sahara_db`
 --
+CREATE DATABASE IF NOT EXISTS `sahara_db` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `sahara_db`;
 
 -- --------------------------------------------------------
 
@@ -722,7 +1168,7 @@ INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `coun
 (1399, 2, 'Babita tamang', 'female', 'Nepali', 154, 'Citizenship', 5, 29, 'Thulogoun', '5', 'Goisaikunda', '231002\\1135', '9843053428', NULL, NULL, NULL, '11967f9fe3ebc9940f439adc40e608f7.jpg', NULL, '2018-10-30 05:04:12', '2018-10-30 05:04:12'),
 (1400, 2, 'ShreeRam Malla', 'male', 'Nepali', 154, 'Citizenship', 9, 47, NULL, '9', NULL, '393055\\94', '9825405851', NULL, NULL, NULL, 'bbed485a4dfa46334123010d8d09cb86.jpg', NULL, '2018-10-30 11:49:58', '2018-10-30 06:04:58'),
 (1401, 2, 'Chhanda Paharai', 'male', 'Nepali', 154, 'Others', 9, 46, 'Hadahade', '1', 'Sormor', '9857067231', '9857067231', '9861727631', NULL, '9755d741c7b03582abc7cec22fcce536.jpg', NULL, 'https://www.facebook.com/chhanda.paharai?ref=br_rs', '2018-10-30 06:32:47', '2018-10-30 06:32:47'),
-(1402, 2, 'Laharing Tamang', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Samari', '6', 'samari', '2615390', '9805866140', NULL, NULL, NULL, '1cef6ecef88c8e404cc9a0bf7dd457d6.jpg', NULL, '2018-10-30 08:34:35', '2018-10-30 08:34:35'),
+(1402, 2, 'Laharing Tamang', 'male', 'Nepali', 154, 'Voter Card', 5, 28, NULL, '6', 'samari', '2615390', '9813852131', NULL, NULL, NULL, '1cef6ecef88c8e404cc9a0bf7dd457d6.jpg', NULL, '2019-04-14 05:18:03', '2019-04-13 23:33:03'),
 (1403, 2, 'Tikaram Dhakal', 'male', 'Nepali', 154, 'Driving License', 9, 47, 'Rampur', '2', 'rampur', '07-119367', '9847155660', NULL, NULL, NULL, 'eb1c3e89400cae7bde1d2c56ee20a817.jpg', NULL, '2018-10-30 08:37:29', '2018-10-30 08:37:29'),
 (1404, 2, 'Eesha Mahar', 'female', 'Nepali', 154, 'Citizenship', 14, 75, 'Kante', '9', NULL, '72\\1\\11\\64381', '9868807078', NULL, NULL, NULL, 'ea076abb818cba7be8d4b87dc0e918cf.jpg', NULL, '2018-10-30 23:45:52', '2018-10-30 23:45:52'),
 (1405, 2, 'Pawan Kumar Thapa', 'male', 'Nepali', 154, 'Citizenship', 11, 60, 'Dullu', '2', NULL, '633039\\442', '9858050724', NULL, NULL, NULL, 'c8847b447ec95ee160f497f8a01b0ae3.jpg', NULL, '2018-10-31 08:26:41', '2018-10-31 08:26:41'),
@@ -917,7 +1363,7 @@ INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `coun
 (1594, 9, 'Birendra Tamang', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Madanpur', '9', 'belkotgadhi 13', '08-107207', '9813701036', NULL, NULL, NULL, 'd3597131781e9bc7ab7878f7cd5d744e.jpg', NULL, '2018-12-06 06:18:15', '2018-12-06 06:18:15'),
 (1595, 9, 'Budddhi Man Lama', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Madanpur', '9', 'belkotgadhi 13', '06-131030', '9861357541', NULL, NULL, NULL, '71567fce1df483acbbe8a64329b1a424.jpg', NULL, '2018-12-06 06:55:09', '2018-12-06 06:55:09'),
 (1596, 9, 'Aakash Tamang', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Khari', '1', 'ruby valley 4', '26-01-72-05461', '9823597550', NULL, NULL, NULL, '76897d2a43a54428cb0c47160b12cf4a.jpg', NULL, '2018-12-07 02:35:06', '2018-12-07 02:35:06'),
-(1597, 9, 'santosh Kumar shrestha', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Budhasing', '4', 'tarkeshwor 4', '21335309', '9813075024', NULL, NULL, NULL, 'd900e40d82bbb3944fa12db93790a086.jpg', NULL, '2018-12-07 02:44:41', '2018-12-07 02:44:41'),
+(1597, 9, 'santosh Kumar shrestha', 'male', 'Nepali', 154, 'Voter Card', 5, 28, NULL, '4', 'tarkeshwor 4', '21335309', '9845751977', NULL, NULL, NULL, 'd900e40d82bbb3944fa12db93790a086.jpg', NULL, '2019-04-27 14:01:30', '2019-04-27 08:16:30'),
 (1598, 9, 'Prakash Hamal', 'male', 'Nepali', 154, 'Citizenship', 10, 55, 'Damachaur', '4', 'Bhotechaur 1', '551025/4011', '9857825040', NULL, NULL, NULL, 'c9128b13edcae5414bdaf25796faccdd.jpg', 'ward member elected', '2018-12-07 02:55:21', '2018-12-07 02:55:21'),
 (1599, 9, 'Lil Bahadur Gautam', 'male', 'Nepali', 154, 'Passport', 9, 46, 'Pipaldhara', '7', 'gautam Tole', '06282096', '9865489966', NULL, NULL, 'b587e724daf68d885b4d20ba39ec94f0.jpg', '597e15c06d0ed233b0dde5e875e80d78.jpg', 'https://www.facebook.com/lila.gautam.376', '2018-12-07 06:00:07', '2018-12-07 06:00:07'),
 (1600, 9, 'Anil Kumar Rai', 'male', 'Nepali', 154, 'Passport', 2, 5, 'Letang', '6', 'letang', '06470383', '9813660748', NULL, NULL, NULL, 'fa2e8c631f4a47ae9c9be5f5d0437ba1.jpg', NULL, '2018-12-07 07:25:10', '2018-12-07 07:25:10'),
@@ -1201,7 +1647,7 @@ INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `coun
 (1876, 9, 'NARAYAN PRASAD ACHARA', 'male', 'Nepali', 154, 'Others', 9, 47, 'Rupse', '4', 'Mathagadhi 32', '39-01-71-06929', '9847232320', NULL, NULL, NULL, '416fe589091909e4a9e16d07b930d05e.jpg', NULL, '2019-02-24 08:00:10', '2019-02-24 08:00:10'),
 (1877, 9, 'Tikaram Chaudhary', 'male', 'Nepali', 154, 'Passport', 11, 58, 'Pasupatinagar', '3', 'Pathariya', '05445443', '9803570626', NULL, NULL, NULL, '6564362642251297ca7c66f71787ee60.jpg', NULL, '2019-02-24 22:44:59', '2019-02-24 22:44:59'),
 (1878, 9, 'NIR BAHADUR KHADKA', 'male', 'Nepali', 154, 'Citizenship', 7, 36, 'Thumi', '7', 'Thumi', '41825', '9846065090', NULL, NULL, NULL, '69d90c8caf1d3aafa0e43ac3e02b8dfe.jpg', NULL, '2019-02-25 02:39:16', '2019-02-25 02:39:16'),
-(1879, 9, 'RAJ BAHADUR LAWATI', 'male', 'Nepali', 154, 'Citizenship', 1, 2, 'Kurumba', '8', 'kurumba', '620/686', '444444444444', NULL, NULL, NULL, 'b70bd15540e170aa2783f0c9a60f41cf.jpg', NULL, '2019-02-25 02:51:33', '2019-02-25 02:51:33'),
+(1879, 9, 'RAJ BAHADUR LAWATI', 'male', 'Nepali', 154, 'Citizenship', 1, 2, NULL, '8', 'kurumba', '620/686', '9810166080', NULL, NULL, NULL, 'b70bd15540e170aa2783f0c9a60f41cf.jpg', NULL, '2019-06-08 02:23:34', '2019-06-07 20:38:34'),
 (1880, 9, 'SANO KANCHA BALAMI', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Okharpauwa', '7', 'okharpauwa', '006-901320', '9818554118', NULL, NULL, NULL, '9cd1f95ba59efad98939f2f04d2635f7.jpg', NULL, '2019-02-25 02:59:02', '2019-02-25 02:59:02'),
 (1881, 9, 'PALSANG TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Thuman', '9', 'gosaikunda 1', '5281/79', '9840250904', NULL, NULL, NULL, '4efea26ef7b2e9c44110aecff129ccdc.jpg', NULL, '2019-02-25 03:03:01', '2019-02-25 03:03:01'),
 (1882, 2, 'SUNIL TAMANG', 'male', 'Nepali', 154, 'Citizenship', 6, 35, 'Bachhyauli', '1', 'Bachhyali', '351007/1210', '9845694497', NULL, NULL, NULL, 'bf8e02d061611ab922ca10ce0adfee68.jpg', NULL, '2019-02-25 03:26:27', '2019-02-25 03:26:27'),
@@ -1239,7 +1685,7 @@ INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `coun
 (1914, 2, 'PRAKASH CHALISE', 'male', 'Nepali', 154, 'Citizenship', 9, 46, 'Musikot', '1', 'musikot', 'Musikot', '9857064046', NULL, NULL, '2b540b31baf4a1c5b3bba939b4ea1919.jpg', NULL, 'https://www.facebook.com/prakash.chalise.9', '2019-03-03 20:04:33', '2019-03-03 20:04:33'),
 (1915, 2, 'RAM BABU SHRESTHA', 'male', 'Nepali', 154, 'Citizenship', 7, 36, 'Fujel', '6', 'Fujel', '79038', '9823307215', NULL, NULL, NULL, '6009809a0dce799f818826ce825d239e.jpg', NULL, '2019-03-04 07:49:30', '2019-03-04 07:49:30'),
 (1916, 2, 'Dipesh Khatiwada', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Belkot', '4', NULL, '11673934', '9818535435', NULL, NULL, NULL, 'b1f521bac38d3af26791e77499435149.jpg', NULL, '2019-03-06 04:26:25', '2019-03-06 04:26:25'),
-(1917, 2, 'Ram Bahadur Tamang', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Bidur Municipality', '12', NULL, '20131295', '9805231258', NULL, NULL, NULL, '98d801df216af9023fa29ec9334d075b.jpg', NULL, '2019-03-06 04:48:54', '2019-03-06 04:48:54'),
+(1917, 2, 'Ram Bahadur Tamang', 'male', 'Nepali', 154, 'Voter Card', 5, 28, NULL, '12', NULL, '20131295', '9863488116', '9805231258', NULL, NULL, '98d801df216af9023fa29ec9334d075b.jpg', NULL, '2019-05-29 14:56:47', '2019-05-29 09:11:47'),
 (1918, 2, 'GANESH POKHREL', 'male', 'Nepali', 154, 'Others', 9, 46, 'Paralmi', '1', 'Rupandehi', 'Classmate resunga', '9866426940', NULL, NULL, '2d80722d079b8ad5d81f09c3e3150ba0.jpg', NULL, 'https://www.facebook.com/gpokhrel3', '2019-03-06 08:03:26', '2019-03-06 08:03:26'),
 (1919, 2, 'HOM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Bungtang', '3', 'Bungtang', '251011/221', '9862574309', NULL, NULL, NULL, 'c3020089f5b0719441eb7525d4a9befc.jpg', NULL, '2019-03-07 00:17:58', '2019-03-07 00:17:58'),
 (1920, 2, 'Hut Bahadur Pathak', 'male', 'Nepali', 154, 'Citizenship', 8, 44, 'Pangrang', '1', 'Falebas !!', '511024\\194', '9869012602', NULL, NULL, NULL, '84d7a7fa4aa1121ca464e989914653d9.jpg', NULL, '2019-03-07 02:42:26', '2019-03-07 02:42:26'),
@@ -1339,7 +1785,206 @@ INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `coun
 (2014, 2, 'krishna pudasaini', 'male', 'Nepali', 154, 'Citizenship', 6, 35, 'Ratnanagar Municipality', '1', NULL, '7272\\058', '9865009936', NULL, NULL, NULL, '499bf866408ede808ed34fd5d89ab4b6.jpg', NULL, '2019-04-10 06:39:50', '2019-04-10 06:39:50'),
 (2015, 2, 'INDRA BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Saramthali', '6', NULL, '231018', '9810246550', NULL, NULL, NULL, 'ec317a832ab0da364be48c6254034f78.jpg', NULL, '2019-04-10 07:11:33', '2019-04-10 07:11:33'),
 (2016, 2, 'BUDDHA BALAMI', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Okharpauwa', '7', 'okharpauwa', '253060/1768', '9845356727', NULL, NULL, NULL, '839f345422aad1859953bbdd18b33946.jpg', NULL, '2019-04-10 08:28:35', '2019-04-10 08:28:35'),
-(2017, 2, 'RAM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Driving License', 4, 21, 'Lakhanpur', '7', 'DORAMBA 7', '06-133410', '9841590156', NULL, NULL, NULL, '792d89266c766aa6f522afeced4772d4.jpg', NULL, '2019-04-10 23:25:29', '2019-04-10 23:25:29');
+(2017, 2, 'RAM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Driving License', 4, 21, 'Lakhanpur', '7', 'DORAMBA 7', '06-133410', '9841590156', NULL, NULL, NULL, '792d89266c766aa6f522afeced4772d4.jpg', NULL, '2019-04-10 23:25:29', '2019-04-10 23:25:29'),
+(2018, 2, 'KRISHNA BAHADUR KHADKA', 'male', 'Nepali', 154, 'Driving License', 11, 57, 'Khaskusma', '8', 'KUSMA', '10-127256', '9848202223', NULL, NULL, NULL, '7b3dadaa8e845866f8da48028f9b4cce.jpg', NULL, '2019-04-11 09:53:24', '2019-04-11 09:53:24'),
+(2019, 2, 'BHAGWAN HAMAL', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Kumpur', '7', NULL, '26-01-71-02944', '9818732389', NULL, NULL, NULL, '53b3167ed67c8d3b6ea52b2e1433c339.jpg', NULL, '2019-04-11 10:38:14', '2019-04-11 10:38:14'),
+(2020, 2, 'RAM PRASAD SHRESTHA', 'male', 'Nepali', 154, 'Passport', 9, 47, 'Rampur', '5', NULL, '07294031', '123123', NULL, NULL, NULL, '562616cef57db8a10a0e0d2763b24c63.jpg', NULL, '2019-04-11 10:45:23', '2019-04-11 10:45:23'),
+(2021, 2, 'ANISH GHIMIRE', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Kakani', '2', NULL, '03-06-06604433', '9823237999', NULL, NULL, NULL, '6decfc7987ef5b68202c18e68acf7694.jpg', NULL, '2019-04-12 08:39:38', '2019-04-12 08:39:38'),
+(2022, 2, 'SUMAN THAPA', 'male', 'Nepali', 154, 'Others', 5, 30, 'Tripureswor', '3', 'TRIPURASUNDARI 3', '281906', '9821358749', NULL, NULL, NULL, '16a70d70a582b840711fe7595b2ad909.jpg', NULL, '2019-04-12 09:16:30', '2019-04-12 09:16:30');
+INSERT INTO `customers` (`id`, `user_id`, `name`, `gender`, `nationality`, `country_id`, `id_type`, `zone_id`, `district_id`, `location_id`, `ward_no`, `tole`, `customer_id_no`, `contact_1`, `contact_2`, `contact_3`, `photo`, `customer_doc`, `fb_link`, `created_at`, `updated_at`) VALUES
+(2023, 2, 'BINAYA PRASAD LAMICHHANE', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Bidur Municipality', '9', 'Bidur', '006-900969', '9841548595', NULL, NULL, NULL, 'caa149bd7ac1120dc426c064b967a295.jpg', NULL, '2019-04-13 01:34:16', '2019-04-13 01:34:16'),
+(2024, 2, 'CHHATRA BAHADUR TAMANG', 'male', 'Nepali', 154, 'Driving License', 2, 5, 'Sundarpur', '3', NULL, '02-531188', '9823313447', NULL, NULL, NULL, '53a71e7d8a2b02a16eb1c68d5cebf4f7.jpg', NULL, '2019-04-13 06:20:01', '2019-04-13 06:20:01'),
+(2025, 2, 'RAVINDRA RIJAL', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Bidur Municipality', '12', NULL, '16257159', '9841086653', NULL, NULL, NULL, '49a40f889ed034525c051dccca6c06f9.jpg', NULL, '2019-04-14 09:20:13', '2019-04-14 09:20:13'),
+(2026, 2, 'RAJ KUMAR SHAH', 'male', 'Nepali', 154, 'Citizenship', 6, 32, 'Karuniya', '2', 'GONAIDEWALI 1', '32170\\1323', '9821200725', NULL, NULL, NULL, '4c0ca00b11d87f65556730e851bdfcfb.jpg', NULL, '2019-04-14 09:24:33', '2019-04-14 09:24:33'),
+(2027, 2, 'SURYA BAHADUR BINDUKAR', 'male', 'Nepali', 154, 'Driving License', 5, 27, 'Dharmasthali', '8', NULL, '05-70788', '9860293499', NULL, NULL, NULL, 'af96ecb02d7c3af40e95c835b38f67c7.jpg', NULL, '2019-04-14 09:27:44', '2019-04-14 09:27:44'),
+(2028, 2, 'BAL BAHADUR ROKKA', 'male', 'Nepali', 154, 'Driving License', 6, 33, 'Jitpurbhawanipur', '12', NULL, '01-06-00301558', '9810274506', NULL, NULL, NULL, 'ab5dc0ab6d90b3af1a5b1d91f8ef1427.jpg', NULL, '2019-04-14 09:48:01', '2019-04-14 09:48:01'),
+(2029, 2, 'RIDAM TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Kakani', '3', 'MANCHEDADA', '01-06-00312989', '9818669316', NULL, NULL, NULL, '9ef2f122a178c90eaa28d6951d4c6bfe.jpg', NULL, '2019-04-14 10:03:35', '2019-04-14 10:03:35'),
+(2030, 2, 'JANARDAN KADEL', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Madanpur', '2', 'DEWAI', '04-06-06603435', '9849615215', NULL, NULL, NULL, '6de9cc8ebde021533cfd05047c15c4cc.jpg', NULL, '2019-04-15 07:04:16', '2019-04-15 07:04:16'),
+(2031, 2, 'BUDDHI LAMA TAMANG', 'male', 'Nepali', 154, 'Others', 5, 29, 'Thulogoun', '1', 'GOSAIKUNTHA 1', '9861958234', '9861958234', NULL, NULL, NULL, '65ad0a659fecbeb5e025322a0982fd93.jpg', NULL, '2019-04-16 00:02:30', '2019-04-16 00:02:30'),
+(2032, 2, 'MANTOK DOLMA GHALE', 'female', 'Nepali', 154, 'Citizenship', 5, 29, 'Haku', '8', NULL, '23-01-70-00250', '9840142310', NULL, NULL, NULL, 'caf57bf95cb46ba15bc7355fd48ddf6a.jpg', NULL, '2019-04-16 06:34:05', '2019-04-16 06:34:05'),
+(2033, 2, 'SANAM GURUNG', 'male', 'Nepali', 154, 'Others', 5, 29, 'Goljung', '2', 'GANGAJAMUNA 5', '9851247810', '9851247810', NULL, NULL, NULL, 'b3e329beb57458cd6d36371217f53586.jpg', NULL, '2019-04-16 06:41:23', '2019-04-16 06:41:23'),
+(2034, 2, 'NAL RAJ ADHIKARI', 'male', 'Nepali', 154, 'Others', 5, 28, 'Bagesworichokade', '3', NULL, '9823269272', '9823269272', NULL, NULL, NULL, 'd2e128b1668b798a5d134188197dc5b7.jpg', NULL, '2019-04-16 06:43:59', '2019-04-16 06:43:59'),
+(2035, 2, 'TOP BAHADUR ALE', 'male', 'Nepali', 154, 'Driving License', 9, 48, 'Shivmandir', '8', NULL, '11-054276', '9840763793', NULL, NULL, NULL, 'deb67996d302b14027a6ebee0e4bf0d1.jpg', NULL, '2019-04-17 04:19:04', '2019-04-17 04:19:04'),
+(2036, 2, 'MONLAM RIHE LAMA', 'male', 'Nepali', 154, 'Citizenship', 7, 36, 'Prok', '7', 'Pork', '442065/106', '9818321231', NULL, NULL, NULL, 'e8e77a26e5fa86b36195aff09844bfa0.jpg', NULL, '2019-04-18 06:17:31', '2019-04-18 06:17:31'),
+(2037, 2, 'MAN BAHADUR GURUNG', 'male', 'Nepali', 154, 'Driving License', 7, 38, 'Dulegaunda', '1', 'Tokha', '06-433968', '9803482113', NULL, NULL, NULL, '3d5e8b4bb016aab230121d5b40fb4e52.jpg', NULL, '2019-04-18 07:19:11', '2019-04-18 07:19:11'),
+(2038, 2, 'BUDDHA MAYA TAMANG', 'female', 'Nepali', 154, 'Passport', 5, 29, 'Dhunche', '6', 'Dhunche', '07417182', '9864288136', NULL, NULL, NULL, '386e88c254b9ffe08abd8aec550cc661.jpg', NULL, '2019-04-18 07:59:52', '2019-04-18 07:59:52'),
+(2039, 2, 'KHADGA BAHADUR POUDEL', 'male', 'Nepali', 154, 'Driving License', 4, 20, 'Kamalamai Municipality', '17', 'Kamalamai 10', '04-525233', '9840765020', NULL, NULL, NULL, 'a8d6b8e176df9f9eafa57ad7a071ad4f.jpg', NULL, '2019-04-18 09:39:39', '2019-04-18 09:39:39'),
+(2040, 2, 'MOHAN BHANDARI', 'male', 'Nepali', 154, 'Voter Card', 11, 57, 'Piparhawa', '2', 'Baijanath 8', '18049402', '9810095697', NULL, NULL, NULL, '66afc1c92b974e181785f48f892ab8dd.jpg', NULL, '2019-04-18 10:18:38', '2019-04-18 10:18:38'),
+(2041, 2, 'PRAKASH TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Kakani', '3', NULL, '25-01-75-05011', '9861102787', NULL, NULL, NULL, '6d26c99bfc15b6d938d4521ce34ca495.jpg', NULL, '2019-04-19 06:53:46', '2019-04-19 06:53:46'),
+(2042, 2, 'BHIM BAHADUR JIREL', 'male', 'Nepali', 154, 'Others', 4, 22, 'Jiri', '4', 'RATMATE', 'NA NO 221043\\69', '9864110395', NULL, NULL, NULL, '74cf94b335d7f153e73d9ace3b80da80.jpg', NULL, '2019-04-19 07:44:14', '2019-04-19 07:44:14'),
+(2043, 2, 'SANCHA LAL TAMANG', 'male', 'Nepali', 154, 'Passport', 5, 28, 'Deurali', '2', 'Thulo gau', '05936867', '9808474803', NULL, NULL, NULL, '1422bba9b771b97238c24317afd657f5.jpg', NULL, '2019-04-19 08:21:16', '2019-04-19 08:21:16'),
+(2044, 2, 'HIMAL THAPA MAGAR', 'male', 'Nepali', 154, 'Others', 2, 8, 'Sungnam', '6', 'Basantapur 8', '264914', '9807094987', NULL, NULL, NULL, '86e4b693be6b069b99cd505fd51263be.jpg', NULL, '2019-04-19 08:26:19', '2019-04-19 08:26:19'),
+(2045, 2, 'SAROJ PANDEY', 'male', 'Nepali', 154, 'Driving License', 9, 49, 'Butawal Municipality', '12', 'SHIVNAGAR', '07-218784', '9844758481', NULL, NULL, NULL, '42b33b9088f3907bd07f48b05b74a7a0.jpg', NULL, '2019-04-20 01:06:54', '2019-04-20 01:06:54'),
+(2046, 2, 'BISHAL SUNAR', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Kalyanpur', '3', 'Bidur 13', '25-01-74-04433', '9843667580', NULL, NULL, NULL, '47f44798c052738d9a316682a722e61d.jpg', NULL, '2019-04-20 08:19:29', '2019-04-20 08:19:29'),
+(2047, 2, 'DHAN BAHADUR NEPALI', 'male', 'Nepali', 154, 'Passport', 5, 30, 'Mulpani', '2', 'mudchowk', '06983143', '9845352549', NULL, NULL, NULL, '73d53d64fb165fef68a3dc08445c489c.jpg', NULL, '2019-04-20 10:27:25', '2019-04-20 10:27:25'),
+(2048, 2, 'BIR BAHADUR GURUNG', 'male', 'Foreign', 99, 'Others', NULL, NULL, NULL, NULL, 'Gorakhpur soobabazzar up 273008', '387287275022', '9816493031', NULL, NULL, NULL, '381147b6ffac3a60245b89ce89429a93.jpg', NULL, '2019-04-20 19:15:12', '2019-04-20 19:15:12'),
+(2049, 2, 'CHHIRING TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '5', 'SYAFRU', '5961/2670', '9810085293', NULL, NULL, NULL, '858e930a0d5757f734fa31a945167cab.jpg', NULL, '2019-04-21 05:02:46', '2019-04-21 05:02:46'),
+(2050, 2, 'MITRALAL DHAKAL', 'male', 'Nepali', 154, NULL, 9, 47, 'Rampur', '5', 'Rampur 10', '39-02-74-05845', '9867202428', NULL, NULL, NULL, 'b44a2c132f77001bc6ffbc5b921f7e9c.jpg', NULL, '2019-04-21 05:42:35', '2019-04-21 05:42:35'),
+(2051, 2, 'AJAY PURI', 'male', 'Nepali', 154, NULL, 3, 14, 'Katari', '4', 'KATARI', '02-74615', '9842883346', NULL, NULL, NULL, 'fbd1ea8f1b2a814de2fd7588bd4ad223.jpg', NULL, '2019-04-21 06:15:01', '2019-04-21 06:15:01'),
+(2052, 2, 'KALI BAHADUR TAMANG', 'male', 'Nepali', 154, 'Voter Card', 5, 30, 'Reegaun', '2', NULL, '19793885', '9861761074', NULL, NULL, NULL, '751936c22b73f46036a02b1bb13a5255.jpg', NULL, '2019-04-21 07:51:51', '2019-04-21 07:51:51'),
+(2053, 2, 'BINAYA DAHAL', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Ralukadevi', '4', NULL, '10-200134', '9823255839', NULL, NULL, NULL, 'f8d7653ab4ec8c4d66fb3fdbc75c70ed.jpg', NULL, '2019-04-21 08:57:48', '2019-04-21 08:57:48'),
+(2054, 2, 'SAGAR PANTHI', 'male', 'Nepali', 154, 'Pan-Card', 9, 51, 'Sandhikharka', '1', NULL, '110319944', '9867754825', NULL, NULL, NULL, '733061658d27d49456fba860d3359236.jpg', NULL, '2019-04-22 05:08:52', '2019-04-22 05:08:52'),
+(2055, 2, 'BUDDHA KUMAR TAMANG', 'male', 'Nepali', 154, 'Driving License', 4, 21, 'Manthali', '5', NULL, '04-530327', '9866076454', NULL, NULL, NULL, '0a4900a4fa1f676ed97cb7dfe2a85854.jpg', NULL, '2019-04-23 08:15:53', '2019-04-23 08:15:53'),
+(2056, 2, 'NARESH KHATRI', 'male', 'Nepali', 154, 'Citizenship', 11, 59, 'Birendranagar Municipality', '1', 'Birendranagar', '57449', '9844888753', NULL, NULL, NULL, '9ee1bf52a32907ed3760395e6e1eb02a.jpg', NULL, '2019-04-23 08:17:29', '2019-04-23 08:17:29'),
+(2057, 2, 'UTTAM LAL THOKAR', 'male', 'Nepali', 154, 'Driving License', 4, 20, 'Kamalamai Municipality', '7', NULL, '01-06-00175161', '9803634405', NULL, NULL, NULL, '1a8d369f3c8a0adb720273a1f9b0a467.jpg', NULL, '2019-04-23 08:21:06', '2019-04-23 08:21:06'),
+(2058, 2, 'BUDDHI BAHADUR SARKI', 'male', 'Nepali', 154, 'Passport', 7, 38, 'Bhanumati', '2', 'bhanumati', '08615058', '9824132938', NULL, NULL, NULL, '4d5752a794d515cf6dbbc10467b6cfce.jpg', NULL, '2019-04-23 08:34:41', '2019-04-23 08:34:41'),
+(2059, 2, 'DINESH KAMALI', 'male', 'Nepali', 154, 'Driving License', 7, 37, 'Chiti', '8', 'Chiti', '01-06-00026659', '9823640499', NULL, NULL, NULL, '9eba1a697badaa077e19cdd4eb348b03.jpg', NULL, '2019-04-24 09:21:26', '2019-04-24 09:21:26'),
+(2060, 2, 'NABRAJ BHATTA', 'male', 'Nepali', 154, 'Voter Card', 6, 33, 'Nijgadh', '7', 'Nijgadh', '15872045', '9845488245', NULL, NULL, NULL, '6a7b0849873af50b16632dc42c67e6b0.jpg', NULL, '2019-04-24 23:47:29', '2019-04-24 23:47:29'),
+(2061, 2, 'BHESH RAJ DAHAL', 'male', 'Nepali', 154, 'Passport', 1, 4, 'Maharanijhoda', '8', 'Maharajijhoda', '08864476', '9804915603', NULL, NULL, NULL, 'c478431da7ff4a28e8ca51b6b022fb7c.jpg', NULL, '2019-04-25 01:59:08', '2019-04-25 01:59:08'),
+(2062, 2, 'MAN PRASAD DAWADI', 'male', 'Nepali', 154, 'Citizenship', 9, 48, 'Dawannedevi', '5', NULL, '60674', '9811468565', NULL, NULL, NULL, '81b82401f5c35f72f9ab66d5b5d8ff6c.jpg', NULL, '2019-04-25 03:29:09', '2019-04-25 03:29:09'),
+(2063, 2, 'RAJARAM GHIMIRE', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Okharpauwa', '5', 'okharpauwa', '251060/226', '9851058089', NULL, NULL, NULL, '6e1d11babcb21d5378be68f24bbfabc2.jpg', NULL, '2019-04-25 03:51:16', '2019-04-25 03:51:16'),
+(2064, 2, 'BABURAM THAPA', 'male', 'Nepali', 154, 'Citizenship', 7, 38, 'Ghansikuwa', '1', 'GHASIKUWA', '5510', '9806518897', NULL, NULL, NULL, 'ed873a5f1d8f8040622dea155d7f320e.jpg', NULL, '2019-04-25 08:07:53', '2019-04-25 08:07:53'),
+(2065, 2, 'PRAKASH BOLAKHE', 'male', 'Nepali', 154, 'Driving License', 5, 24, 'Kushadevi', '1', 'KUSHALDEVI', '06-214638', '9851154156', NULL, NULL, NULL, 'b145408fa23b0eae5b55d4a369c3acb3.jpg', NULL, '2019-04-25 08:12:31', '2019-04-25 08:12:31'),
+(2066, 2, 'SAGAR TAMANG', 'male', 'Nepali', 154, 'Passport', 5, 28, 'Lachyang', '3', NULL, '08770324', '9813712327', NULL, NULL, NULL, '40b430fe9897170fe9d84e25e5a189bc.jpg', NULL, '2019-04-25 08:38:18', '2019-04-25 08:38:18'),
+(2067, 2, 'CHHE DORJE TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 23, 'Batase', '7', 'Batase 3', '243045/32', '9840332662', NULL, NULL, NULL, '461e232b593f8a4f65108ef70ad15f73.jpg', NULL, '2019-04-25 11:30:52', '2019-04-25 11:30:52'),
+(2068, 2, 'HOM BAHADUR GURUNG', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Baseri', '4', 'GANGA JAMUNA 6', '261\\29384', '9818335364', NULL, NULL, NULL, 'b2a0eab076aa3bee2e098f5e7a811238.jpg', NULL, '2019-04-26 02:11:46', '2019-04-26 02:11:46'),
+(2069, 2, 'BISHWASH BHATTA', 'male', 'Nepali', 154, 'Citizenship', 7, 36, 'Pandrung', '4', 'Pandrung', '45-01-74-02325', '98888888882', NULL, NULL, NULL, '1787ef184a8d1b6c94211389272e1ef0.jpg', NULL, '2019-04-26 08:39:45', '2019-04-26 08:39:45'),
+(2070, 2, 'MAMTA NEPALI', 'female', 'Nepali', 154, 'Passport', 7, 39, 'Sirsekot', '8', 'Bhandari thumka', '10216825', '9811416461', NULL, NULL, NULL, '3fbeb672a6eac8c7bdb083b893c508d9.jpg', NULL, '2019-04-27 01:28:54', '2019-04-27 01:28:54'),
+(2071, 2, 'MINGMAR DEJI TAMANG', 'female', 'Nepali', 154, 'Citizenship', 5, 29, 'Haku', '1', 'PARWATIKUNDA 5', '231010\\53', '9823645289', NULL, NULL, NULL, 'be888cf61ad01ca9f13262f76fc3e4f3.jpg', NULL, '2019-04-27 05:10:35', '2019-04-27 05:10:35'),
+(2072, 2, 'BHUNHIMA TAMANG', 'male', 'Nepali', 154, 'Voter Card', 5, 29, 'Syafru', '5', 'GOSAIKUNDA 5', '252637', '9818491529', NULL, NULL, NULL, '4838b2dee35260c61b144d907928209d.jpg', NULL, '2019-04-27 07:39:01', '2019-04-27 07:39:01'),
+(2073, 2, 'PASANG DHULSING TAMANG', 'male', 'Nepali', 154, 'Voter Card', 5, 29, 'Gatlang', '7', 'Gray', '19416433', '9818825370', NULL, NULL, NULL, '068531336d714be62fef08c05b6fc4ae.jpg', NULL, '2019-04-28 01:21:36', '2019-04-28 01:21:36'),
+(2074, 2, 'PRAKASH TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Kalyanpur', '2', NULL, '08-227772', '9818790828', NULL, NULL, NULL, '3d19124725ca6ac8192a781a09eda0c6.jpg', NULL, '2019-04-28 05:12:55', '2019-04-28 05:12:55'),
+(2075, 2, 'AAKASH TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Sertung', '3', 'RUBIVELI', '2875', '9862588271', NULL, NULL, NULL, '12b971db6e46f84086bb92b667eb1fd1.jpg', NULL, '2019-04-28 05:15:16', '2019-04-28 05:15:16'),
+(2076, 2, 'YAGYA BAHADUR ROKAYA', 'male', 'Nepali', 154, 'Voter Card', 13, 67, 'Jugada', '1', 'Badimalika 2', '08668962', '9741020581', NULL, NULL, NULL, '08bdbad06fdc724da947c1661be09fde.jpg', NULL, '2019-04-28 06:12:03', '2019-04-28 06:12:03'),
+(2077, 2, 'MEN PRASAD GURUNG', 'male', 'Nepali', 154, 'Citizenship', 7, 37, 'Taghring', '9', NULL, '22479', '983996861', NULL, NULL, NULL, '1e522bde8df47a6f1b85d017ab0c4c44.jpg', NULL, '2019-04-28 07:20:52', '2019-04-28 07:20:52'),
+(2078, 2, 'SUNDAR DALLAKOTI', 'male', 'Nepali', 154, 'Driving License', 6, 35, 'Shaktikhor', '6', NULL, '05-39535', '9851231342', NULL, NULL, NULL, '0dc8de6f07a0dcc63917fe1c3b0de68c.jpg', NULL, '2019-04-28 08:14:22', '2019-04-28 08:14:22'),
+(2079, 2, 'SARITA MOKTAN', 'female', 'Nepali', 154, 'Others', 5, 28, 'Kakani', '2', NULL, '251060/265', '9863662402', NULL, NULL, NULL, 'bd675922b86a5789f8aac9085f40c7a1.jpg', NULL, '2019-04-28 10:39:01', '2019-04-28 10:39:01'),
+(2080, 2, 'PEMBA TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Timure', '5', 'Gosaikunda 2', '23-01-75-00951', '9813133090', NULL, NULL, NULL, 'f963160fbab73021c6875333a8f88413.jpg', NULL, '2019-04-28 10:44:47', '2019-04-28 10:44:47'),
+(2081, 2, 'SARSWOTI CHAUDARY', 'female', 'Nepali', 154, 'Citizenship', 6, 35, 'Kumroj', '7', 'kumroj', '351002/220', '9840745232', NULL, NULL, NULL, '6952d33b593eae52349c4fc2ebb52488.jpg', NULL, '2019-04-29 08:18:53', '2019-04-29 08:18:53'),
+(2082, 2, 'AJAY GURUNG', 'male', 'Nepali', 154, 'Voter Card', 6, 35, 'Bharatpur Municipality', '9', 'Paras Buspark', '21791785', '9819208604', NULL, NULL, NULL, '22bd18aa252445947f18a87dc1ad3452.jpg', NULL, '2019-04-29 08:29:21', '2019-04-29 08:29:21'),
+(2083, 2, 'MANCHHIRING TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 30, 'Semjong', '5', 'GAURI 5', '03-06-00337332', '9818250776', NULL, NULL, NULL, '96ec1ca5eecd75e3c0d60b9be8c7d55f.jpg', NULL, '2019-04-29 11:13:03', '2019-04-29 11:13:03'),
+(2084, 2, 'SARITA SHREESH', 'female', 'Nepali', 154, 'Citizenship', 8, 45, 'Chhisti', '9', NULL, '501030/37912', '9823124988', NULL, NULL, NULL, '01d3920c0e12792848a080021a6b05c2.jpg', NULL, '2019-04-29 12:19:40', '2019-04-29 12:19:40'),
+(2085, 2, 'RANJAN SHRESTHA', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Likhu', '1', NULL, '0000286306', '9823677476', NULL, NULL, NULL, 'd5cf8d17310dec9495884353b1eeb503.jpg', NULL, '2019-04-30 10:23:34', '2019-04-30 10:23:34'),
+(2086, 2, 'PURNA BAHADUR GHALE', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Lapa', '6', 'RUBIVELI 5', '32398', '9862721899', NULL, NULL, NULL, '4726c6c8e65c321fee97df340e9ae2af.jpg', NULL, '2019-05-01 05:26:07', '2019-05-01 05:26:07'),
+(2087, 2, 'PUSPANJALI BHATTA', 'female', 'Nepali', 154, 'Citizenship', 4, 18, 'Jaleshwar Municipality', '5', NULL, '39238362', '9863199472', NULL, NULL, NULL, '9ae2f426f2fe1323dc328c55cd07e09b.html', NULL, '2019-05-01 05:35:27', '2019-05-01 05:35:27'),
+(2088, 2, 'HARI BAHADUR BASNET', 'male', 'Nepali', 154, 'Citizenship', 10, 55, NULL, '4', 'BAGCHAUR 4', '6449\\86', '9861723880', NULL, NULL, NULL, 'd2dadc3c22d55d7e905b97179ee1330e.jpg', NULL, '2019-06-13 12:29:01', '2019-06-13 06:44:01'),
+(2089, 2, 'SANI BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Satyadevi', '1', NULL, '32206', '9823107790', NULL, NULL, NULL, 'f4d804097482dce68588c8df2aeb9013.jpg', NULL, '2019-05-01 09:03:10', '2019-05-01 09:03:10'),
+(2090, 2, 'AASHISH BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Samari', '8', 'MEGANG 5 KHALLABARI', '251006\\275', '9818679217', NULL, NULL, NULL, 'f000963e784c920c2ebbb056ab6ed758.jpg', NULL, '2019-05-02 02:58:51', '2019-05-02 02:58:51'),
+(2091, 2, 'SANJIV TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Shikharbesi', '1', NULL, '01-06-00502245', '9810200466', NULL, NULL, NULL, '1095038b2203ba86ec5d647c71b1d7ad.jpg', NULL, '2019-05-02 11:08:55', '2019-05-02 11:08:55'),
+(2092, 2, 'RAJ KUMAR SHRESTHA', 'male', 'Nepali', 154, 'Voter Card', 5, 27, 'Gokarneswor', '4', 'Gokarneswor', '5411623', '9818836688', NULL, NULL, NULL, 'ec1fb74258ea06b025efc4309d008b83.jpg', NULL, '2019-05-02 20:40:29', '2019-05-02 20:40:29'),
+(2093, 2, 'HARI GHALE', 'male', 'Nepali', 154, 'Voter Card', 7, 41, 'Nar', '7', 'NARONG 7', '13798462', '9848067488', NULL, NULL, NULL, '8757718b3502b34ec71d707d6e6d4ebc.jpg', NULL, '2019-05-03 03:06:27', '2019-05-03 03:06:27'),
+(2094, 2, 'KARBO TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Yarsa', '6', NULL, '231017\\96', '9841841896', NULL, NULL, NULL, 'e723e8c14164ccda777bdb2a133e9abd.jpg', NULL, '2019-05-03 03:40:53', '2019-05-03 03:40:53'),
+(2095, 2, 'KISHAN THAPA MAGAR', 'male', 'Nepali', 154, 'Others', 5, 30, 'Salyantar', '1', 'LAYAGAU', '284004', '9843540311', NULL, NULL, NULL, '0b1b43aa1d69e7c85c54cf1cb1497a4e.jpg', NULL, '2019-05-03 07:44:11', '2019-05-03 07:44:11'),
+(2096, 2, 'HIMAL THAPA', 'male', 'Nepali', 154, 'Passport', 9, 46, 'Pipaldhara', '5', 'Dungribas', 'Pipaldhara dungribas', '9868329682', NULL, NULL, '13560577c53022110ef324d35ce67b91.jpg', NULL, 'https://www.facebook.com/himal.thapa.52035', '2019-05-03 08:51:15', '2019-05-03 08:51:15'),
+(2097, 2, 'KUL BAHADUR KAMI B K', 'male', 'Nepali', 154, 'Passport', 9, 50, 'Khurhuriya', '7', 'Khajani', '06687237', '9813788831', NULL, NULL, NULL, '7074d61bc55205568f248443957e4a0f.jpg', NULL, '2019-05-03 09:51:07', '2019-05-03 09:51:07'),
+(2098, 2, 'FURBA SHERPA PEMASHERPA', 'male', 'Nepali', 154, 'Others', 2, 10, 'Chhinamakhu', '8', NULL, '11111', '9823774632', NULL, NULL, NULL, '9dbb4a62f27a8248aaff838a5fdf893d.jpg', NULL, '2019-05-04 04:55:37', '2019-05-04 04:55:37'),
+(2099, 2, 'DOKSO LAMA', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '9', 'Gosaikunda 5', '47/935', '984948811', NULL, NULL, NULL, '8ec0aba7032d046586d8113337e11b65.jpg', NULL, '2019-05-04 07:44:38', '2019-05-04 07:44:38'),
+(2100, 2, 'TUL BAHADUR SARU MAGAR', 'male', 'Nepali', 154, NULL, 9, 48, 'Dhaubadi', '7', NULL, '362019/250', '9863940083', NULL, NULL, NULL, '57f1ca094cde6bdaa8a57d23d8e56ae9.jpg', NULL, '2019-05-05 08:00:20', '2019-05-05 08:00:20'),
+(2101, 2, 'SUCHITRA KUMARI SHARMA', 'female', 'Nepali', 154, 'Citizenship', 9, 49, 'Parroha', '5', NULL, '39118', '9808048222', NULL, NULL, NULL, '374bea9fdfef22da089220134c193192.jpg', NULL, '2019-05-05 08:35:43', '2019-05-05 08:35:43'),
+(2102, 2, 'SAMRAT SHRESTHA', 'male', 'Nepali', 154, 'Driving License', 9, 46, 'Tamghas', '1', 'Puranobazzar', '07-210877', '9857067716', NULL, NULL, NULL, '65121ac697e55d916ba8975158f43bb5.jpg', NULL, '2019-05-05 08:42:13', '2019-05-05 08:42:13'),
+(2103, 2, 'BISWAS TAMANG', 'male', 'Nepali', 154, 'Passport', 5, 28, 'Salme', '1', 'Thulo gau', '08107094', '9866392940', NULL, NULL, NULL, '71c37a048c1add41c191b67bfc708882.jpg', NULL, '2019-05-06 06:44:14', '2019-05-06 06:44:14'),
+(2104, 2, 'AAKASH MAGAR', 'male', 'Nepali', 154, 'Citizenship', 5, 27, 'Chalnakhel', '6', 'Setidevi', '271055/92288/48000', '9813137030', NULL, NULL, NULL, '71987d33fcfcbf1a7dc9a452ba7fdc08.jpg', NULL, '2019-05-06 07:11:26', '2019-05-06 07:11:26'),
+(2105, 2, 'PEMA GALBO GHALE', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Yarsa', '1', NULL, '23-01-72-00999', '9861613152', NULL, NULL, NULL, 'ff73d0faba3fd3bb67d1b5e12ff1275e.jpg', NULL, '2019-05-06 07:44:36', '2019-05-06 07:44:36'),
+(2106, 2, 'LAKHPA CHHIRING TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Chilime', '8', NULL, '286/68', '9823759581', NULL, NULL, NULL, '32b90ff53832b17b885bb77158861e66.jpg', NULL, '2019-05-06 09:22:52', '2019-05-06 09:22:52'),
+(2107, 2, 'SURYA LOKI JHA', 'male', 'Nepali', 154, 'Voter Card', 6, 33, 'Kolhabi', '6', NULL, '12132581', '9851201891', '9814237712', NULL, NULL, 'ec86bf5d621bc6b9a158350c88fde71c.jpg', NULL, '2019-05-06 23:46:39', '2019-05-06 23:46:39'),
+(2108, 2, 'DEEPAKA BHANDARI', 'male', 'Nepali', 154, 'Others', 6, 35, 'Bharatpur Municipality', '21', 'Shivanagar', 'qatar lic', '9845110164', NULL, NULL, NULL, 'eae83c3cbf410c0f6e2c2b8389d188de.jpg', NULL, '2019-05-07 00:13:39', '2019-05-07 00:13:39'),
+(2109, 2, 'BIJAY TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Tupche', '6', 'TARI 6', '253025\\839', '9818685379', NULL, NULL, NULL, 'ab65216dd120566612d7aaf90b455132.jpg', NULL, '2019-05-07 05:27:28', '2019-05-07 05:27:28'),
+(2110, 2, 'SANGITA KHATIWADA', 'female', 'Nepali', 154, 'Citizenship', 5, 28, 'Belkot', '1', NULL, '05-01-70-62817', '9818261017', NULL, NULL, NULL, '724f452b99a6a7995268b9ffba8d6aa4.jpg', NULL, '2019-05-07 05:30:47', '2019-05-07 05:30:47'),
+(2111, 2, 'AAKASH TAMANG', 'male', 'Nepali', 154, 'Citizenship', 3, 14, 'Trijuga Municipality', '11', NULL, '1045\\1207018', '9843076079', NULL, NULL, NULL, 'a2d55b1928f4dcad91c57223f03770a2.jpg', NULL, '2019-05-08 07:41:42', '2019-05-08 07:41:42'),
+(2112, 2, 'AMRIT BAHADUR SARKI', 'male', 'Nepali', 154, 'Passport', 1, 4, 'Ghailadubba', '13', 'MECHINAGAR', '10256733', '123', NULL, NULL, NULL, '2f1c0797f905b867f0966922baad1430.jpg', NULL, '2019-05-11 08:46:53', '2019-05-11 08:46:53'),
+(2113, 2, 'KARNA BAHADUR MAHARA', 'male', 'Nepali', 154, 'Passport', 14, 72, 'Daijee', '4', 'Bagun', '06211677', '9848300947', NULL, NULL, NULL, 'e7908afc94c667541d715cefcbd14891.jpg', NULL, '2019-05-12 00:00:15', '2019-05-12 00:00:15'),
+(2114, 2, 'LAKPA CHHEWANG TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Saramthali', '2', 'PARWATIKUNDA 2', '233009\\128', '9823115823', NULL, NULL, NULL, 'abcaf17d03bc7792456178da2d08bd20.jpg', NULL, '2019-05-12 04:39:03', '2019-05-12 04:39:03'),
+(2115, 2, 'BIRENDRA BAHADUR MALLA', 'male', 'Nepali', 154, 'Citizenship', 10, 54, 'Aathbiskot', '2', NULL, '137(002)/1302', '9863377627', NULL, NULL, NULL, '79a6a26cc21f32c7b0b3dfdc16802e67.jpg', NULL, '2019-05-12 06:44:28', '2019-05-12 06:44:28'),
+(2116, 2, 'KUNSANG LAMA', 'male', 'Nepali', 154, 'Citizenship', 4, 20, 'Dadiguranshe', '4', NULL, '4104/23022', '9818201472', NULL, NULL, NULL, 'dca99c0f4441bf88d2b873672c8d0d4b.jpg', NULL, '2019-05-12 06:49:26', '2019-05-12 06:49:26'),
+(2117, 2, 'SANU KHANCHA RAI', 'male', 'Nepali', 154, 'Driving License', 5, 30, 'Bhumesthan', '4', NULL, '01-06-00183095', '9813635591', NULL, NULL, NULL, '7bc67c99a0b1ec75e750c5213b6c5f6e.jpg', NULL, '2019-05-12 06:58:45', '2019-05-12 06:58:45'),
+(2118, 2, 'SANTOSH RANA', 'male', 'Nepali', 154, 'Voter Card', 9, 51, 'Sandhikharka', '8', NULL, '18987530', '9847361301', NULL, NULL, NULL, 'a48fc3e576951235198a79d672bcd63d.jpg', NULL, '2019-05-12 07:03:10', '2019-05-12 07:03:10'),
+(2119, 2, 'CHHETRANATH YOGI', 'male', 'Nepali', 154, 'Citizenship', 12, 63, 'Kudari', '3', NULL, '60/016/790', '9866179037', NULL, NULL, NULL, 'b422d814de76efc45c04d148128c12b0.jpg', NULL, '2019-05-12 08:38:02', '2019-05-12 08:38:02'),
+(2120, 2, 'SHYAM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Voter Card', 5, 27, 'Bhimdhunga', '5', NULL, '14788671', '9869497109', NULL, NULL, NULL, '2b92aea3a8782089ffc1638df6aa4d79.jpg', NULL, '2019-05-12 10:56:36', '2019-05-12 10:56:36'),
+(2121, 2, 'SUK MAYA TAMANG', 'female', 'Nepali', 154, 'Citizenship', 5, 30, 'Satyadevi', '6', 'Kimtng 7', '25-01-71-04083', '9861164309', NULL, NULL, NULL, 'ffbf1f46a342803c4c5a66ef8436e7b9.jpg', NULL, '2019-05-13 05:37:35', '2019-05-13 05:37:35'),
+(2122, 2, 'MOHAN PRASAD BHATTA', 'male', 'Nepali', 154, 'Citizenship', 14, 72, 'Daijee', '4', 'BAGUN 4 MAHENDRA NAGAR', '751007\\9689', '9848870860', NULL, NULL, NULL, '71239259198c93794041e6ab77f1e3de.jpg', NULL, '2019-05-13 23:04:26', '2019-05-13 23:04:26'),
+(2123, 2, 'GOPAL DHAKAL', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Chaughada', '9', NULL, '01-06-00249397', '9840300058', NULL, NULL, NULL, '42df36e418e274e62e524f0bee6c7121.jpg', NULL, '2019-05-14 03:10:05', '2019-05-14 03:10:05'),
+(2124, 2, 'CHHRING DORJE MAGAR NAGARKOTI', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Saramthali', '2', 'GOSAIKUNDA 5', '231002\\65', '9861939751', NULL, NULL, NULL, 'a8a0d7071da1f7ac70fd7984f7838376.jpg', NULL, '2019-05-14 05:56:20', '2019-05-14 05:56:20'),
+(2125, 2, 'HOMJANG RANA', 'male', 'Nepali', 154, 'Citizenship', 10, 54, 'Morawang', '9', 'BHUME 3', '1287-152', '9857042030', NULL, NULL, NULL, 'caa2dbd10db132d7048ddbf3487c4155.jpg', NULL, '2019-05-15 05:44:00', '2019-05-15 05:44:00'),
+(2126, 2, 'SANTOSH TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '4', NULL, '23-01-71-00375', '9840663116', NULL, NULL, NULL, '90155416f9ac2d846a9c214efd651c14.jpg', NULL, '2019-05-15 10:16:36', '2019-05-15 10:16:36'),
+(2127, 2, 'RAJIV BALAMI', 'male', 'Nepali', 154, 'Voter Card', 5, 28, 'Kakani', '1', NULL, '11145507', '9808431195', NULL, NULL, NULL, 'deb9deca365835e42e781c0269661469.jpg', NULL, '2019-05-15 11:06:16', '2019-05-15 11:06:16'),
+(2128, 2, 'GANGA BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 3, 12, 'Khijifalate', '1', 'LIKHUDEMBA 5', '61594\\9463', '9866314452', NULL, NULL, NULL, 'a58d2ad8ae5a97938331d9853801338c.jpg', NULL, '2019-05-15 22:16:59', '2019-05-15 22:16:59'),
+(2129, 2, 'KABIRAJ RAI', 'male', 'Nepali', 154, 'Citizenship', 1, 2, 'Olane', '9', NULL, '020106606109', '9814059403', NULL, NULL, NULL, '6e650442e3619803c4c4808de482d8ee.jpg', NULL, '2019-05-16 22:18:30', '2019-05-16 22:18:30'),
+(2130, 2, 'DHAN BAHADUR BISTA', 'male', 'Nepali', 154, 'Citizenship', 1, 4, 'Gauradaha', '3', 'Gauradaha NP 1', '341585/044/6884', '9803782483', NULL, NULL, NULL, '7bf1d63a849ec18e31858655bab6d616.jpg', NULL, '2019-05-17 00:45:21', '2019-05-17 00:45:21'),
+(2131, 2, 'SUSHIL KUMAR LUNIYA', 'male', 'Nepali', 154, 'Driving License', 2, 5, 'Biratnagar Sub Metropolitan', '1', NULL, '006-890415', '9851121182', NULL, NULL, NULL, '80a269f8c35188eca11e6a7ef8aa84ae.jpg', NULL, '2019-05-18 00:04:42', '2019-05-18 00:04:42'),
+(2132, 2, 'MAN BAHADUR WAIWA', 'male', 'Nepali', 154, 'Driving License', 6, 33, 'Dumarwana', '8', 'Syalue 14', '04-06-00254705', '9808500955', NULL, NULL, NULL, '8cd98f1a4a879fb8df333a8ba2d40e87.jpg', NULL, '2019-05-18 03:14:28', '2019-05-18 03:14:28'),
+(2133, 2, 'FURPU GYALBO GHALE', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '6', NULL, '3797\\381', '9841889425', NULL, NULL, NULL, '8e0b0a0c2e39f27530d74a51188193ef.jpg', NULL, '2019-05-18 03:53:31', '2019-05-18 03:53:31'),
+(2134, 2, 'DING SANJUN CHN', 'male', 'Foreign', 44, 'Passport', NULL, NULL, NULL, NULL, 'HENAN', 'EE5254675', '2222222222222222', NULL, NULL, NULL, 'f85c2a530bf531eb3e25667b08c91fa8.jpg', NULL, '2019-05-18 10:42:28', '2019-05-18 10:42:28'),
+(2135, 2, 'DEPENDRA TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 24, 'Nayagaundeupur', '8', NULL, '01-06-0070574', '9808472279', NULL, NULL, NULL, '765e7e628a65d5ad23ece4dbc7ac8a3c.jpg', NULL, '2019-05-18 23:32:00', '2019-05-18 23:32:00'),
+(2136, 2, 'ROSHAN LAMA', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Madanpur', '8', NULL, '01-06-00260942', '9846129217', NULL, NULL, NULL, '75f5b4246c0c4538110b335ac6bd44ff.jpg', NULL, '2019-05-19 06:03:37', '2019-05-19 06:03:37'),
+(2137, 2, 'GANPATI NEUPANE', 'male', 'Nepali', 154, 'Citizenship', 9, 51, 'Pathauti', '3', 'GAJEDA 9', '1240\\032', '9856023743', NULL, NULL, NULL, 'd9726fb595c26e572667559b8ac8a07a.jpg', NULL, '2019-05-19 08:19:37', '2019-05-19 08:19:37'),
+(2138, 2, 'DURGE PUN', 'male', 'Nepali', 154, 'Citizenship', 10, 54, 'Aathbiskot', '13', NULL, '3052-1417', '9818335563', NULL, NULL, NULL, '7abaa024a3a3eede00521cffc5c63044.jpg', NULL, '2019-05-20 01:15:14', '2019-05-20 01:15:14'),
+(2139, 2, 'DINESH KHATRI', 'male', 'Nepali', 154, 'Passport', 9, 46, 'Hastichaur', '2', 'ISMA 2', '05693137', '1234', NULL, NULL, NULL, '82ab334d075c9161be3c8d6074f31a6e.jpg', NULL, '2019-05-20 22:53:06', '2019-05-20 22:53:06'),
+(2140, 2, 'SYARPA MOKTAN', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Yarsa', '4', NULL, '231017/420', '9803197531', NULL, NULL, NULL, 'f07ff6887b2c63ba45be9b274fd3962a.jpg', NULL, '2019-05-21 09:35:10', '2019-05-21 09:35:10'),
+(2141, 2, 'RAMESH KUMAR HARIJAN', 'male', 'Nepali', 154, 'Passport', 10, 56, NULL, '5', 'JANGRAHAWA 5', '11425192', '9809535815', NULL, NULL, NULL, '54c61b71d67a05a840123d4fc689e0bf.jpg', NULL, '2019-05-22 01:48:32', '2019-05-21 20:03:32'),
+(2142, 2, 'KAMAL CHUDARA', 'male', 'Nepali', 154, 'Citizenship', 13, 67, 'Chhatara', '4', NULL, '70-01-71-00239', '9863511487', NULL, NULL, NULL, '9514f7277f95787d2e2095b4cad319dc.jpg', NULL, '2019-05-22 22:26:09', '2019-05-22 22:26:09'),
+(2143, 2, 'MOHAMAD RAFI', 'male', 'Nepali', 154, 'Citizenship', 9, 47, 'Bandipokhara', '4', 'KHAIRENITAR', '35867', '9819143177', NULL, NULL, NULL, 'f16d742c46eb5b06d41bbb3964552898.jpg', NULL, '2019-05-23 00:46:22', '2019-05-23 00:46:22'),
+(2144, 2, 'saroj kamar', 'male', 'Nepali', 154, 'Citizenship', 5, 30, 'Gajuri', '7', 'galchhi 7', '26-01-74-06925', '9813498126', NULL, NULL, NULL, 'c95686de566b5771c0b35ba671c3a2e5.jpg', NULL, '2019-05-23 04:08:00', '2019-05-23 04:08:00'),
+(2145, 2, 'SANTI MAYA TAMANG', 'female', 'Nepali', 154, 'Citizenship', 5, 28, 'Chaturale', '5', 'KAKANI 7', '253029\\0145', '9841088591', NULL, NULL, NULL, 'e5024ce5f4e74c303b254551c7b8f535.jpg', NULL, '2019-05-23 05:40:39', '2019-05-23 05:40:39'),
+(2146, 2, 'KHEM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Voter Card', 4, 21, 'Pritee', '2', 'UMAKUNDA 5', '1190442', '9813188468', NULL, NULL, NULL, '972e93cfc7760fb813bff5c96792295c.jpg', NULL, '2019-05-23 06:01:59', '2019-05-23 06:01:59'),
+(2147, 2, 'RAM KUMAR MAHATO', 'male', 'Nepali', 154, 'Citizenship', 5, 19, 'Bhagawatipur', '1', 'GORAITA 3 SIMARA BHAGAWATI', '86420061', '9814835628', NULL, NULL, NULL, '81a69bdb32e0c7e6e7701927f43b22fc.jpg', NULL, '2019-05-23 06:06:48', '2019-05-23 06:06:48'),
+(2148, 2, 'TUL BAHADUR THAPA', 'male', 'Nepali', 154, 'Citizenship', 9, 46, 'Badagaun', '3', NULL, '411004-04-70070', '9800772195', NULL, NULL, NULL, 'be2cdfb7aed888affb22dd4eabeca2fd.jpg', NULL, '2019-05-23 22:00:30', '2019-05-23 22:00:30'),
+(2149, 2, 'SAPANA RAWAT', 'female', 'Nepali', 154, 'Pan-Card', 10, 55, 'Badagaun', '7', 'BAGAD KUPINDE', '27892', '7', NULL, NULL, NULL, '9e04b07be28b4a0b2e15a1609b9c5e45.jpg', NULL, '2019-05-24 01:05:17', '2019-05-24 01:05:17'),
+(2150, 2, 'MANIRAM BANJADE', 'male', 'Nepali', 154, 'Others', 9, 46, 'Pipaldhara', '2', 'SUFAL', 'SUFAL VAI', '9869785910', NULL, NULL, '9e0144a227aa311607ac422135ada06a.jpg', NULL, 'https://www.facebook.com/maniram.banjade.1', '2019-05-24 01:19:57', '2019-05-24 01:19:57'),
+(2151, 2, 'DIWAKAR BHATTRAI', 'male', 'Nepali', 154, 'Driving License', 9, 47, 'Rampur', '7', NULL, '07-084583', '9864466507', NULL, NULL, NULL, '7f62ed56397fe5da777f90efb3cd37f6.jpg', NULL, '2019-05-24 06:00:50', '2019-05-24 06:00:50'),
+(2152, 2, 'MINGMAR DORJE TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '3', NULL, '6535\\2926', '9866314345', NULL, NULL, NULL, '80e689b886c8ee049c7342afdcfb525e.jpg', NULL, '2019-05-24 06:06:58', '2019-05-24 06:06:58'),
+(2153, 2, 'RENUKA RAI', 'female', 'Nepali', 154, 'Others', 2, 9, 'Tamku', '2', NULL, '158190', '9842213425', NULL, NULL, NULL, '6212f23a17b24d95196cb650f801bae1.jpg', NULL, '2019-05-24 06:10:11', '2019-05-24 06:10:11'),
+(2154, 2, 'NABIN TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Duipipal', '5', 'DUPCHESWAR', '27-02-75-00665', '9813761656', NULL, NULL, NULL, 'b8f6cb4c38743e38bcf06a60efcf6a77.jpg', NULL, '2019-05-24 07:13:20', '2019-05-24 07:13:20'),
+(2155, 2, 'BIBEK THAPA MAGAR', 'male', 'Nepali', 154, 'Driving License', 5, 30, 'Salang', '6', NULL, '03-06-00398678', '9808932506', NULL, NULL, NULL, 'cb33034d4fbd08aa71563a210de712bb.jpg', NULL, '2019-05-24 23:12:56', '2019-05-24 23:12:56'),
+(2156, 2, 'BIKRAM THAPA', 'male', 'Nepali', 154, 'Driving License', 5, 23, 'Bhotasipa', '5', NULL, '03-06-00374514', '9845859915', NULL, NULL, NULL, 'd8edf47ab8ec4407656bf65b92eeaea1.jpg', NULL, '2019-05-25 00:03:29', '2019-05-25 00:03:29'),
+(2157, 2, 'NISHAN GURUNG', 'male', 'Nepali', 154, 'Citizenship', 7, 36, 'Manbu', '8', 'AARUGHAT 1', '44-11-75/00455', '9827171622', NULL, NULL, NULL, '9da9c6b8b72354e6adc2147addc81822.jpg', NULL, '2019-05-25 02:52:32', '2019-05-25 02:52:32'),
+(2158, 2, 'KAMAN SING G C', 'male', 'Nepali', 154, 'Others', 9, 46, 'Darbardevisthan', '1', NULL, 'YAM\' S DAI', '9800726752', NULL, NULL, '7b55117721799a77f24ddc41fe7920c0.jpg', NULL, 'https://www.facebook.com/kamansingh.gc', '2019-05-25 03:47:39', '2019-05-25 03:47:39'),
+(2159, 2, 'TSARING DORJAY LAMA', 'male', 'Nepali', 154, 'Driving License', 5, 23, 'Gumba', '5', NULL, '01-06-0034348544', '9803095103', NULL, NULL, NULL, '00fddb5205f4cfa9f19753b4645e6731.jpg', NULL, '2019-05-25 04:23:03', '2019-05-25 04:23:03'),
+(2160, 2, 'JITENDRA CHAUDHARY', 'male', 'Nepali', 154, 'Driving License', 14, 72, 'Suda', '4', NULL, '04-06-00564185', '9823002835', NULL, NULL, NULL, 'f606d991b68726240c135de4fad3219b.jpg', NULL, '2019-05-25 04:41:14', '2019-05-25 04:41:14'),
+(2161, 2, 'JAY PRAKASH DAS THARU', 'male', 'Nepali', 154, 'Driving License', 6, 34, 'Sakhuwaprasauni', '7', NULL, '02-05-000008282', '9855029066', NULL, NULL, NULL, '7e71420fe917c039577968fc52d0bad9.jpg', NULL, '2019-05-25 07:22:49', '2019-05-25 07:22:49'),
+(2162, 2, 'DHIRAJ BHANDARI', 'male', 'Nepali', 154, 'Passport', 10, 55, 'Chhayachhetra', '2', 'CHHATRESWORI 2', '11194421', '9857822891', NULL, NULL, NULL, 'b948672852db1e42ce2440e0176bbf19.jpg', NULL, '2019-05-25 08:58:50', '2019-05-25 08:58:50'),
+(2163, 2, 'ANIL MAGAR', 'male', 'Nepali', 154, 'Citizenship', 4, 21, 'Doramba', '8', NULL, '21-01-70-37532', '9803384449', NULL, NULL, NULL, '2c01159d2458c433e5551a244d4ce517.jpg', NULL, '2019-05-25 10:33:55', '2019-05-25 10:33:55'),
+(2164, 2, 'KESHAV BAHADUR GOSAIN', 'male', 'Nepali', 154, 'Driving License', 5, 26, 'Bhaktapur Municipality', '7', NULL, '01-06-00400324', '9863790741', NULL, NULL, NULL, 'f0dc43d2061cde9931123fd58c49c970.jpg', NULL, '2019-05-26 00:25:31', '2019-05-26 00:25:31'),
+(2165, 2, 'AKHABIR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Bungtang', '3', 'MEGANG 2', '38942-767', '9823644609', NULL, NULL, NULL, '575999efd0fac4173455dae78137a923.jpg', NULL, '2019-05-26 08:10:03', '2019-05-26 08:10:03'),
+(2166, 2, 'RAM TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 29, 'Thuman', '9', NULL, '01-06-00142613', '9860806045', NULL, NULL, NULL, 'b5b871f2a7d7787e4218d8cc6e162623.jpg', NULL, '2019-05-26 11:56:47', '2019-05-26 11:56:47'),
+(2167, 2, 'RAJ KUMAR TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Sundaradevi', '7', 'HALDEKALIKA 7', '06-042975', '9808743232', NULL, NULL, NULL, 'b65486ca439a70084a1d6d6ccbce2843.jpg', NULL, '2019-05-26 23:41:34', '2019-05-26 23:41:34'),
+(2168, 2, 'GOBINDA CHAUDHARY', 'male', 'Nepali', 154, 'Passport', 9, 48, NULL, '9', 'bardaghat', '07501986', '9808795011', NULL, NULL, NULL, '0284e4189fde14266639a9804fe254f6.jpg', NULL, '2019-05-27 06:59:16', '2019-05-27 01:14:16'),
+(2169, 2, 'KAPIL DEV PRASAD', 'male', 'Foreign', 99, 'Voter Card', NULL, NULL, NULL, NULL, 'Bettiah Dist champaran H.NO.16', 'BR/02/008/228097', '00919525355102', '8051386353', NULL, NULL, '2ba8d7cfcd0ea93d6138d69dd9e70717.jpg', NULL, '2019-05-27 00:40:59', '2019-05-27 00:40:59'),
+(2170, 2, 'LAL BAHADUR PARIYAR', 'male', 'Nepali', 154, 'Others', 9, 46, 'Pipaldhara', '5', 'Dungribas', 'Dalle dai xora', '6666666666666', NULL, NULL, '6e0834365b06d22142aad810652a728b.jpg', NULL, 'https://www.facebook.com/gagan.pbr', '2019-05-27 01:01:35', '2019-05-27 01:01:35'),
+(2171, 2, 'TEMBA GYALBO GHALE', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '4', 'GOSAINDA 5', '0231002\\43', '9823474156', NULL, NULL, NULL, '725ea0def0e262e4a0bacabaac5065a5.jpg', NULL, '2019-05-28 04:24:57', '2019-05-28 04:24:57'),
+(2172, 2, 'NAVRAJ RAI', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Likhu', '4', 'CHAUGHADA', '08-193498', '9846350913', NULL, NULL, NULL, 'f38c69169bc8ba757e574352ca56baf8.jpg', NULL, '2019-05-28 05:09:18', '2019-05-28 05:09:18'),
+(2173, 2, 'RAJESH FUYAL', 'male', 'Nepali', 154, 'Others', 5, 27, 'Tokhachandeswori', '3', 'TARKESWAR 3', '9823359568', '9823359568', NULL, NULL, NULL, '50a228d549dfeac80234750efbcf0996.jpg', NULL, '2019-05-29 04:28:36', '2019-05-29 04:28:36'),
+(2174, 2, 'RAJ KUMAR MOKTAN', 'male', 'Nepali', 154, 'Driving License', 6, 31, 'Agara', '3', NULL, '01-06-00448268', '9813187823', NULL, NULL, NULL, '7f86e080e20d8c8fe112dee4b82ad968.jpg', NULL, '2019-05-29 04:39:19', '2019-05-29 04:39:19'),
+(2175, 2, 'KRISHNA KHATRI', 'male', 'Nepali', 154, 'Citizenship', 10, 56, 'Tribhuwannagar Municipality', '12', 'GHORAHI', '52120/5878', '9809890889', NULL, NULL, NULL, '57e097e009a459600562a8f676592a1b.jpg', NULL, '2019-05-29 07:04:02', '2019-05-29 07:04:02'),
+(2176, 2, 'TASHI WANGEL TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '5', NULL, '231819/462', '9860056493', NULL, NULL, NULL, 'ca6a6ee16eab48315975e5e8088116e8.jpg', NULL, '2019-05-29 08:00:27', '2019-05-29 08:00:27'),
+(2177, 2, 'RAJU MALLA', 'male', 'Nepali', 154, 'Citizenship', 6, 35, 'Ratnanagar Municipality', '1', 'NARAYANGAD 1', '4060', '9841856814', NULL, NULL, NULL, 'f57ced251ceb0ad18977443b8c2d3573.jpg', NULL, '2019-05-29 10:32:38', '2019-05-29 10:32:38'),
+(2178, 2, 'TIKARAM WALI', 'male', 'Nepali', 154, 'Citizenship', 10, 53, 'Gairigaun', '1', 'TRIVENI 7BHOJGAUN', '54-01-73-00853', '9822809970', NULL, NULL, NULL, 'ef92bb1325225e564d619d322da6ec36.jpg', NULL, '2019-05-30 07:00:58', '2019-05-30 07:00:58'),
+(2179, 2, 'SHYAM BAHADUR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 3, 22, 'Gairimudi', '2', 'MAITESAWAR 1 GAIREMUDI', '14674-3841', '9842427254', NULL, NULL, NULL, 'e83dcb7137aad19856957005a3fdde00.jpg', NULL, '2019-05-30 07:28:12', '2019-05-30 07:28:12'),
+(2180, 2, 'BHIM DATTA PANERU', 'male', 'Nepali', 154, 'Citizenship', 14, 73, 'Bhadrapur', '6', NULL, '74-01-70-01637', '9809476344', NULL, NULL, NULL, '570fb930a2f5703616edff32e53e66b8.jpg', NULL, '2019-05-30 23:04:50', '2019-05-30 23:04:50'),
+(2181, 2, 'ARYA TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Kalyanpur', '2', NULL, '25-01-73-05433', '9813872391', NULL, NULL, NULL, 'db7f6ad1cf062ab0de7f97eeaa5c8de9.jpg', NULL, '2019-05-30 23:16:28', '2019-05-30 23:16:28'),
+(2182, 2, 'ANIL KUMAR TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Deurali', '7', 'Megang 3', '25-01-73-07599', '9845751661', NULL, NULL, NULL, '309345413bafbe823598aba63ba3310b.jpg', NULL, '2019-05-31 00:11:55', '2019-05-31 00:11:55'),
+(2183, 2, 'ABIRAL DUNGANA', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Ganeshthan', '9', 'SURYAGADI 5 DHADE', '251027\\441', '9808316949', NULL, NULL, NULL, '652d477022b82ca11d3d25b1693a02b7.jpg', NULL, '2019-05-31 10:23:15', '2019-05-31 10:23:15'),
+(2184, 2, 'SURENDRA TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Jiling', '3', 'TARKESWAR 7 GORSE', '251047\\441', '9813882581', NULL, NULL, NULL, '5499bcb2441e31a2e1f2195fc7c20772.jpg', NULL, '2019-05-31 11:32:19', '2019-05-31 11:32:19'),
+(2185, 2, 'DOL BAHADUR CHHANTEL', 'male', 'Nepali', 154, 'Passport', 9, 46, 'Bhurtung', '1', 'Galkot 2 hatiya', '08160097', '9847676168', NULL, NULL, NULL, 'c08b09559a18a59a88d9781b62ffb1f0.jpg', NULL, '2019-05-31 23:46:30', '2019-05-31 23:46:30'),
+(2186, 2, 'TOK BAHADUR THANIT', 'male', 'Nepali', 154, 'Others', 9, 48, 'Parsauni', '4', NULL, '24353', '9846325834', NULL, NULL, NULL, '65b0874346b2bf8672b7159525c14e28.jpg', NULL, '2019-06-02 03:13:38', '2019-06-02 03:13:38'),
+(2187, 2, 'SUJAN LAMA', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Mahakali', '3', NULL, '01-06-00122218', '9861530152', NULL, NULL, NULL, 'eaec4ca574554d0dc015ddc84fe955de.jpg', NULL, '2019-06-02 10:17:57', '2019-06-02 10:17:57'),
+(2188, 2, 'KAMSUNG TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Syafru', '2', 'GOSAIKUNDA 5', '879\\610', '9741309667', NULL, NULL, NULL, '121418c34bafe185baba8b93a13d4a21.jpg', NULL, '2019-06-03 05:37:57', '2019-06-03 05:37:57'),
+(2189, 2, 'TIRNATH RAJBAMSHI', 'male', 'Nepali', 154, 'Driving License', 1, 4, 'Jyamirgadhi', '1', NULL, '01-062015', '9742678252', NULL, NULL, NULL, '86a63445d7531025961c86cd4dc10204.jpg', NULL, '2019-06-03 05:43:20', '2019-06-03 05:43:20'),
+(2190, 2, 'KRISHNA BAHADUR OJHA KHAWASE', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Laharepouwa', '8', 'Kalika 2', '2436/1071', '9810216941', NULL, NULL, NULL, '1738a379d3abca9d56b510753f3a0c27.jpg', NULL, '2019-06-04 01:14:39', '2019-06-04 01:14:39'),
+(2191, 2, 'TILAK  THAPA MAGAR', 'male', 'Nepali', 154, 'Pan-Card', 5, 28, 'Bidur Municipality', '10', 'GERKHU 4', '103034810', '9849822596', NULL, NULL, NULL, '4941d01911253e89aecd3d4754b31b8d.jpg', NULL, '2019-06-05 04:42:32', '2019-06-05 04:42:32'),
+(2192, 2, 'MIN BAHADUR THAPA', 'male', 'Nepali', 154, 'Driving License', 7, 36, 'Bakrang', '1', 'GORKHA 1 BAKRAN', '05-563355', '9846589339', NULL, NULL, NULL, '2b534ac3fe93f993addf9d7690d11f3f.jpg', NULL, '2019-06-05 04:55:11', '2019-06-05 04:55:11'),
+(2193, 2, 'SANJAY TAMANG', 'male', 'Nepali', 154, 'Citizenship', 6, 35, 'Dibyanagar', '7', 'BHARATPUR 26', '353033\\97', '9818427220', NULL, NULL, NULL, 'bfecdeca626d54cb5186767193e1b21b.jpg', NULL, '2019-06-05 08:56:44', '2019-06-05 08:56:44'),
+(2194, 2, 'TIRTH SINGH', 'male', 'Foreign', 99, 'Voter Card', NULL, NULL, NULL, NULL, 'Himachal parses shila kippar 341', '997790788188', '00919817160333', '00919816558657', NULL, NULL, 'd53f09f4b3b2bda1f0d88db9fbb71582.jpg', NULL, '2019-06-05 23:55:43', '2019-06-05 23:55:43'),
+(2195, 2, 'MAHENDRA ASURPATI', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Bidur Municipality', '9', 'DEURALI 9 KOLANE', '251010\\431', '9849251638', NULL, NULL, NULL, '5bdb13584533e2406e49277099a4b93b.jpg', NULL, '2019-06-06 07:57:40', '2019-06-06 07:57:40'),
+(2196, 2, 'NAVRAJ TAMANG', 'male', 'Nepali', 154, 'Driving License', 5, 28, 'Bidur Municipality', '8', 'KAULE', '06-207345', '9862455034', NULL, NULL, NULL, '48ebf5cc56fed5eb5b609e0b63712765.jpg', NULL, '2019-06-07 02:40:36', '2019-06-07 02:40:36'),
+(2197, 2, 'BIR BAHADUR DAMAI', 'male', 'Nepali', 154, 'Citizenship', 2, 5, 'Sundarpur', '9', 'SUNDARHARAICHA 6 GACHHIYA', '60405', '9807374075', NULL, NULL, NULL, '6c384d3573830039fbee3eca861687a7.jpg', NULL, '2019-06-07 02:42:40', '2019-06-07 02:42:40'),
+(2198, 2, 'DIL KUMAR RAI', 'male', 'Nepali', 154, 'Passport', 2, 5, 'Sundarpur', '9', 'GOCHHYA', '084608-587', '9818574637', NULL, NULL, NULL, 'bf89e1ee56e2d4ea13d3d20cdb0282bb.jpg', NULL, '2019-06-07 02:53:44', '2019-06-07 02:53:44'),
+(2199, 2, 'PUJAN TAMANG', 'male', 'Nepali', 154, 'Voter Card', 5, 30, 'Kewalpur', '5', 'KHANIYABAS 5 SIMALDADA', '785106', '9745150324', NULL, NULL, NULL, '2ac2091d778bf703781e62649c1d3711.jpg', NULL, '2019-06-07 06:49:21', '2019-06-07 06:49:21'),
+(2200, 2, 'SHREE KRISHNA ADHIKARI', 'male', 'Nepali', 154, 'Others', 5, 30, 'Nilkantha', '12', 'SANKOSH', '22080', '9841968682', NULL, NULL, NULL, 'ef53a2c33247f7e05fe79fec896638f3.jpg', NULL, '2019-06-07 09:06:34', '2019-06-07 09:06:34'),
+(2201, 2, 'NABIN BAHADUR THAPA', 'male', 'Nepali', 154, 'Passport', 9, 47, 'Rampur', '5', 'RAMPUR', '06036511', '9848319553', NULL, NULL, NULL, '055d7e35c3597f01afab680912a16109.jpg', NULL, '2019-06-07 09:49:31', '2019-06-07 09:49:31'),
+(2202, 2, 'BISHNU PRASAD THANET THARU', 'male', 'Nepali', 154, 'Passport', 9, 48, 'Narayani', '3', NULL, '07632290', '9848319554', NULL, NULL, NULL, 'fd3b10032324a3f7982fbe0035ba1ab8.jpg', NULL, '2019-06-07 21:51:39', '2019-06-07 21:51:39'),
+(2203, 2, 'NITYA NANDA SUBEDI', 'male', 'Nepali', 154, 'Driving License', 1, 3, 'Mangalbare', '5', 'DEUMAI 2 SABJUNG', '10-147305', '9841435093', NULL, NULL, NULL, '458cdaa5e04f3256c5b90e1af0b13640.jpg', NULL, '2019-06-08 05:41:45', '2019-06-08 05:41:45'),
+(2204, 2, 'BIBIKA GHARTI', 'female', 'Nepali', 154, 'Citizenship', 10, 55, 'Rim', '4', 'KAPURKOT 5', '551042\\3884', '9812873881', NULL, NULL, NULL, '2a2838a5aed3b576716cbe545e0dd3fc.jpg', NULL, '2019-06-08 07:06:24', '2019-06-08 07:06:24'),
+(2205, 2, 'SUSMA KUMARI BUDHATHOKI', 'female', 'Nepali', 154, 'Citizenship', 10, 55, 'Rim', '4', 'KAPURKOT 5', '549\\612', '9841117200', NULL, NULL, NULL, '40453f6c8f0d0a65461c0a4ff20d5d25.jpg', NULL, '2019-06-08 07:09:18', '2019-06-08 07:09:18'),
+(2206, 2, 'RAM PRASAD DEVKOTA', 'male', 'Nepali', 154, 'Others', 5, 27, 'Jitpurphedi', '8', 'TARKESWAR 3', '2117', '9863221050', NULL, NULL, NULL, '25bcedcbb50cda2dbc6d834b8fc388df.jpg', NULL, '2019-06-09 03:08:42', '2019-06-09 03:08:42'),
+(2207, 2, 'ARUN RAI DANUWAR', 'male', 'Nepali', 154, 'Citizenship', 5, 23, 'Bhimtar', '1', NULL, '241033/52', '9813061306', NULL, NULL, NULL, 'cd7aa1636310c46781aaab512cddf8f0.jpg', NULL, '2019-06-09 03:12:40', '2019-06-09 03:12:40'),
+(2208, 2, 'PEMBA CHHEWANG TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Chilime', '4', 'AAMACHHIDINGMO 4', '681', '9843560150', NULL, NULL, NULL, '537c2f0c9d9b8ef1a79556684cdcf487.jpg', NULL, '2019-06-09 04:56:04', '2019-06-09 04:56:04'),
+(2209, 2, 'SAROJ GURUNG', 'male', 'Nepali', 154, 'Driving License', 6, 35, 'Ratnanagar Municipality', '5', 'BACHHYAULI 16', '08-260700', '9845140625', NULL, NULL, NULL, '192393d61fb2cdb7e0c4e62137135cae.jpg', NULL, '2019-06-09 07:58:52', '2019-06-09 07:58:52'),
+(2210, 2, 'SAGAR GURUNG', 'male', 'Nepali', 154, 'Citizenship', 5, 29, 'Bhorle', '3', 'NAUKUNDA 6', '26-09-71-00868', '9823823157', NULL, NULL, NULL, '2b29bf13b20b9b116e5e565142a7483d.jpg', NULL, '2019-06-09 09:14:56', '2019-06-09 09:14:56'),
+(2211, 2, 'AMAR BAHADUR THAPA MAGAR', 'male', 'Nepali', 154, 'Driving License', 11, 57, 'Bageswari', '4', NULL, '01-06-00253946', '9858049444', NULL, NULL, NULL, '94a458d845155ffa211a7ef8ebfd31be.jpg', NULL, '2019-06-09 23:03:21', '2019-06-09 23:03:21'),
+(2212, 2, 'MANOJ KHATRI', 'male', 'Nepali', 154, 'Driving License', 9, 51, 'Arghatos', '9', NULL, '01-06-00139163', '9847392393', NULL, NULL, NULL, '95e22205cfef554419bd66282de1bc47.jpg', NULL, '2019-06-12 07:46:14', '2019-06-12 07:46:14'),
+(2213, 2, 'TIKARAM GOLE', 'male', 'Nepali', 154, 'Citizenship', 6, 34, 'Nirmalbasti', '6', 'DHODI 4 SHANTITOLE', '343057/216', '9860086452', NULL, NULL, NULL, 'e294b9f8c99e3cef7a4d1a1d1fe99f00.jpg', NULL, '2019-06-12 08:05:28', '2019-06-12 08:05:28'),
+(2214, 2, 'MOHAN TAMANG', 'male', 'Nepali', 154, 'Citizenship', 5, 28, 'Kintang', '9', 'MEGANG 4', '90348', '9865824670', NULL, NULL, NULL, '40bbdb6dd61d0e4809a9c1d492da48e9.jpg', NULL, '2019-06-13 00:32:24', '2019-06-13 00:32:24'),
+(2215, 2, 'RUDRA BAHADUR SUNAR', 'male', 'Nepali', 154, 'Others', 9, 48, 'Devachuli', '8', 'AAPTARI', '9805412671', '9805412671', NULL, NULL, NULL, '4068b59356c4a9839e39be34305b8805.jpg', NULL, '2019-06-13 07:25:44', '2019-06-13 07:25:44');
 
 -- --------------------------------------------------------
 
@@ -5484,24 +6129,24 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `date`, `floor_id`, `room_no`, `room_status`, `room_type_id`, `customer_id`, `checkout_time`, `created_at`, `updated_at`) VALUES
-(1, NULL, 1, '101', 'CheckedOut', 4, NULL, '12:00', '2019-04-09 03:11:39', '2019-04-08 21:26:39'),
-(2, NULL, 1, '102', 'CheckedOut', 3, NULL, '12:00', '2019-04-11 04:24:14', '2019-04-10 22:39:14'),
-(3, '2019-04-10', 1, '103', 'CheckedIn', 3, 1202, '12:00', '2019-04-10 09:11:39', '2019-04-10 03:26:39'),
-(4, NULL, 1, '104', 'CheckedOut', 1, NULL, '12:00', '2019-04-10 12:44:34', '2019-04-10 06:59:34'),
-(5, NULL, 1, '106', 'CheckedOut', 3, NULL, '12:00', '2019-04-11 04:24:59', '2019-04-10 22:39:59'),
-(6, NULL, 1, '107', 'CheckedOut', 3, NULL, '12:00', '2019-04-11 04:26:13', '2019-04-10 22:41:13'),
-(7, '2019-04-10', 2, '201', 'CheckedIn', 4, 1536, '12:00', '2019-04-10 09:11:21', '2019-04-10 03:26:21'),
-(8, '2019-04-10', 2, '202', 'CheckedIn', 3, 2015, '12:00', '2019-04-10 12:58:29', '2019-04-10 07:13:29'),
-(9, NULL, 2, '203', 'CheckedOut', 2, NULL, '12:00', '2019-04-09 05:36:32', '2019-04-08 23:51:32'),
-(10, '2019-04-10', 2, '204', 'CheckedIn', 1, 1918, '12:00', '2019-04-10 09:11:44', '2019-04-10 03:26:44'),
-(11, '2019-04-10', 2, '205', 'CheckedIn', 1, 1986, '12:00', '2019-04-10 09:11:53', '2019-04-10 03:26:53'),
-(12, NULL, 2, '206', 'CheckedOut', 3, NULL, '12:00', '2019-04-10 12:26:13', '2019-04-10 06:41:13'),
-(13, NULL, 2, '207', 'CheckedOut', 4, NULL, '12:00', '2019-04-09 05:40:40', '2019-04-08 23:55:40'),
-(14, NULL, 3, '302', 'CheckedOut', 3, NULL, '12:00', '2019-04-09 05:38:09', '2019-04-08 23:53:09'),
-(15, '2019-04-11', 3, '303', 'CheckedIn', 2, 2017, '12:00', '2019-04-11 05:11:18', '2019-04-10 23:26:18'),
-(16, '2019-04-11', 3, '305', 'CheckedIn', 3, 1879, '12:00', '2019-04-11 04:20:07', '2019-04-10 22:35:07'),
-(17, NULL, 3, '306', 'CheckedOut', 4, NULL, '12:00', '2019-04-11 04:26:30', '2019-04-10 22:41:30'),
-(18, NULL, 4, '402', 'CheckedOut', 1, NULL, '12:00', '2019-04-11 04:27:19', '2019-04-10 22:42:19');
+(1, NULL, 1, '101', 'CheckedOut', 4, NULL, '12:00', '2019-06-12 09:58:41', '2019-06-12 04:13:41'),
+(2, NULL, 1, '102', 'CheckedOut', 3, NULL, '12:00', '2019-06-12 13:33:07', '2019-06-12 07:48:07'),
+(3, '2019-06-13', 1, '103', 'CheckedIn', 3, 1423, '12:00', '2019-06-13 09:04:05', '2019-06-13 03:19:05'),
+(4, '2019-06-13', 1, '104', 'CheckedIn', 1, 2214, '12:00', '2019-06-13 06:17:53', '2019-06-13 00:32:53'),
+(5, '2019-06-13', 1, '106', 'CheckedIn', 3, 1500, '12:00', '2019-06-13 11:01:18', '2019-06-13 05:16:18'),
+(6, '2019-06-13', 1, '107', 'CheckedIn', 3, 1500, '12:00', '2019-06-13 11:01:48', '2019-06-13 05:16:48'),
+(7, '2019-06-13', 2, '201', 'CheckedIn', 4, 1536, '12:00', '2019-06-13 09:39:17', '2019-06-13 03:54:17'),
+(8, '2019-06-13', 2, '202', 'CheckedIn', 3, 2138, '12:00', '2019-06-13 06:45:30', '2019-06-13 01:00:30'),
+(9, NULL, 2, '203', 'CheckedOut', 2, NULL, '12:00', '2019-06-13 06:22:45', '2019-06-13 00:37:45'),
+(10, '2019-06-12', 2, '204', 'Booked', 1, NULL, '12:00', '2019-06-12 10:01:36', '2019-06-12 04:16:36'),
+(11, NULL, 2, '205', 'CheckedOut', 1, NULL, '12:00', '2019-06-13 06:25:38', '2019-06-13 00:40:38'),
+(12, '2019-06-13', 2, '206', 'CheckedIn', 3, 2185, '12:00', '2019-06-13 09:04:25', '2019-06-13 03:19:25'),
+(13, '2019-06-13', 2, '207', 'CheckedIn', 4, 1591, '12:00', '2019-06-13 10:36:27', '2019-06-13 04:51:27'),
+(14, '2019-06-13', 3, '302', 'CheckedIn', 3, 2206, '12:00', '2019-06-13 09:04:32', '2019-06-13 03:19:32'),
+(15, NULL, 3, '303', 'CheckedOut', 2, NULL, '12:00', '2019-06-13 06:21:10', '2019-06-13 00:36:10'),
+(16, '2019-06-13', 3, '305', 'CheckedIn', 3, 1254, '12:00', '2019-06-13 06:40:04', '2019-06-13 00:55:04'),
+(17, '2019-06-13', 3, '306', 'CheckedIn', 4, 2088, '12:00', '2019-06-13 12:30:06', '2019-06-13 06:45:06'),
+(18, '2019-06-13', 4, '402', 'Booked', 1, NULL, '12:00', '2019-06-13 09:07:58', '2019-06-13 03:22:58');
 
 -- --------------------------------------------------------
 
@@ -5530,7 +6175,8 @@ CREATE TABLE `room_books` (
 --
 
 INSERT INTO `room_books` (`id`, `user_id`, `customer_name`, `phone`, `relation`, `male`, `female`, `purpose`, `time`, `date`, `room_id`, `created_at`, `updated_at`) VALUES
-(872, 2, 'JAGADISH PRASAD CHAUDHARY', '9847085653', 'Family', '2', '4', 'Visit', '08:00', '2019-04-08', 17, '2019-04-08 01:10:00', '2019-04-08 01:10:00');
+(1068, 2, 'JAGAT SHARMA', NULL, 'Family', '1', '1', 'Visit', NULL, '2019-06-13', 18, '2019-06-13 03:22:58', '2019-06-13 03:22:58'),
+(1066, 2, 'AJAY CHAUDHARY', NULL, NULL, '1', NULL, 'Visit', NULL, '2019-06-12', 10, '2019-06-12 04:16:36', '2019-06-12 04:16:36');
 
 -- --------------------------------------------------------
 
@@ -7469,7 +8115,7 @@ INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room
 (1950, 2, 1802, '8:00: PM', '2019-01-30', 17, '2', NULL, 'Friends', 'Visit', NULL, '2019-01-31 08:01:47', '2019-01-31 02:16:47', '2595', '2795', NULL, NULL),
 (1951, 2, 1381, '8:09: PM', '2019-01-30', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-01-31 03:17:04', '2019-01-30 21:32:04', '2030', '2000', NULL, '30'),
 (1952, 2, 1681, '9:05: PM', '2019-01-30', 18, '1', '1', 'Mother son', 'Visit', NULL, '2019-01-30 09:35:06', '2019-01-30 09:35:06', NULL, NULL, NULL, NULL),
-(1953, 2, 1245, '9:01: AM', '2019-01-30', 10, '1', NULL, 'Single', 'Business', NULL, '2019-01-31 03:18:13', '2019-01-30 21:33:13', '690', NULL, '690', NULL),
+(1953, 2, 1245, '9:01: AM', '2019-01-30', 10, '1', NULL, 'Single', 'Business', NULL, '2019-05-05 12:59:05', '2019-05-05 07:14:05', '690', '690', NULL, NULL),
 (1954, 2, 1447, '5:11: PM', '2019-01-31', 16, '1', '1', 'Family', 'Visit', NULL, '2019-02-01 14:33:05', '2019-02-01 08:48:05', '1180', '1180', NULL, NULL),
 (1955, 2, 1680, '8:54: PM', '2019-01-31', 18, '2', NULL, 'Friends', 'Visit', NULL, '2019-01-31 09:24:23', '2019-01-31 09:24:23', NULL, NULL, NULL, NULL),
 (1956, 2, 1816, '8:57: PM', '2019-01-31', 11, '1', NULL, 'Single', 'Visit', NULL, '2019-01-31 09:27:48', '2019-01-31 09:27:48', NULL, NULL, NULL, NULL),
@@ -7746,7 +8392,7 @@ INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room
 (2235, 2, 1910, '8:34: PM', '2019-03-02', 1, '1', '2', 'Family', 'Visit', NULL, '2019-03-02 09:04:48', '2019-03-02 09:04:48', NULL, NULL, NULL, NULL),
 (2236, 2, 1534, '9:13: PM', '2019-03-02', 11, '1', '1', 'Family', 'Visit', NULL, '2019-03-02 09:43:27', '2019-03-02 09:43:27', NULL, NULL, NULL, NULL),
 (2237, 2, 1534, '9:20: PM', '2019-03-02', 9, '1', '1', 'Family', 'Visit', '205 also', '2019-03-03 02:33:14', '2019-03-02 20:48:14', '1230', '1230', NULL, NULL),
-(2238, 2, 1245, '9:21: PM', '2019-03-02', 5, '1', NULL, NULL, 'Job', NULL, '2019-03-03 08:12:52', '2019-03-03 02:27:52', '1440', '100', '1240', '100'),
+(2238, 2, 1245, '9:21: PM', '2019-03-02', 5, '1', NULL, NULL, 'Job', NULL, '2019-05-05 15:48:49', '2019-05-05 10:03:49', '1440', '1340', NULL, '100'),
 (2239, 2, 1805, '10:50: AM', '2019-03-03', 2, '2', NULL, 'Friends', 'Visit', NULL, '2019-03-02 23:20:54', '2019-03-02 23:20:54', NULL, NULL, NULL, NULL),
 (2240, 2, 1910, NULL, '2019-03-03', 1, '1', '2', 'Family', 'Visit', NULL, '2019-03-03 02:21:09', '2019-03-03 02:21:09', NULL, NULL, NULL, NULL),
 (2241, 2, 1288, NULL, '2019-03-03', 4, '1', NULL, 'Single', 'Hospital', NULL, '2019-03-03 02:21:19', '2019-03-03 02:21:19', NULL, NULL, NULL, NULL),
@@ -7985,7 +8631,7 @@ INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room
 (2479, 2, 1878, NULL, '2019-03-28', 2, '1', '1', 'Family', 'Visit', NULL, '2019-03-28 01:55:28', '2019-03-28 01:55:28', NULL, NULL, NULL, NULL),
 (2480, 2, 1918, NULL, '2019-03-28', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-03-28 01:55:47', '2019-03-28 01:55:47', NULL, NULL, NULL, NULL),
 (2481, 2, 1881, NULL, '2019-03-28', 14, '3', NULL, 'Friends', 'Business', NULL, '2019-03-28 01:55:52', '2019-03-28 01:55:52', NULL, NULL, NULL, NULL),
-(2482, 2, 1447, '3:19: PM', '2019-03-28', 12, '1', '1', 'Family', 'Official', NULL, '2019-03-29 06:31:53', '2019-03-29 00:46:53', '1320', NULL, '1320', NULL),
+(2482, 2, 1447, '3:19: PM', '2019-03-28', 12, '1', '1', 'Family', 'Official', NULL, '2019-04-12 05:29:20', '2019-04-11 23:44:20', '1320', '1320', NULL, NULL),
 (2483, 2, 1809, '5:33: PM', '2019-03-28', 5, '1', '1', 'Family', 'Visit', NULL, '2019-03-29 03:12:57', '2019-03-28 21:27:57', '2190', '2100', NULL, '90'),
 (2484, 2, 1144, '5:35: PM', '2019-03-28', 13, '1', '1', 'Mother son', 'Visit', NULL, '2019-03-28 06:05:25', '2019-03-28 06:05:25', NULL, NULL, NULL, NULL),
 (2485, 2, 1974, '7:23: PM', '2019-03-28', 6, '3', NULL, 'Friends', 'Visit', NULL, '2019-03-29 03:13:39', '2019-03-28 21:28:39', '780', '780', NULL, NULL),
@@ -8147,7 +8793,7 @@ INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room
 (2641, 2, 2013, '6:13: PM', '2019-04-09', 18, '1', NULL, 'Single', 'Visit', NULL, '2019-04-10 09:12:25', '2019-04-10 03:27:25', '680', '680', NULL, NULL);
 INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room_id`, `male`, `female`, `relation`, `purpose`, `remarks`, `created_at`, `updated_at`, `total_transaction`, `guest_paid`, `guest_due`, `guest_discount`) VALUES
 (2642, 2, 1643, '6:27: PM', '2019-04-09', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-10 09:10:53', '2019-04-10 03:25:53', '3090', '3090', NULL, NULL),
-(2643, 2, 1536, '2:56: PM', '2019-04-10', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-10 03:26:21', '2019-04-10 03:26:21', NULL, NULL, NULL, NULL),
+(2643, 2, 1536, '2:56: PM', '2019-04-10', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-11 08:21:20', '2019-04-11 02:36:20', '1740', '1740', NULL, NULL),
 (2644, 2, 1202, NULL, '2019-04-10', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-10 03:26:39', '2019-04-10 03:26:39', NULL, NULL, NULL, NULL),
 (2645, 2, 1918, NULL, '2019-04-10', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-10 03:26:44', '2019-04-10 03:26:44', NULL, NULL, NULL, NULL),
 (2646, 2, 1986, NULL, '2019-04-10', 11, '4', NULL, 'Friends', 'Foreign Employment', 'Shifted From 101', '2019-04-10 03:26:53', '2019-04-10 03:26:53', NULL, NULL, NULL, NULL),
@@ -8158,7 +8804,737 @@ INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room
 (2651, 2, 2015, '6:43: PM', '2019-04-10', 8, '1', '2', 'Family', 'Visit', NULL, '2019-04-10 07:13:29', '2019-04-10 07:13:29', NULL, NULL, NULL, NULL),
 (2652, 2, 2016, '7:59: PM', '2019-04-10', 6, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-11 04:26:03', '2019-04-10 22:41:03', '1730', '1530', NULL, '200'),
 (2653, 2, 1879, '10:05: AM', '2019-04-11', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-04-10 22:35:07', '2019-04-10 22:35:07', NULL, NULL, NULL, NULL),
-(2654, 2, 2017, '10:56: AM', '2019-04-11', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-10 23:26:18', '2019-04-10 23:26:18', NULL, NULL, NULL, NULL);
+(2654, 2, 2017, '10:56: AM', '2019-04-11', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-10 23:26:18', '2019-04-10 23:26:18', NULL, NULL, NULL, NULL),
+(2655, 2, 1918, NULL, '2019-04-11', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-11 02:38:19', '2019-04-11 02:38:19', NULL, NULL, NULL, NULL),
+(2656, 2, 2015, NULL, '2019-04-11', 8, '1', '2', 'Family', 'Visit', NULL, '2019-04-12 09:43:24', '2019-04-12 03:58:24', '5625', '5625', NULL, NULL),
+(2657, 2, 1986, NULL, '2019-04-11', 11, '4', NULL, 'Friends', 'Foreign Employment', 'Shifted From 101', '2019-04-11 02:38:34', '2019-04-11 02:38:34', NULL, NULL, NULL, NULL),
+(2658, 2, 1202, NULL, '2019-04-11', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-11 02:38:41', '2019-04-11 02:38:41', NULL, NULL, NULL, NULL),
+(2659, 2, 2019, '10:08: PM', '2019-04-11', 4, '3', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-11 10:38:37', '2019-04-11 10:38:37', NULL, NULL, NULL, NULL),
+(2660, 2, 2019, '10:08: PM', '2019-04-11', 9, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-12 07:32:05', '2019-04-12 01:47:05', '7250', '7200', NULL, '50'),
+(2661, 2, 2020, '10:15: PM', '2019-04-11', 15, '1', NULL, 'Single', 'Visit', NULL, '2019-04-12 09:45:03', '2019-04-12 04:00:03', '1205', '1200', NULL, '5'),
+(2662, 2, 2016, '10:16: PM', '2019-04-11', 2, '1', NULL, 'Single', 'Job', NULL, '2019-04-11 10:46:27', '2019-04-11 10:46:27', NULL, NULL, NULL, NULL),
+(2663, 2, 2018, '10:17: PM', '2019-04-11', 1, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-11 10:47:03', '2019-04-11 10:47:03', NULL, NULL, NULL, NULL),
+(2664, 2, 1447, '11:10: AM', '2019-04-12', 18, '1', NULL, 'Single', 'Official', NULL, '2019-04-11 23:40:21', '2019-04-11 23:40:21', NULL, NULL, NULL, NULL),
+(2665, 2, 2016, NULL, '2019-04-12', 2, '1', NULL, 'Single', 'Job', NULL, '2019-04-12 01:43:27', '2019-04-12 01:43:27', NULL, NULL, NULL, NULL),
+(2666, 2, 2018, NULL, '2019-04-12', 1, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-12 01:43:34', '2019-04-12 01:43:34', NULL, NULL, NULL, NULL),
+(2667, 2, 1202, NULL, '2019-04-12', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-12 01:44:02', '2019-04-12 01:44:02', NULL, NULL, NULL, NULL),
+(2668, 2, 1918, NULL, '2019-04-12', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-12 03:59:12', '2019-04-12 03:59:12', NULL, NULL, NULL, NULL),
+(2669, 2, 1986, NULL, '2019-04-12', 11, '4', NULL, 'Friends', 'Foreign Employment', 'Shifted From 101', '2019-04-12 03:59:21', '2019-04-12 03:59:21', NULL, NULL, NULL, NULL),
+(2670, 2, 1879, NULL, '2019-04-12', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-04-13 01:07:48', '2019-04-12 19:22:48', '5915', '5800', NULL, '115'),
+(2671, 2, 2018, '3:30: PM', '2019-04-12', 2, NULL, '3', 'Family', 'Visit', NULL, '2019-04-12 04:00:41', '2019-04-12 04:00:41', NULL, NULL, NULL, NULL),
+(2672, 2, 1268, '7:49: PM', '2019-04-12', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-13 01:03:25', '2019-04-12 19:18:25', '2850', '2850', NULL, NULL),
+(2673, 2, 1381, '7:51: PM', '2019-04-12', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-13 00:58:56', '2019-04-12 19:13:56', '2035', '2000', NULL, '35'),
+(2674, 2, 2021, '8:46: PM', '2019-04-12', 6, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-13 05:05:24', '2019-04-12 23:20:24', '1930', '1930', NULL, NULL),
+(2675, 2, 2022, '8:47: PM', '2019-04-12', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-13 03:59:10', '2019-04-12 22:14:10', '1660', '1650', NULL, '10'),
+(2676, 2, 1144, '10:27: PM', '2019-04-12', 7, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-13 07:20:10', '2019-04-13 01:35:10', '1000', '1000', NULL, NULL),
+(2677, 2, 2023, '1:05: PM', '2019-04-13', 7, '1', '1', 'Family', 'Visit', '1100', '2019-04-13 08:35:08', '2019-04-13 02:50:08', '1410', '1400', NULL, '10'),
+(2678, 2, 2018, NULL, '2019-04-13', 1, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-13 03:00:37', '2019-04-13 03:00:37', NULL, NULL, NULL, NULL),
+(2679, 2, 2018, NULL, '2019-04-13', 2, NULL, '3', 'Family', 'Visit', NULL, '2019-04-13 03:00:43', '2019-04-13 03:00:43', NULL, NULL, NULL, NULL),
+(2680, 2, 1202, NULL, '2019-04-13', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-13 03:00:51', '2019-04-13 03:00:51', NULL, NULL, NULL, NULL),
+(2681, 2, 1918, NULL, '2019-04-13', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-13 03:00:56', '2019-04-13 03:00:56', NULL, NULL, NULL, NULL),
+(2682, 2, 1986, NULL, '2019-04-13', 11, '4', NULL, 'Friends', 'Foreign Employment', 'Shifted From 101', '2019-04-14 02:21:18', '2019-04-13 20:36:18', '21205', NULL, '21205', NULL),
+(2683, 2, 1447, NULL, '2019-04-13', 18, '1', NULL, 'Single', 'Official', NULL, '2019-04-13 03:01:13', '2019-04-13 03:01:13', NULL, NULL, NULL, NULL),
+(2684, 2, 1801, '2:33: PM', '2019-04-13', 13, '1', '1', 'Family', 'Visit', NULL, '2019-04-14 02:19:43', '2019-04-13 20:34:43', '2345', '2300', NULL, '45'),
+(2685, 2, 1946, '3:44: PM', '2019-04-13', 4, '1', NULL, 'Single', 'Visit', NULL, '2019-04-13 12:43:17', '2019-04-13 06:58:17', '550', '500', NULL, '50'),
+(2686, 2, 1039, '10:44: AM', '2019-04-14', 2, '1', '1', 'Family', 'Visit', NULL, '2019-04-15 11:32:24', '2019-04-15 05:47:24', '1330', '1200', NULL, '130'),
+(2687, 2, 1402, '11:04: AM', '2019-04-14', 16, '1', NULL, 'Single', 'Business', NULL, '2019-04-15 11:37:49', '2019-04-15 05:52:49', '1290', '1290', NULL, NULL),
+(2688, 2, 2018, NULL, '2019-04-14', 1, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-14 15:34:26', '2019-04-14 09:49:26', '13000', '13000', NULL, NULL),
+(2689, 2, 1202, NULL, '2019-04-14', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-14 03:05:47', '2019-04-14 03:05:47', NULL, NULL, NULL, NULL),
+(2690, 2, 1918, NULL, '2019-04-14', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-14 03:05:55', '2019-04-14 03:05:55', NULL, NULL, NULL, NULL),
+(2691, 2, 1447, NULL, '2019-04-14', 18, '1', NULL, 'Single', 'Official', NULL, '2019-04-14 03:06:04', '2019-04-14 03:06:04', NULL, NULL, NULL, NULL),
+(2692, 2, 2025, '8:50: PM', '2019-04-14', 6, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-15 11:33:17', '2019-04-15 05:48:17', '1680', '1680', NULL, NULL),
+(2693, 2, 2026, '8:54: PM', '2019-04-14', 11, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-15 11:35:20', '2019-04-15 05:50:20', '1410', '1400', NULL, '10'),
+(2694, 2, 2027, '8:58: PM', '2019-04-14', 9, '1', '2', 'Family', 'Visit', NULL, '2019-04-15 11:34:20', '2019-04-15 05:49:20', '2090', '2000', NULL, '90'),
+(2695, 2, 2027, '9:18: PM', '2019-04-14', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-14 09:48:25', '2019-04-14 09:48:25', NULL, NULL, NULL, NULL),
+(2696, 2, 2029, '9:34: PM', '2019-04-14', 15, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-15 11:37:10', '2019-04-15 05:52:10', '600', '600', NULL, NULL),
+(2697, 2, 1202, NULL, '2019-04-15', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-16 12:30:29', '2019-04-16 06:45:29', '10030', '10000', NULL, '30'),
+(2698, 2, 1918, NULL, '2019-04-15', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-15 05:49:36', '2019-04-15 05:49:36', NULL, NULL, NULL, NULL),
+(2699, 2, 1447, NULL, '2019-04-15', 18, '1', NULL, 'Single', 'Official', NULL, '2019-04-17 13:06:04', '2019-04-17 07:21:04', '6655', NULL, '6655', NULL),
+(2700, 2, 1759, '5:25: PM', '2019-04-15', 11, '6', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-15 05:55:08', '2019-04-15 05:55:08', NULL, NULL, NULL, NULL),
+(2701, 2, 1501, '6:31: PM', '2019-04-15', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-04-16 03:40:49', '2019-04-15 21:55:49', '1010', '1000', NULL, '10'),
+(2702, 2, 2030, '6:34: PM', '2019-04-15', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-16 03:41:23', '2019-04-15 21:56:23', '700', '700', NULL, NULL),
+(2703, 2, 2031, '11:32: AM', '2019-04-16', 15, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-16 00:02:58', '2019-04-16 00:02:58', NULL, NULL, NULL, NULL),
+(2704, 2, 2032, '6:04: PM', '2019-04-16', 8, '2', '1', 'Family', 'Visit', NULL, '2019-04-17 04:24:09', '2019-04-16 22:39:09', '1410', '1400', NULL, '10'),
+(2705, 2, 1180, '6:07: PM', '2019-04-16', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-17 13:04:53', '2019-04-17 07:19:53', '2245', '2200', NULL, '45'),
+(2706, 2, 2033, '6:11: PM', '2019-04-16', 12, '1', NULL, 'Single', 'Official', NULL, '2019-04-17 04:25:04', '2019-04-16 22:40:04', '1620', '1620', NULL, NULL),
+(2707, 2, 2034, '6:15: PM', '2019-04-16', 3, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-16 06:45:57', '2019-04-16 06:45:57', NULL, NULL, NULL, NULL),
+(2708, 2, 1870, '6:49: PM', '2019-04-17', 2, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-18 11:24:11', '2019-04-18 05:39:11', '1120', '1120', NULL, NULL),
+(2709, 2, 1918, NULL, '2019-04-17', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-17 07:20:14', '2019-04-17 07:20:14', NULL, NULL, NULL, NULL),
+(2710, 2, 1759, NULL, '2019-04-17', 11, '6', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-17 07:20:23', '2019-04-17 07:20:23', NULL, NULL, NULL, NULL),
+(2711, 2, 1029, '6:52: PM', '2019-04-17', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-17 07:22:36', '2019-04-17 07:22:36', NULL, NULL, NULL, NULL),
+(2712, 2, 1029, '6:52: PM', '2019-04-17', 13, '2', '1', 'Family', 'Visit', NULL, '2019-04-17 07:22:52', '2019-04-17 07:22:52', NULL, NULL, NULL, NULL),
+(2713, 2, 2035, '6:55: PM', '2019-04-17', 6, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-18 11:25:04', '2019-04-18 05:40:04', '2040', '1900', NULL, '140'),
+(2714, 2, 1029, NULL, '2019-04-18', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-18 05:41:42', '2019-04-18 05:41:42', NULL, NULL, NULL, NULL),
+(2715, 2, 1918, NULL, '2019-04-18', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-18 05:41:47', '2019-04-18 05:41:47', NULL, NULL, NULL, NULL),
+(2716, 2, 1759, NULL, '2019-04-18', 11, '6', NULL, 'Friends', 'Foreign Employment', NULL, '2019-04-19 12:40:39', '2019-04-19 06:55:39', '15670', '14690', NULL, '980'),
+(2717, 2, 1029, NULL, '2019-04-18', 13, '2', '1', 'Family', 'Visit', NULL, '2019-04-18 05:41:59', '2019-04-18 05:41:59', NULL, NULL, NULL, NULL),
+(2718, 2, 2036, '5:47: PM', '2019-04-18', 17, '1', NULL, 'Single', 'Visit', NULL, '2019-04-19 12:47:14', '2019-04-19 07:02:14', '800', '800', NULL, NULL),
+(2719, 2, 2037, '6:49: PM', '2019-04-17', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-18 07:19:54', '2019-04-18 07:19:54', NULL, NULL, NULL, NULL),
+(2720, 2, 2037, NULL, '2019-04-18', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-18 07:20:01', '2019-04-18 07:20:01', NULL, NULL, NULL, NULL),
+(2721, 2, 2038, '7:30: PM', '2019-04-18', 6, '1', '2', 'Family', 'Visit', NULL, '2019-04-19 12:43:57', '2019-04-19 06:58:57', '1170', '1170', NULL, NULL),
+(2722, 2, 2039, '9:11: PM', '2019-04-18', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-19 12:42:16', '2019-04-19 06:57:16', '500', '450', NULL, '50'),
+(2723, 2, 1648, '9:24: PM', '2019-04-18', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-18 09:54:04', '2019-04-18 09:54:04', NULL, NULL, NULL, NULL),
+(2724, 2, 2040, '9:48: PM', '2019-04-18', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-04-19 12:46:11', '2019-04-19 07:01:11', '1760', '1760', NULL, NULL),
+(2725, 2, 2041, '6:26: PM', '2019-04-19', 11, '5', NULL, 'Family', 'Visit', NULL, '2019-04-20 03:55:01', '2019-04-19 22:10:01', '500', '500', NULL, NULL),
+(2726, 2, 1029, NULL, '2019-04-19', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-20 03:48:55', '2019-04-19 22:03:55', '10810', '8800', '1800 room jodn xuteko', '210'),
+(2727, 2, 1918, NULL, '2019-04-19', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-19 06:59:18', '2019-04-19 06:59:18', NULL, NULL, NULL, NULL),
+(2728, 2, 1029, NULL, '2019-04-19', 13, '2', '1', 'Family', 'Visit', NULL, '2019-04-19 06:59:40', '2019-04-19 06:59:40', NULL, NULL, NULL, NULL),
+(2729, 2, 2037, NULL, '2019-04-19', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-19 06:59:47', '2019-04-19 06:59:47', NULL, NULL, NULL, NULL),
+(2730, 2, 2042, '7:14: PM', '2019-04-19', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-20 03:54:02', '2019-04-19 22:09:02', '1270', '1270', NULL, NULL),
+(2731, 2, 2040, '7:46: PM', '2019-04-19', 12, '1', NULL, 'Single', 'Visit', NULL, '2019-04-19 08:16:19', '2019-04-19 08:16:19', NULL, NULL, NULL, NULL),
+(2732, 2, 2044, '7:59: PM', '2019-04-19', 17, '1', '1', 'Family', 'Visit', NULL, '2019-04-19 08:29:41', '2019-04-19 08:29:41', NULL, NULL, NULL, NULL),
+(2733, 2, 2045, '12:37: PM', '2019-04-20', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-20 08:17:18', '2019-04-20 02:32:18', '840', '840', NULL, NULL),
+(2734, 2, 1918, NULL, '2019-04-20', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-20 02:32:32', '2019-04-20 02:32:32', NULL, NULL, NULL, NULL),
+(2735, 2, 2040, NULL, '2019-04-20', 12, '1', NULL, 'Single', 'Visit', NULL, '2019-04-20 15:29:39', '2019-04-20 09:44:39', '2050', '1700', NULL, '350'),
+(2736, 2, 2037, NULL, '2019-04-20', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-20 02:32:43', '2019-04-20 02:32:43', NULL, NULL, NULL, NULL),
+(2737, 2, 2044, NULL, '2019-04-20', 17, '1', '1', 'Family', 'Visit', NULL, '2019-04-20 15:28:46', '2019-04-20 09:43:46', '1670', '1670', NULL, NULL),
+(2738, 2, 1878, '2:04: PM', '2019-04-20', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-04-20 02:34:57', '2019-04-20 02:34:57', NULL, NULL, NULL, NULL),
+(2739, 2, 1995, '4:39: PM', '2019-04-20', 6, '5', NULL, 'Friends', 'Visit', NULL, '2019-04-21 10:36:38', '2019-04-21 04:51:38', '2650', '2650', NULL, NULL),
+(2740, 2, 1730, '6:29: PM', '2019-04-20', 3, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-20 06:59:24', '2019-04-20 06:59:24', NULL, NULL, NULL, NULL),
+(2741, 2, 2046, '7:49: PM', '2019-04-20', 15, '2', NULL, 'Brothers', 'Visit', NULL, '2019-04-21 10:39:20', '2019-04-21 04:54:20', '1260', '1260', NULL, NULL),
+(2742, 2, 2047, '9:58: PM', '2019-04-20', 2, '1', NULL, 'Single', 'Foreign Employment', 'Shift to 104', '2019-04-21 10:35:03', '2019-04-21 04:50:03', NULL, NULL, NULL, NULL),
+(2743, 2, 1603, '10:00: PM', '2019-04-20', 12, '2', NULL, 'Friends', 'Job', 'Account on 207', '2019-04-21 01:10:43', '2019-04-20 19:25:43', NULL, NULL, NULL, NULL),
+(2744, 2, 1603, '10:00: PM', '2019-04-20', 13, NULL, '2', 'Friends', 'Visit', 'Chhiring Friends Account of 206 also', '2019-04-21 01:10:22', '2019-04-20 19:25:22', '6500', '5100', '1400', NULL),
+(2745, 2, 2037, '10:28: PM', '2019-04-20', 4, '1', '1', 'Family', 'Visit', 'vatij Account on 302', '2019-04-21 10:35:38', '2019-04-21 04:50:38', NULL, NULL, NULL, NULL),
+(2746, 2, 2048, '6:45: AM', '2019-04-21', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-20 19:15:50', '2019-04-20 19:15:50', NULL, NULL, NULL, NULL),
+(2747, 2, 1144, '4:08: PM', '2019-04-21', 13, '2', NULL, 'Father Son', 'Educational', NULL, '2019-04-21 04:38:42', '2019-04-21 04:38:42', NULL, NULL, NULL, NULL),
+(2748, 2, 1730, NULL, '2019-04-21', 3, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-22 09:12:10', '2019-04-22 03:27:10', '2700', '2650', NULL, '50'),
+(2749, 2, 1878, NULL, '2019-04-21', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-04-21 04:51:03', '2019-04-21 04:51:03', NULL, NULL, NULL, NULL),
+(2750, 2, 1918, NULL, '2019-04-21', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-21 04:53:24', '2019-04-21 04:53:24', NULL, NULL, NULL, NULL),
+(2751, 2, 2037, NULL, '2019-04-21', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-21 04:53:31', '2019-04-21 04:53:31', NULL, NULL, NULL, NULL),
+(2752, 2, 2049, '4:33: PM', '2019-04-21', 6, '6', NULL, 'Family', 'Educational', NULL, '2019-04-21 05:03:10', '2019-04-21 05:03:10', NULL, NULL, NULL, NULL),
+(2753, 2, 2050, '5:13: PM', '2019-04-21', 18, '1', '1', 'Family', 'Official', NULL, '2019-04-21 05:43:29', '2019-04-21 05:43:29', NULL, NULL, NULL, NULL),
+(2754, 2, 2051, '5:45: PM', '2019-04-21', 16, '1', '1', 'Family', 'Medicine', 'Halchowk APF', '2019-04-21 06:15:36', '2019-04-21 06:15:36', NULL, NULL, NULL, NULL),
+(2755, 2, 2047, NULL, '2019-04-21', 2, '1', NULL, 'Single', 'Foreign Employment', 'Shift to 104', '2019-04-22 09:11:35', '2019-04-22 03:26:35', '3400', '3300', NULL, '100'),
+(2756, 2, 2052, '7:22: PM', '2019-04-21', 15, '2', NULL, 'Father Son', 'Visit', NULL, '2019-04-21 07:52:11', '2019-04-21 07:52:11', NULL, NULL, NULL, NULL),
+(2757, 2, 2053, '8:30: PM', '2019-04-21', 17, '1', '1', 'Family', 'Visit', NULL, '2019-04-21 09:00:46', '2019-04-21 09:00:46', NULL, NULL, NULL, NULL),
+(2758, 2, 2016, '10:27: PM', '2019-04-21', 1, '2', NULL, 'Friends', 'Business', 'sabji bepari', '2019-04-22 09:06:07', '2019-04-22 03:21:07', '1485', '1000', '485', NULL),
+(2759, 2, 2049, NULL, '2019-04-22', 6, '6', NULL, 'Family', 'Educational', NULL, '2019-04-23 09:31:33', '2019-04-23 03:46:33', '6520', '6520', NULL, NULL),
+(2760, 2, 2048, NULL, '2019-04-22', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-22 03:22:02', '2019-04-22 03:22:02', NULL, NULL, NULL, NULL),
+(2761, 2, 1144, NULL, '2019-04-22', 13, '2', NULL, 'Father Son', 'Educational', NULL, '2019-04-23 09:35:50', '2019-04-23 03:50:50', '2920', '2900', NULL, '20'),
+(2762, 2, 1878, NULL, '2019-04-22', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-04-22 03:22:19', '2019-04-22 03:22:19', NULL, NULL, NULL, NULL),
+(2763, 2, 1918, NULL, '2019-04-22', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-22 03:22:46', '2019-04-22 03:22:46', NULL, NULL, NULL, NULL),
+(2764, 2, 2037, NULL, '2019-04-22', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-22 03:22:54', '2019-04-22 03:22:54', NULL, NULL, NULL, NULL),
+(2765, 2, 2050, NULL, '2019-04-22', 18, '1', '1', 'Family', 'Official', NULL, '2019-04-23 09:39:17', '2019-04-23 03:54:17', '2520', '2500', NULL, '20'),
+(2766, 2, 2051, NULL, '2019-04-22', 16, '1', '1', 'Family', 'Medicine', 'Halchowk APF', '2019-04-23 09:38:25', '2019-04-23 03:53:25', '1960', '1960', NULL, NULL),
+(2767, 2, 2052, NULL, '2019-04-22', 15, '2', NULL, 'Father Son', 'Visit', NULL, '2019-04-22 09:12:46', '2019-04-22 03:27:46', '1575', '1575', NULL, NULL),
+(2768, 2, 2053, NULL, '2019-04-22', 17, '1', '1', 'Family', 'Visit', NULL, '2019-04-22 03:24:54', '2019-04-22 03:24:54', NULL, NULL, NULL, NULL),
+(2769, 2, 1781, '4:31: PM', '2019-04-22', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-04-23 09:29:37', '2019-04-23 03:44:37', '1000', '1000', NULL, NULL),
+(2770, 2, 2054, '4:40: PM', '2019-04-22', 1, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-23 09:25:02', '2019-04-23 03:40:02', '1375', '1370', NULL, '5'),
+(2771, 2, 1421, '5:50: PM', '2019-04-22', 2, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-23 09:26:11', '2019-04-23 03:41:11', '1130', '1130', NULL, NULL),
+(2772, 2, 1184, '6:20: PM', '2019-04-22', 15, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-23 09:37:33', '2019-04-23 03:52:33', '1430', '1430', NULL, NULL),
+(2773, 2, 1878, NULL, '2019-04-23', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-04-24 13:47:47', '2019-04-24 08:02:47', '4185', '4000', NULL, '185'),
+(2774, 2, 2048, NULL, '2019-04-23', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-23 03:47:15', '2019-04-23 03:47:15', NULL, NULL, NULL, NULL),
+(2775, 2, 1918, NULL, '2019-04-23', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-23 03:47:21', '2019-04-23 03:47:21', NULL, NULL, NULL, NULL),
+(2776, 2, 2037, NULL, '2019-04-23', 14, '1', NULL, 'Single', 'Official', NULL, '2019-04-24 08:58:30', '2019-04-24 03:13:30', '11300', '11300', NULL, NULL),
+(2777, 2, 2053, NULL, '2019-04-23', 17, '1', '1', 'Family', 'Visit', NULL, '2019-04-23 14:24:41', '2019-04-23 08:39:41', '6050', '6050', NULL, NULL),
+(2779, 2, 2055, '7:46: PM', '2019-04-23', 13, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 08:04:29', '2019-04-24 02:19:29', '2250', '2250', NULL, NULL),
+(2780, 2, 2056, '7:48: PM', '2019-04-23', 3, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 07:54:59', '2019-04-24 02:09:59', '1590', '1590', NULL, NULL),
+(2781, 2, 2057, '7:51: PM', '2019-04-23', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 07:57:08', '2019-04-24 02:12:08', '1200', '1200', NULL, NULL),
+(2782, 2, 1409, '7:52: PM', '2019-04-23', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-04-24 08:59:42', '2019-04-24 03:14:42', '1765', '1765', NULL, NULL),
+(2783, 2, 2058, '8:07: PM', '2019-04-23', 11, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-23 08:37:58', '2019-04-23 08:37:58', NULL, NULL, NULL, NULL),
+(2784, 2, 1062, '8:14: PM', '2019-04-23', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-23 08:44:21', '2019-04-23 08:44:21', NULL, NULL, NULL, NULL),
+(2785, 2, 2048, NULL, '2019-04-24', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-24 02:10:24', '2019-04-24 02:10:24', NULL, NULL, NULL, NULL),
+(2786, 2, 1062, NULL, '2019-04-24', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-24 02:10:32', '2019-04-24 02:10:32', NULL, NULL, NULL, NULL),
+(2787, 2, 2058, NULL, '2019-04-24', 11, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-24 02:10:40', '2019-04-24 02:10:40', NULL, NULL, NULL, NULL),
+(2788, 2, 1918, NULL, '2019-04-24', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-24 02:12:28', '2019-04-24 02:12:28', NULL, NULL, NULL, NULL),
+(2789, 2, 1409, NULL, '2019-04-24', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-04-24 03:14:54', '2019-04-24 03:14:54', NULL, NULL, NULL, NULL),
+(2790, 2, 1357, '5:37: PM', '2019-04-24', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 06:07:49', '2019-04-24 06:07:49', NULL, NULL, NULL, NULL),
+(2791, 2, 1509, '5:38: PM', '2019-04-24', 13, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 06:08:40', '2019-04-24 06:08:40', NULL, NULL, NULL, NULL),
+(2792, 2, 2053, '7:35: PM', '2019-04-24', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-24 08:05:03', '2019-04-24 08:05:03', NULL, NULL, NULL, NULL),
+(2793, 2, 2059, '8:53: PM', '2019-04-24', 17, '3', NULL, 'Friends', 'Visit', 'Security Guard friend', '2019-04-25 03:02:38', '2019-04-24 21:17:38', '3920', '3900', NULL, '20'),
+(2794, 2, 2059, '8:54: PM', '2019-04-24', 15, '3', NULL, 'Friends', 'Visit', 'Account on 306', '2019-04-25 03:03:01', '2019-04-24 21:18:01', NULL, NULL, NULL, NULL),
+(2795, 2, 1409, '8:55: PM', '2019-04-24', 14, '1', NULL, 'Single', 'Visit', NULL, '2019-04-25 07:17:48', '2019-04-25 01:32:48', '1505', '1450', NULL, '55'),
+(2796, 2, 1534, '9:06: PM', '2019-04-24', 1, '3', NULL, 'Friends', 'Visit', NULL, '2019-04-25 07:20:55', '2019-04-25 01:35:55', '4650', '4650', NULL, NULL),
+(2797, 2, 1784, '10:37: PM', '2019-04-24', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-04-25 03:03:48', '2019-04-24 21:18:48', '1390', '1350', NULL, '40'),
+(2798, 2, 2060, '1:03: PM', '2019-04-25', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-25 01:33:20', '2019-04-25 01:33:20', NULL, NULL, NULL, NULL),
+(2799, 2, 1357, NULL, '2019-04-25', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 07:59:11', '2019-04-25 02:14:11', '4200', '4200', NULL, NULL),
+(2800, 2, 2048, NULL, '2019-04-25', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-25 01:38:57', '2019-04-25 01:38:57', NULL, NULL, NULL, NULL),
+(2801, 2, 1062, NULL, '2019-04-25', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-25 01:39:10', '2019-04-25 01:39:10', NULL, NULL, NULL, NULL),
+(2802, 2, 1918, NULL, '2019-04-25', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-25 01:39:18', '2019-04-25 01:39:18', NULL, NULL, NULL, NULL),
+(2803, 2, 2061, '1:30: PM', '2019-04-25', 13, '1', NULL, 'Single', 'v', NULL, '2019-04-26 03:22:38', '2019-04-25 21:37:38', '1460', '1450', NULL, '10'),
+(2804, 2, 2062, '2:59: PM', '2019-04-25', 5, '1', '1', 'Family', 'Visit', NULL, '2019-04-26 05:52:55', '2019-04-26 00:07:55', '1070', '1050', NULL, '20'),
+(2805, 2, 2063, '3:21: PM', '2019-04-25', 16, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 13:58:11', '2019-04-25 08:13:11', '700', '700', NULL, NULL),
+(2806, 2, 2053, NULL, '2019-04-25', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 04:25:49', '2019-04-25 04:25:49', NULL, NULL, NULL, NULL),
+(2807, 2, 2053, NULL, '2019-04-25', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 04:25:49', '2019-04-25 04:25:49', NULL, NULL, NULL, NULL),
+(2808, 2, 1501, '3:56: PM', '2019-04-25', 3, '1', NULL, NULL, 'Visit', NULL, '2019-04-25 04:26:55', '2019-04-25 04:26:55', NULL, NULL, NULL, NULL),
+(2809, 2, 1501, '4:10: PM', '2019-04-25', 17, '1', NULL, NULL, 'Visit', NULL, '2019-04-26 03:24:27', '2019-04-25 21:39:27', '930', '930', NULL, NULL),
+(2810, 2, 1147, '5:59: PM', '2019-04-25', 2, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 14:31:45', '2019-04-25 08:46:45', '730', '700', NULL, '30'),
+(2811, 2, 2065, '7:43: PM', '2019-04-25', 16, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 15:17:32', '2019-04-25 09:32:32', '940', '840', NULL, '100'),
+(2812, 2, 2064, '7:44: PM', '2019-04-25', 11, '1', NULL, 'Single', 'Visit', NULL, '2019-04-26 03:20:56', '2019-04-25 21:35:56', '2000', '2000', NULL, NULL),
+(2813, 2, 2066, '8:08: PM', '2019-04-25', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-26 03:23:48', '2019-04-25 21:38:48', '1800', '1800', NULL, NULL),
+(2814, 2, 1255, '9:01: PM', '2019-04-25', 1, '6', NULL, 'Friends', 'Job', NULL, '2019-04-26 03:01:38', '2019-04-25 21:16:38', '4605', '4575', NULL, '30'),
+(2816, 2, 1255, '11:02: PM', '2019-04-25', 3, '1', '1', 'Family', 'Job', NULL, '2019-04-25 11:32:52', '2019-04-25 11:32:52', NULL, NULL, NULL, NULL),
+(2817, 2, 2067, '11:03: PM', '2019-04-25', 2, '2', NULL, 'Friends', 'Business', NULL, '2019-04-25 11:33:10', '2019-04-25 11:33:10', NULL, NULL, NULL, NULL),
+(2818, 2, 2053, '9:06: AM', '2019-04-24', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-25 21:36:54', '2019-04-25 21:36:54', NULL, NULL, NULL, NULL),
+(2819, 2, 2068, '1:42: PM', '2019-04-26', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-26 02:12:11', '2019-04-26 02:12:11', NULL, NULL, NULL, NULL),
+(2820, 2, 2048, NULL, '2019-04-26', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-27 12:58:15', '2019-04-27 07:13:15', '7615', '7500', NULL, '115'),
+(2821, 2, 1062, NULL, '2019-04-26', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-26 07:14:58', '2019-04-26 07:14:58', NULL, NULL, NULL, NULL),
+(2822, 2, 1918, NULL, '2019-04-26', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-26 07:15:03', '2019-04-26 07:15:03', NULL, NULL, NULL, NULL),
+(2823, 2, 2053, NULL, '2019-04-26', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-26 07:15:10', '2019-04-26 07:15:10', NULL, NULL, NULL, NULL),
+(2824, 2, 2060, NULL, '2019-04-26', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-27 05:47:24', '2019-04-27 00:02:24', '11315', '6240', '5075', NULL),
+(2825, 2, 1128, '6:47: PM', '2019-04-26', 16, '1', '1', 'Family', 'Visit', NULL, '2019-04-27 05:50:17', '2019-04-27 00:05:17', '1030', '1000', NULL, '30'),
+(2826, 2, 1144, '6:48: PM', '2019-04-26', 13, '1', NULL, NULL, 'Visit', NULL, '2019-04-26 07:18:24', '2019-04-26 07:18:24', NULL, NULL, NULL, NULL),
+(2827, 2, 1190, '7:52: PM', '2019-04-26', 3, '4', NULL, 'Friends', 'Visit', NULL, '2019-04-27 05:51:57', '2019-04-27 00:06:57', '1310', '1300', NULL, '10'),
+(2828, 2, 2069, '8:10: PM', '2019-04-26', 15, '1', '1', 'Family', 'Visit', NULL, '2019-04-27 08:19:12', '2019-04-27 02:34:12', '1945', '1945', NULL, NULL),
+(2829, 2, 1700, '11:32: AM', '2019-04-27', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-27 00:02:55', '2019-04-27 00:02:55', NULL, NULL, NULL, NULL),
+(2830, 2, 2070, '1:05: PM', '2019-04-27', 17, '1', NULL, 'Single', 'Foreign Employment', 'Shaugat sir', '2019-04-28 06:14:16', '2019-04-28 00:29:16', '8000', NULL, NULL, NULL),
+(2831, 2, 2068, NULL, '2019-04-27', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-27 02:34:54', '2019-04-27 02:34:54', NULL, NULL, NULL, NULL),
+(2832, 2, 1062, NULL, '2019-04-27', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-27 02:35:02', '2019-04-27 02:35:02', NULL, NULL, NULL, NULL),
+(2833, 2, 1918, NULL, '2019-04-27', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-27 02:35:09', '2019-04-27 02:35:09', NULL, NULL, NULL, NULL),
+(2834, 2, 1251, '2:08: PM', '2019-04-27', 16, '2', '1', 'Family', 'Visit', NULL, '2019-04-27 14:05:02', '2019-04-27 08:20:02', '700', '700', NULL, NULL),
+(2835, 2, 1144, NULL, '2019-04-27', 13, '1', NULL, NULL, 'Visit', NULL, '2019-04-27 02:40:26', '2019-04-27 02:40:26', NULL, NULL, NULL, NULL),
+(2836, 2, 2071, '4:41: PM', '2019-04-27', 1, '4', NULL, 'Family', 'Visit', NULL, '2019-04-28 06:08:21', '2019-04-28 00:23:21', '2565', '2550', NULL, '15'),
+(2837, 2, 1039, '6:43: PM', '2019-04-27', 8, '1', '1', 'Family', 'Visit', NULL, '2019-04-28 07:28:29', '2019-04-28 01:43:29', '2040', '1900', NULL, '140'),
+(2838, 2, 2053, NULL, '2019-04-27', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-28 11:01:49', '2019-04-28 05:16:49', '5505', '5400', NULL, '105'),
+(2839, 2, 2072, '7:09: PM', '2019-04-27', 5, '1', NULL, NULL, 'Visit', NULL, '2019-04-28 06:11:15', '2019-04-28 00:26:15', '1340', '1340', NULL, NULL),
+(2840, 2, 1597, '7:50: PM', '2019-04-27', 16, '1', '1', 'Family', 'Visit', NULL, '2019-04-28 06:13:00', '2019-04-28 00:28:00', '980', '980', NULL, NULL),
+(2841, 2, 2073, '12:52: PM', '2019-04-28', 11, '5', NULL, 'Friends', 'Tracking', '402 also', '2019-04-29 07:09:43', '2019-04-29 01:24:43', '2340', '2240', NULL, '100'),
+(2842, 2, 2073, '12:52: PM', '2019-04-28', 18, '3', NULL, 'Friends', 'Tracking', 'Account on 205', '2019-04-29 07:10:28', '2019-04-29 01:25:28', NULL, NULL, NULL, NULL),
+(2843, 2, 2068, NULL, '2019-04-28', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-28 01:43:12', '2019-04-28 01:43:12', NULL, NULL, NULL, NULL),
+(2844, 2, 1144, '1:14: PM', '2019-04-28', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-04-29 07:12:06', '2019-04-29 01:27:06', '3880', '3880', NULL, NULL),
+(2845, 2, 1700, NULL, '2019-04-28', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-28 16:25:54', '2019-04-28 10:40:54', '3190', '3070', NULL, '120'),
+(2846, 2, 1918, '1:17: PM', '2019-04-28', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-28 01:47:25', '2019-04-28 01:47:25', NULL, NULL, NULL, NULL),
+(2847, 2, 2074, '4:43: PM', '2019-04-28', 16, '1', '1', 'Family', 'Visit', NULL, '2019-04-28 13:06:51', '2019-04-28 07:21:51', '700', '700', NULL, NULL),
+(2848, 2, 2075, '4:45: PM', '2019-04-28', 5, '1', NULL, 'Single', 'Shopping', NULL, '2019-04-29 07:17:40', '2019-04-29 01:32:40', '1190', '1190', NULL, NULL),
+(2849, 2, 2076, '5:43: PM', '2019-04-28', 15, '3', '1', 'Family', 'Medicine', NULL, '2019-04-28 06:13:27', '2019-04-28 06:13:27', NULL, NULL, NULL, NULL),
+(2850, 2, 1062, NULL, '2019-04-28', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-28 06:16:13', '2019-04-28 06:16:13', NULL, NULL, NULL, NULL),
+(2851, 2, 2077, '6:52: PM', '2019-04-28', 16, '2', '1', 'Family', 'Visit', NULL, '2019-04-28 07:22:27', '2019-04-28 07:22:27', NULL, NULL, NULL, NULL),
+(2852, 2, 1763, '6:56: PM', '2019-04-28', 8, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-29 07:16:30', '2019-04-29 01:31:30', '2210', '2200', NULL, '10'),
+(2853, 2, 1207, '6:58: PM', '2019-04-28', 12, '1', '1', 'Family', 'Visit', NULL, '2019-04-28 16:56:46', '2019-04-28 11:11:46', '2260', '2260', NULL, NULL),
+(2854, 2, 2078, '7:53: PM', '2019-04-28', 7, '1', '1', 'Family', 'Visit', NULL, '2019-04-29 07:13:47', '2019-04-29 01:28:47', '2650', '2600', NULL, '50'),
+(2855, 2, 2079, '10:11: PM', '2019-04-28', 14, '2', '2', 'Family', 'Visit', NULL, '2019-04-29 07:14:54', '2019-04-29 01:29:54', '1360', '1360', NULL, NULL),
+(2856, 2, 2080, '10:41: PM', '2019-04-28', 17, '4', NULL, 'Friends', 'Visit', NULL, '2019-04-29 07:15:47', '2019-04-29 01:30:47', '1840', '1800', NULL, '40'),
+(2857, 2, 2068, NULL, '2019-04-29', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-29 04:05:17', '2019-04-29 04:05:17', NULL, NULL, NULL, NULL),
+(2858, 2, 1918, NULL, '2019-04-29', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-29 04:05:25', '2019-04-29 04:05:25', NULL, NULL, NULL, NULL),
+(2859, 2, 2076, NULL, '2019-04-29', 15, '3', '1', 'Family', 'Medicine', NULL, '2019-04-30 16:14:55', '2019-04-30 10:29:55', '2860', '2800', NULL, '60'),
+(2860, 2, 2077, NULL, '2019-04-29', 16, '2', '1', 'Family', 'Visit', NULL, '2019-04-29 10:01:21', '2019-04-29 04:16:21', '1620', '1600', NULL, '20'),
+(2861, 2, 2068, '3:40: PM', '2019-04-29', 13, '1', '1', 'Family', 'Visit', NULL, '2019-04-29 04:10:53', '2019-04-29 04:10:53', NULL, NULL, NULL, NULL),
+(2862, 2, 1062, NULL, '2019-04-29', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-04-30 16:12:03', '2019-04-30 10:27:03', '6030', '6000', NULL, '30'),
+(2863, 2, 2018, '3:44: PM', '2019-04-29', 8, '2', NULL, 'Brothers', 'Foreign Employment', NULL, '2019-04-29 14:06:17', '2019-04-29 08:21:17', '1280', '1280', NULL, NULL),
+(2864, 2, 2081, '7:49: PM', '2019-04-29', 17, NULL, '2', 'Friends', 'Foreign Study', NULL, '2019-04-29 08:19:54', '2019-04-29 08:19:54', NULL, NULL, NULL, NULL),
+(2865, 2, 2037, '7:52: PM', '2019-04-29', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-29 08:22:54', '2019-04-29 08:22:54', NULL, NULL, NULL, NULL),
+(2866, 2, 2082, '8:02: PM', '2019-04-29', 14, '1', NULL, 'Single', 'Visit', 'Ganesh friend', '2019-04-30 16:13:54', '2019-04-30 10:28:54', '1655', '1655', NULL, NULL),
+(2867, 2, 2037, '8:08: PM', '2019-04-29', 5, '1', '1', 'Family', 'Visit', 'Gurung dai vatij', '2019-04-29 08:38:42', '2019-04-29 08:38:42', NULL, NULL, NULL, NULL),
+(2868, 2, 1532, '8:11: PM', '2019-04-29', 6, '2', NULL, 'Friends', 'Visit', NULL, '2019-04-30 16:10:41', '2019-04-30 10:25:41', '660', '660', NULL, NULL),
+(2869, 2, 2083, '10:43: PM', '2019-04-29', 11, '4', NULL, 'Family', 'Visit', NULL, '2019-04-30 16:13:06', '2019-04-30 10:28:06', '1880', '1790', NULL, '90'),
+(2870, 2, 2084, '11:51: PM', '2019-04-29', 1, '1', '1', 'Family', 'Visit', NULL, '2019-04-30 16:09:35', '2019-04-30 10:24:35', '830', '830', NULL, NULL),
+(2871, 2, 2068, NULL, '2019-04-30', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-04-30 10:25:03', '2019-04-30 10:25:03', NULL, NULL, NULL, NULL),
+(2872, 2, 2037, NULL, '2019-04-30', 5, '1', '1', 'Family', 'Visit', 'Gurung dai vatij', '2019-04-30 10:25:12', '2019-04-30 10:25:12', NULL, NULL, NULL, NULL),
+(2873, 2, 2037, NULL, '2019-04-30', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-04-30 10:26:20', '2019-04-30 10:26:20', NULL, NULL, NULL, NULL),
+(2874, 2, 1918, NULL, '2019-04-30', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-04-30 10:27:23', '2019-04-30 10:27:23', NULL, NULL, NULL, NULL),
+(2875, 2, 2068, NULL, '2019-04-30', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-01 07:52:14', '2019-05-01 02:07:14', '2870', '2870', NULL, NULL),
+(2876, 2, 2085, '10:00: PM', '2019-04-30', 15, '1', '1', 'Family', 'Visit', NULL, '2019-05-01 07:53:33', '2019-05-01 02:08:33', '600', '600', NULL, NULL),
+(2877, 2, 2081, NULL, '2019-04-30', 17, NULL, '2', 'Friends', 'Foreign Study', NULL, '2019-04-30 10:30:37', '2019-04-30 10:30:37', NULL, NULL, NULL, NULL),
+(2878, 2, 2081, '10:01: PM', '2019-04-30', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-01 07:54:15', '2019-05-01 02:09:15', '4000', '4000', NULL, NULL),
+(2879, 2, 1648, '10:02: PM', '2019-04-30', 1, '1', NULL, NULL, 'Visit', NULL, '2019-05-01 07:50:10', '2019-05-01 02:05:10', '1250', '1250', NULL, NULL),
+(2880, 2, 1245, '10:03: PM', '2019-04-30', 6, '1', '2', 'Family', 'Visit', NULL, '2019-05-01 07:51:10', '2019-05-01 02:06:10', '1080', '1080', NULL, NULL),
+(2881, 2, 1031, '10:05: PM', '2019-04-30', 14, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-01 07:53:03', '2019-05-01 02:08:03', '2475', '2450', NULL, '25'),
+(2882, 2, 1648, NULL, '2019-05-01', 1, '1', NULL, NULL, 'Visit', NULL, '2019-05-02 07:48:31', '2019-05-02 02:03:30', '1250', '1250', NULL, NULL),
+(2883, 2, 2068, NULL, '2019-05-01', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-01 02:05:32', '2019-05-01 02:05:32', NULL, NULL, NULL, NULL),
+(2884, 2, 2037, NULL, '2019-05-01', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-01 02:06:27', '2019-05-01 02:06:27', NULL, NULL, NULL, NULL),
+(2885, 2, 1918, NULL, '2019-05-01', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-01 02:06:34', '2019-05-01 02:06:34', NULL, NULL, NULL, NULL),
+(2886, 2, 1808, '4:52: PM', '2019-05-01', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-01 05:22:19', '2019-05-01 05:22:19', NULL, NULL, NULL, NULL),
+(2887, 2, 1026, '4:52: PM', '2019-05-01', 13, NULL, '2', 'Friends', 'Visit', NULL, '2019-05-01 05:22:42', '2019-05-01 05:22:42', NULL, NULL, NULL, NULL),
+(2888, 2, 2086, '4:56: PM', '2019-05-01', 16, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-01 05:26:33', '2019-05-01 05:26:33', NULL, NULL, NULL, NULL),
+(2889, 2, 2087, '5:06: PM', '2019-05-01', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-01 11:21:20', '2019-05-01 05:36:20', '700', '700', NULL, NULL),
+(2890, 2, 2088, '7:32: PM', '2019-05-01', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-02 07:50:06', '2019-05-02 02:05:06', '1060', '1055', NULL, '5'),
+(2891, 2, 2089, '8:33: PM', '2019-05-01', 7, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-02 07:52:11', '2019-05-02 02:07:11', '1560', '1560', NULL, NULL),
+(2892, 2, 2068, NULL, '2019-05-02', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-02 02:03:51', '2019-05-02 02:03:51', NULL, NULL, NULL, NULL),
+(2893, 2, 2037, NULL, '2019-05-02', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-02 02:07:29', '2019-05-02 02:07:29', NULL, NULL, NULL, NULL),
+(2894, 2, 1918, NULL, '2019-05-02', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-02 02:07:35', '2019-05-02 02:07:35', NULL, NULL, NULL, NULL),
+(2895, 2, 1026, NULL, '2019-05-02', 13, NULL, '2', 'Friends', 'Visit', NULL, '2019-05-02 02:07:56', '2019-05-02 02:07:56', NULL, NULL, NULL, NULL),
+(2896, 2, 2086, NULL, '2019-05-02', 16, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-03 02:35:05', '2019-05-02 20:50:05', '2290', '2290', NULL, NULL),
+(2897, 2, 2091, '10:39: PM', '2019-05-02', 3, '4', NULL, 'Friends', 'Job', NULL, '2019-05-03 02:33:11', '2019-05-02 20:48:11', '630', '500', NULL, '130'),
+(2898, 2, 2092, '8:10: AM', '2019-05-03', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-03 14:50:19', '2019-05-03 09:05:19', '730', '730', NULL, NULL),
+(2899, 2, 2037, '8:19: AM', '2019-05-02', 17, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-02 20:49:09', '2019-05-02 20:49:09', NULL, NULL, NULL, NULL),
+(2900, 2, 2068, NULL, '2019-05-03', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-03 02:54:56', '2019-05-03 02:54:56', NULL, NULL, NULL, NULL),
+(2901, 2, 2037, NULL, '2019-05-03', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-03 02:55:09', '2019-05-03 02:55:09', NULL, NULL, NULL, NULL),
+(2902, 2, 1918, NULL, '2019-05-03', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-03 02:55:16', '2019-05-03 02:55:16', NULL, NULL, NULL, NULL),
+(2903, 2, 2037, NULL, '2019-05-03', 17, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-03 02:55:24', '2019-05-03 02:55:24', NULL, NULL, NULL, NULL),
+(2904, 2, 1026, NULL, '2019-05-03', 13, NULL, '2', 'Friends', 'Visit', NULL, '2019-05-03 02:55:39', '2019-05-03 02:55:39', NULL, NULL, NULL, NULL),
+(2905, 2, 2093, '2:36: PM', '2019-05-03', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-03 03:06:56', '2019-05-03 03:06:56', NULL, NULL, NULL, NULL),
+(2906, 2, 2094, '3:11: PM', '2019-05-03', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 08:45:51', '2019-05-04 03:00:51', '1610', '1600', NULL, '10'),
+(2907, 2, 1499, '6:09: PM', '2019-05-03', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 01:16:34', '2019-05-03 19:31:34', '1270', '1270', NULL, NULL),
+(2908, 2, 1397, '7:10: PM', '2019-05-03', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-03 07:40:53', '2019-05-03 07:40:53', NULL, NULL, NULL, NULL),
+(2909, 2, 2095, '7:14: PM', '2019-05-03', 9, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 08:46:26', '2019-05-04 03:01:26', '1460', '1460', NULL, NULL),
+(2910, 2, 2096, '8:21: PM', '2019-05-01', 15, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-03 08:51:47', '2019-05-03 08:51:47', NULL, NULL, NULL, NULL),
+(2911, 2, 2096, NULL, '2019-05-03', 15, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-03 14:37:20', '2019-05-03 08:52:20', '3205', '3000', NULL, '205'),
+(2912, 2, 2097, '9:21: PM', '2019-05-03', 3, '1', NULL, 'Single', 'Foreign Employment', 'Raju\'s bro', '2019-05-04 01:15:43', '2019-05-03 19:30:43', '880', '880', NULL, NULL),
+(2913, 2, 1648, '9:22: PM', '2019-05-03', 6, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-04 08:45:17', '2019-05-04 03:00:17', '1290', '1290', NULL, NULL),
+(2914, 2, 1756, '9:50: PM', '2019-05-03', 15, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 08:47:43', '2019-05-04 03:02:43', '630', '630', NULL, NULL),
+(2915, 2, 1397, NULL, '2019-05-04', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 02:59:40', '2019-05-04 02:59:40', NULL, NULL, NULL, NULL),
+(2916, 2, 2068, NULL, '2019-05-04', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-04 02:59:46', '2019-05-04 02:59:46', NULL, NULL, NULL, NULL),
+(2917, 2, 2037, NULL, '2019-05-04', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-04 03:01:14', '2019-05-04 03:01:14', NULL, NULL, NULL, NULL),
+(2918, 2, 1918, NULL, '2019-05-04', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-04 03:01:51', '2019-05-04 03:01:51', NULL, NULL, NULL, NULL),
+(2919, 2, 1026, NULL, '2019-05-04', 13, NULL, '2', 'Friends', 'Visit', NULL, '2019-05-05 06:58:01', '2019-05-05 01:13:01', '5470', '5460', NULL, '10'),
+(2920, 2, 2093, NULL, '2019-05-04', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 03:03:15', '2019-05-04 03:03:15', NULL, NULL, NULL, NULL),
+(2921, 2, 2098, '4:49: PM', '2019-05-04', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-04 13:19:51', '2019-05-04 07:34:51', '1150', '1150', NULL, NULL),
+(2922, 2, 1289, '6:07: PM', '2019-05-04', 6, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-05 06:56:42', '2019-05-05 01:11:42', '1520', '1500', NULL, '20'),
+(2924, 2, 1363, '7:04: PM', '2019-05-04', 17, '2', NULL, 'Brothers', 'Visit', NULL, '2019-05-05 06:58:52', '2019-05-05 01:13:52', '1460', '1460', NULL, NULL),
+(2925, 2, 2099, '7:15: PM', '2019-05-04', 3, '1', '1', 'Family', 'Medicine', NULL, '2019-05-05 06:54:31', '2019-05-05 01:09:31', '1100', '1100', NULL, NULL),
+(2926, 2, 2091, '10:04: PM', '2019-05-04', 11, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-05 06:57:27', '2019-05-05 01:12:27', '550', '500', NULL, '50'),
+(2927, 2, 1397, NULL, '2019-05-05', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-06 12:32:57', '2019-05-06 06:47:57', '5730', '5700', NULL, '30'),
+(2928, 2, 2068, NULL, '2019-05-05', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-05 01:08:49', '2019-05-05 01:08:49', NULL, NULL, NULL, NULL),
+(2929, 2, 2037, NULL, '2019-05-05', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-05 01:12:01', '2019-05-05 01:12:01', NULL, NULL, NULL, NULL),
+(2930, 2, 1918, NULL, '2019-05-05', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-05 01:12:06', '2019-05-05 01:12:06', NULL, NULL, NULL, NULL),
+(2931, 2, 2093, NULL, '2019-05-05', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-05 01:13:22', '2019-05-05 01:13:22', NULL, NULL, NULL, NULL),
+(2932, 2, 2026, '12:44: PM', '2019-05-05', 6, '6', NULL, 'Friends', 'Visit', NULL, '2019-05-06 07:20:46', '2019-05-06 01:35:46', '5430', '5400', NULL, '30'),
+(2933, 2, 1245, '6:30: PM', '2019-05-05', 5, '1', NULL, 'Single', 'Job', NULL, '2019-05-06 07:14:25', '2019-05-06 01:29:25', '1340', '1340', NULL, NULL),
+(2934, 2, 2100, '7:31: PM', '2019-05-05', 13, '3', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-06 07:16:04', '2019-05-06 01:31:04', '1640', '1600', NULL, '40'),
+(2935, 2, 1901, '7:42: PM', '2019-05-05', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-06 07:17:30', '2019-05-06 01:32:30', '1440', '1380', NULL, '60'),
+(2936, 2, 2102, '8:29: PM', '2019-05-05', 17, '2', NULL, 'Friends', 'Visit', 'Shift to 302', '2019-05-06 08:08:44', '2019-05-06 02:23:44', NULL, NULL, NULL, NULL),
+(2937, 2, 2101, '8:30: PM', '2019-05-05', 15, NULL, '3', 'Friends', 'Foreign Employment', 'Shaugat sir', '2019-05-05 09:00:23', '2019-05-05 09:00:23', NULL, NULL, NULL, NULL),
+(2938, 2, 2026, '9:07: PM', '2019-05-05', 18, '4', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-05 09:37:11', '2019-05-05 09:37:11', NULL, NULL, NULL, NULL),
+(2939, 2, 2068, NULL, '2019-05-06', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-06 02:23:06', '2019-05-06 02:23:06', NULL, NULL, NULL, NULL),
+(2940, 2, 2037, NULL, '2019-05-06', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-06 02:23:13', '2019-05-06 02:23:13', NULL, NULL, NULL, NULL),
+(2941, 2, 1918, NULL, '2019-05-06', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-06 02:23:20', '2019-05-06 02:23:20', NULL, NULL, NULL, NULL),
+(2942, 2, 2093, NULL, '2019-05-06', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-06 02:23:27', '2019-05-06 02:23:27', NULL, NULL, NULL, NULL),
+(2943, 2, 2102, '1:54: PM', '2019-05-06', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-06 02:24:18', '2019-05-06 02:24:18', NULL, NULL, NULL, NULL),
+(2944, 2, 2103, '6:14: PM', '2019-05-06', 17, '1', '2', 'Family', 'Foreign Employment', NULL, '2019-05-06 06:44:39', '2019-05-06 06:44:39', NULL, NULL, NULL, NULL),
+(2945, 2, 2101, NULL, '2019-05-06', 15, NULL, '3', 'Friends', 'Foreign Employment', 'Shaugat sir', '2019-05-06 14:11:01', '2019-05-06 08:26:01', '11300', NULL, '11300', NULL),
+(2946, 2, 2104, '6:50: PM', '2019-05-06', 9, '2', NULL, 'Friends', 'Foreign Study', NULL, '2019-05-07 05:33:45', '2019-05-06 23:48:45', '960', '960', NULL, NULL),
+(2947, 2, 2105, '7:14: PM', '2019-05-06', 6, '6', NULL, 'Friends', 'Tracking', NULL, '2019-05-06 07:44:58', '2019-05-06 07:44:58', NULL, NULL, NULL, NULL),
+(2948, 2, 2106, '8:53: PM', '2019-05-06', 4, '3', NULL, 'Family', 'Visit', NULL, '2019-05-07 05:29:33', '2019-05-06 23:44:33', '1260', '1260', NULL, NULL),
+(2949, 2, 2107, '11:17: AM', '2019-05-07', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-06 23:47:31', '2019-05-06 23:47:31', NULL, NULL, NULL, NULL),
+(2950, 2, 2108, '11:44: AM', '2019-05-07', 5, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-07 11:16:33', '2019-05-07 05:31:33', '730', '700', NULL, '30'),
+(2951, 2, 1609, '11:46: AM', '2019-05-07', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-07 00:16:41', '2019-05-07 00:16:41', NULL, NULL, NULL, NULL),
+(2952, 2, 1039, '1:34: PM', '2019-05-07', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-07 11:09:08', '2019-05-07 05:24:08', '1180', '1100', NULL, '80'),
+(2953, 2, 2068, NULL, '2019-05-07', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-07 02:05:04', '2019-05-07 02:05:04', NULL, NULL, NULL, NULL),
+(2954, 2, 2105, NULL, '2019-05-07', 6, '6', NULL, 'Friends', 'Tracking', NULL, '2019-05-08 11:52:18', '2019-05-08 06:07:18', '7760', '7760', NULL, NULL),
+(2955, 2, 2037, NULL, '2019-05-07', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-07 02:05:20', '2019-05-07 02:05:20', NULL, NULL, NULL, NULL),
+(2956, 2, 1918, NULL, '2019-05-07', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-07 02:05:27', '2019-05-07 02:05:27', NULL, NULL, NULL, NULL),
+(2957, 2, 2102, NULL, '2019-05-07', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-08 11:57:40', '2019-05-08 06:12:40', '10230', '10000', NULL, '230'),
+(2958, 2, 2093, NULL, '2019-05-07', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-07 02:05:45', '2019-05-07 02:05:45', NULL, NULL, NULL, NULL),
+(2959, 2, 2103, NULL, '2019-05-07', 17, '1', '2', 'Family', 'Foreign Employment', NULL, '2019-05-08 11:58:32', '2019-05-08 06:13:32', '5100', '5000', NULL, '100'),
+(2960, 2, 2109, '4:57: PM', '2019-05-07', 9, '2', '1', 'Family', 'Visit', NULL, '2019-05-07 05:27:51', '2019-05-07 05:27:51', NULL, NULL, NULL, NULL),
+(2961, 2, 2110, '5:01: PM', '2019-05-07', 12, NULL, '1', NULL, 'Hospital', NULL, '2019-05-08 11:54:39', '2019-05-08 06:09:39', '880', '880', NULL, NULL),
+(2962, 2, 2109, '7:31: PM', '2019-05-07', 13, '2', '1', 'Family', 'Visit', NULL, '2019-05-08 11:56:45', '2019-05-08 06:11:45', '1465', '1465', NULL, NULL),
+(2963, 2, 2102, '10:22: PM', '2019-05-07', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-07 10:52:58', '2019-05-07 10:52:58', NULL, NULL, NULL, NULL),
+(2964, 2, 2105, '10:23: PM', '2019-05-07', 9, '2', NULL, 'Friends', 'Tracking', NULL, '2019-05-07 10:53:43', '2019-05-07 10:53:43', NULL, NULL, NULL, NULL),
+(2965, 2, 2068, NULL, '2019-05-08', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-08 06:00:26', '2019-05-08 06:00:26', NULL, NULL, NULL, NULL),
+(2966, 2, 2107, NULL, '2019-05-08', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-08 06:00:36', '2019-05-08 06:00:36', NULL, NULL, NULL, NULL),
+(2967, 2, 2037, NULL, '2019-05-08', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-08 06:08:44', '2019-05-08 06:08:44', NULL, NULL, NULL, NULL);
+INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room_id`, `male`, `female`, `relation`, `purpose`, `remarks`, `created_at`, `updated_at`, `total_transaction`, `guest_paid`, `guest_due`, `guest_discount`) VALUES
+(2968, 2, 1918, NULL, '2019-05-08', 10, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-09 02:15:49', '2019-05-08 20:30:49', '58235', '51900', NULL, '6335'),
+(2969, 2, 1609, NULL, '2019-05-08', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-08 06:12:58', '2019-05-08 06:12:58', NULL, NULL, NULL, NULL),
+(2970, 2, 2093, NULL, '2019-05-08', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-08 06:13:04', '2019-05-08 06:13:04', NULL, NULL, NULL, NULL),
+(2971, 2, 1755, '5:58: PM', '2019-05-08', 17, NULL, '2', 'Family', 'Hospital', NULL, '2019-05-09 06:04:27', '2019-05-09 00:19:27', '1080', '1080', NULL, NULL),
+(2972, 2, 1591, '5:59: PM', '2019-05-08', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-08 06:29:17', '2019-05-08 06:29:17', NULL, NULL, NULL, NULL),
+(2973, 2, 2111, '7:12: PM', '2019-05-08', 14, '1', NULL, NULL, 'Visit', NULL, '2019-05-08 07:42:05', '2019-05-08 07:42:05', NULL, NULL, NULL, NULL),
+(2974, 2, 1755, '7:17: PM', '2019-05-09', 6, '2', '1', 'Family', 'Visit', NULL, '2019-05-09 07:47:59', '2019-05-09 07:47:59', NULL, NULL, NULL, NULL),
+(2975, 2, 2068, NULL, '2019-05-10', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-10 05:20:20', '2019-05-10 05:20:20', NULL, NULL, NULL, NULL),
+(2976, 2, 2107, NULL, '2019-05-10', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-10 05:20:27', '2019-05-10 05:20:27', NULL, NULL, NULL, NULL),
+(2977, 2, 1755, NULL, '2019-05-10', 6, '2', '1', 'Family', 'Visit', NULL, '2019-05-11 01:52:37', '2019-05-10 20:07:37', '1480', '1480', NULL, NULL),
+(2978, 2, 2037, NULL, '2019-05-10', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-10 05:20:58', '2019-05-10 05:20:58', NULL, NULL, NULL, NULL),
+(2979, 2, 1591, NULL, '2019-05-10', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-10 05:21:04', '2019-05-10 05:21:04', NULL, NULL, NULL, NULL),
+(2980, 2, 1609, NULL, '2019-05-10', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-10 05:21:09', '2019-05-10 05:21:09', NULL, NULL, NULL, NULL),
+(2981, 2, 2093, NULL, '2019-05-10', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-11 07:33:55', '2019-05-11 01:48:55', '13105', '13105', NULL, NULL),
+(2982, 2, 1419, '6:54: PM', '2019-05-10', 11, NULL, '2', 'Friends', 'Visit', NULL, '2019-05-10 07:24:50', '2019-05-10 07:24:50', NULL, NULL, NULL, NULL),
+(2983, 2, 2068, NULL, '2019-05-11', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-11 01:46:34', '2019-05-11 01:46:34', NULL, NULL, NULL, NULL),
+(2984, 2, 2107, NULL, '2019-05-11', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-11 01:47:00', '2019-05-11 01:47:00', NULL, NULL, NULL, NULL),
+(2985, 2, 2037, NULL, '2019-05-11', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-11 01:47:07', '2019-05-11 01:47:07', NULL, NULL, NULL, NULL),
+(2986, 2, 1591, NULL, '2019-05-11', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-11 01:47:23', '2019-05-11 01:47:23', NULL, NULL, NULL, NULL),
+(2987, 2, 1609, NULL, '2019-05-11', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-11 01:47:30', '2019-05-11 01:47:30', NULL, NULL, NULL, NULL),
+(2988, 2, 1296, '6:40: PM', '2019-05-11', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-11 07:10:28', '2019-05-11 07:10:28', NULL, NULL, NULL, NULL),
+(2989, 2, 1296, '8:17: PM', '2019-05-11', 11, '1', '1', 'Family', 'Visit', '205 `302', '2019-05-12 06:39:42', '2019-05-12 00:54:42', '3040', '3000', NULL, '40'),
+(2990, 2, 2112, '8:19: PM', '2019-05-11', 12, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-12 05:45:52', '2019-05-12 00:00:52', '1080', '1080', NULL, NULL),
+(2991, 2, 1499, '9:16: PM', '2019-05-11', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 06:36:01', '2019-05-12 00:51:01', '960', '960', NULL, NULL),
+(2992, 2, 2113, '11:31: AM', '2019-05-12', 12, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-12 00:01:35', '2019-05-12 00:01:35', NULL, NULL, NULL, NULL),
+(2993, 2, 2037, NULL, '2019-05-12', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-12 01:54:27', '2019-05-12 01:54:27', NULL, NULL, NULL, NULL),
+(2994, 2, 2113, '2:34: PM', '2019-05-12', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 03:04:10', '2019-05-12 03:04:10', NULL, NULL, NULL, NULL),
+(2995, 2, 2113, '2:34: PM', '2019-05-12', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 03:04:10', '2019-05-12 03:04:10', NULL, NULL, NULL, NULL),
+(2996, 2, 2114, '4:10: PM', '2019-05-12', 11, '2', NULL, 'Family', 'Visit', NULL, '2019-05-12 04:40:09', '2019-05-12 04:40:09', NULL, NULL, NULL, NULL),
+(2997, 2, 2068, NULL, '2019-05-12', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-12 04:40:27', '2019-05-12 04:40:27', NULL, NULL, NULL, NULL),
+(2998, 2, 2107, NULL, '2019-05-12', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-12 04:40:34', '2019-05-12 04:40:34', NULL, NULL, NULL, NULL),
+(2999, 2, 1591, NULL, '2019-05-12', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 04:40:41', '2019-05-12 04:40:41', NULL, NULL, NULL, NULL),
+(3000, 2, 2115, '6:17: PM', '2019-05-12', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 06:47:07', '2019-05-12 06:47:07', NULL, NULL, NULL, NULL),
+(3001, 2, 2116, '6:19: PM', '2019-05-12', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-12 06:49:56', '2019-05-12 06:49:56', NULL, NULL, NULL, NULL),
+(3002, 2, 2117, '6:29: PM', '2019-05-12', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-13 07:00:17', '2019-05-13 01:15:17', '2660', '2660', NULL, NULL),
+(3003, 2, 2118, '6:33: PM', '2019-05-11', 3, '1', NULL, 'Single', 'Foreign Employment', 'Qatar setting ma pathako', '2019-05-12 12:49:32', '2019-05-12 07:04:32', '2160', '2100', NULL, '60'),
+(3004, 2, 1609, NULL, '2019-05-12', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-12 07:06:43', '2019-05-12 07:06:43', NULL, NULL, NULL, NULL),
+(3005, 2, 2119, '8:32: PM', '2019-05-12', 17, '1', NULL, 'Single', 'Official', NULL, '2019-05-13 03:18:57', '2019-05-12 21:33:57', '1205', '1200', NULL, '5'),
+(3007, 2, 1318, '9:56: PM', '2019-05-12', 1, '1', NULL, 'Single', 'Business', NULL, '2019-05-12 10:26:09', '2019-05-12 10:26:09', NULL, NULL, NULL, NULL),
+(3008, 2, 2120, '10:27: PM', '2019-05-12', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-13 06:50:50', '2019-05-13 01:05:50', '730', '730', NULL, NULL),
+(3009, 2, 2119, NULL, '2019-05-13', 17, '1', NULL, 'Single', 'Official', NULL, '2019-05-13 07:14:46', '2019-05-13 01:29:46', '1205', '1200', NULL, '5'),
+(3010, 2, 1166, '11:26: AM', '2019-05-13', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-13 09:55:34', '2019-05-13 04:10:34', '1410', '1400', NULL, '10'),
+(3011, 2, 1609, NULL, '2019-05-13', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-13 01:32:01', '2019-05-13 01:32:01', NULL, NULL, NULL, NULL),
+(3012, 2, 2115, NULL, '2019-05-13', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 10:54:49', '2019-05-14 05:09:49', '3070', '3000', NULL, '70'),
+(3013, 2, 1591, NULL, '2019-05-13', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-13 11:56:36', '2019-05-13 06:11:36', '17420', '17400', NULL, '20'),
+(3015, 2, 2114, NULL, '2019-05-13', 11, '2', NULL, 'Family', 'Visit', NULL, '2019-05-14 01:10:28', '2019-05-13 19:25:28', '2090', '2090', NULL, NULL),
+(3016, 2, 2037, NULL, '2019-05-13', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-13 01:37:20', '2019-05-13 01:37:20', NULL, NULL, NULL, NULL),
+(3017, 2, 1318, NULL, '2019-05-13', 1, '1', NULL, 'Single', 'Business', NULL, '2019-05-14 07:45:29', '2019-05-14 02:00:29', '3100', '3100', NULL, NULL),
+(3018, 2, 2068, NULL, '2019-05-13', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-13 01:38:23', '2019-05-13 01:38:23', NULL, NULL, NULL, NULL),
+(3019, 2, 2107, NULL, '2019-05-13', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-13 01:38:33', '2019-05-13 01:38:33', NULL, NULL, NULL, NULL),
+(3020, 2, 2113, NULL, '2019-05-13', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-13 01:39:09', '2019-05-13 01:39:09', NULL, NULL, NULL, NULL),
+(3021, 2, 1848, '4:27: PM', '2019-05-13', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-05-14 02:52:19', '2019-05-13 21:07:19', '640', '640', NULL, NULL),
+(3022, 2, 1736, '4:28: PM', '2019-05-13', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 01:11:17', '2019-05-13 19:26:17', '2330', '2330', NULL, NULL),
+(3023, 2, 2121, '5:07: PM', '2019-05-13', 17, NULL, '3', 'Friends', 'Visit', NULL, '2019-05-14 05:22:06', '2019-05-13 23:37:06', '2040', '2000', NULL, '40'),
+(3024, 2, 1009, '5:37: PM', '2019-05-13', 7, NULL, '3', 'Friends', 'Visit', 'nima\'s friends', '2019-05-13 16:10:37', '2019-05-13 10:25:37', '1000', '800', NULL, '200'),
+(3025, 2, 1409, '7:24: PM', '2019-05-13', 18, '1', NULL, 'Single', 'Visit', NULL, '2019-05-13 07:54:51', '2019-05-13 07:54:51', NULL, NULL, NULL, NULL),
+(3026, 2, 1009, '7:26: PM', '2019-05-13', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 02:52:52', '2019-05-13 21:07:52', '1230', '1200', NULL, '30'),
+(3027, 2, 1172, '8:16: PM', '2019-05-13', 6, '1', '2', 'Family', 'Visit', NULL, '2019-05-14 01:09:25', '2019-05-13 19:24:25', '1060', '1060', NULL, NULL),
+(3028, 2, 2122, '10:35: AM', '2019-05-14', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-05-15 08:38:13', '2019-05-15 02:53:13', '1590', '1500', NULL, '90'),
+(3029, 2, 2068, NULL, '2019-05-14', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-14 02:00:46', '2019-05-14 02:00:46', NULL, NULL, NULL, NULL),
+(3030, 2, 2107, NULL, '2019-05-14', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-14 02:00:53', '2019-05-14 02:00:53', NULL, NULL, NULL, NULL),
+(3031, 2, 2113, NULL, '2019-05-14', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 02:00:59', '2019-05-14 02:00:59', NULL, NULL, NULL, NULL),
+(3032, 2, 2037, NULL, '2019-05-14', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-14 02:01:06', '2019-05-14 02:01:06', NULL, NULL, NULL, NULL),
+(3033, 2, 1609, NULL, '2019-05-14', 15, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-15 08:40:29', '2019-05-15 02:55:29', '16705', '16705', NULL, NULL),
+(3034, 2, 1409, NULL, '2019-05-14', 18, '1', NULL, 'Single', 'Visit', NULL, '2019-05-15 16:04:20', '2019-05-15 10:19:20', '2760', '2500', NULL, '260'),
+(3035, 2, 2123, '2:40: PM', '2019-05-14', 9, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 11:30:18', '2019-05-14 05:45:18', '600', '550', NULL, '50'),
+(3036, 2, 1501, '4:39: PM', '2019-05-14', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-15 03:43:27', '2019-05-14 21:58:27', '1160', '1080', '80', NULL),
+(3037, 2, 1147, '5:19: PM', '2019-05-14', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 13:58:31', '2019-05-14 08:13:31', '730', '700', NULL, '30'),
+(3038, 2, 2124, '5:26: PM', '2019-05-14', 14, '1', NULL, NULL, 'Visit', NULL, '2019-05-15 08:39:43', '2019-05-15 02:54:43', '1310', '1300', NULL, '10'),
+(3039, 2, 1534, '7:52: PM', '2019-05-14', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-15 08:41:19', '2019-05-15 02:56:19', '7720', '7700', NULL, '20'),
+(3040, 2, 1534, '7:53: PM', '2019-05-14', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-14 08:23:07', '2019-05-14 08:23:07', NULL, NULL, NULL, NULL),
+(3041, 2, 2114, '6:35: AM', '2019-05-15', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-05-14 19:05:24', '2019-05-14 19:05:24', NULL, NULL, NULL, NULL),
+(3042, 2, 2068, NULL, '2019-05-15', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-15 02:53:35', '2019-05-15 02:53:35', NULL, NULL, NULL, NULL),
+(3043, 2, 2107, NULL, '2019-05-15', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-15 02:53:48', '2019-05-15 02:53:48', NULL, NULL, NULL, NULL),
+(3044, 2, 2113, NULL, '2019-05-15', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-15 16:02:19', '2019-05-15 10:17:19', '3490', '3490', NULL, NULL),
+(3045, 2, 2037, NULL, '2019-05-15', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-15 02:54:05', '2019-05-15 02:54:05', NULL, NULL, NULL, NULL),
+(3046, 2, 1237, '2:30: PM', '2019-05-15', 1, '3', NULL, 'Family', 'Visit', NULL, '2019-05-15 03:00:38', '2019-05-15 03:00:38', NULL, NULL, NULL, NULL),
+(3047, 2, 2125, '5:14: PM', '2019-05-15', 17, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-15 05:44:22', '2019-05-15 05:44:22', NULL, NULL, NULL, NULL),
+(3048, 2, 2126, '9:48: PM', '2019-05-15', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-05-16 08:14:14', '2019-05-16 02:29:14', '980', '980', NULL, NULL),
+(3049, 2, 2127, '10:36: PM', '2019-05-15', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-05-16 01:23:26', '2019-05-15 19:38:26', '650', '550', NULL, '100'),
+(3050, 2, 1237, '7:06: AM', '2019-05-16', 13, '3', NULL, 'Family', 'Visit', NULL, '2019-05-17 08:18:09', '2019-05-17 02:33:09', '2890', '2890', NULL, NULL),
+(3051, 2, 1318, '7:07: AM', '2019-05-16', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-15 19:37:57', '2019-05-15 19:37:57', NULL, NULL, NULL, NULL),
+(3052, 2, 2128, '9:47: AM', '2019-05-16', 10, '1', NULL, NULL, 'Job', NULL, '2019-05-17 08:17:39', '2019-05-17 02:32:39', '1540', '1540', NULL, NULL),
+(3053, 2, 2114, NULL, '2019-05-16', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-05-16 02:29:57', '2019-05-16 02:29:57', NULL, NULL, NULL, NULL),
+(3054, 2, 2068, NULL, '2019-05-16', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-16 02:30:09', '2019-05-16 02:30:09', NULL, NULL, NULL, NULL),
+(3055, 2, 2107, NULL, '2019-05-16', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-16 02:30:17', '2019-05-16 02:30:17', NULL, NULL, NULL, NULL),
+(3056, 2, 2125, NULL, '2019-05-16', 17, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-16 02:30:28', '2019-05-16 02:30:28', NULL, NULL, NULL, NULL),
+(3057, 2, 2037, NULL, '2019-05-16', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-17 08:16:45', '2019-05-17 02:31:45', '24900', '22700', NULL, '2150'),
+(3058, 2, 1032, '2:29: PM', '2019-05-16', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-16 09:40:49', '2019-05-16 03:55:49', '730', '630', NULL, '100'),
+(3059, 2, 2129, '9:51: AM', '2019-05-17', 18, '4', NULL, 'Friends', 'Foreign Employment', 'Gam bahadur rai', '2019-05-17 15:00:15', '2019-05-17 09:15:15', '1990', '1000', NULL, '990'),
+(3060, 2, 2130, '12:16: PM', '2019-05-17', 14, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-17 00:46:54', '2019-05-17 00:46:54', NULL, NULL, NULL, NULL),
+(3061, 2, 1318, NULL, '2019-05-17', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-17 02:27:13', '2019-05-17 02:27:13', NULL, NULL, NULL, NULL),
+(3062, 2, 2068, NULL, '2019-05-17', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-17 02:27:20', '2019-05-17 02:27:20', NULL, NULL, NULL, NULL),
+(3063, 2, 2114, NULL, '2019-05-17', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-05-17 02:27:27', '2019-05-17 02:27:27', NULL, NULL, NULL, NULL),
+(3064, 2, 2107, NULL, '2019-05-17', 4, '2', NULL, 'Friends', 'Job', 'Gudastar  ma kam garne team', '2019-05-17 14:39:59', '2019-05-17 08:54:59', '8430', '7430', NULL, '1000'),
+(3065, 2, 2037, NULL, '2019-05-17', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-17 02:31:58', '2019-05-17 02:31:58', NULL, NULL, NULL, NULL),
+(3066, 2, 2125, '2:04: PM', '2019-05-17', 7, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-17 02:34:25', '2019-05-17 02:34:25', NULL, NULL, NULL, NULL),
+(3067, 2, 1150, '8:43: PM', '2019-05-17', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-18 07:07:46', '2019-05-18 01:22:46', '1150', '1150', NULL, NULL),
+(3068, 2, 1938, '5:42: AM', '2019-05-17', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-05-18 07:05:20', '2019-05-18 01:20:20', '1460', '1460', NULL, NULL),
+(3069, 2, 2131, '11:35: AM', '2019-05-18', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-18 11:54:31', '2019-05-18 06:09:31', '2060', '2000', NULL, '60'),
+(3070, 2, 1318, NULL, '2019-05-18', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-19 08:55:38', '2019-05-19 03:10:38', '6815', '680', NULL, '15'),
+(3071, 2, 2068, NULL, '2019-05-18', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-18 01:19:37', '2019-05-18 01:19:37', NULL, NULL, NULL, NULL),
+(3072, 2, 2114, NULL, '2019-05-18', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-05-19 02:06:05', '2019-05-18 20:21:05', '4370', '500', NULL, '3870'),
+(3073, 2, 2125, NULL, '2019-05-18', 7, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-18 08:19:56', '2019-05-18 02:34:56', '8635', '8500', NULL, '135'),
+(3074, 2, 2037, NULL, '2019-05-18', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-05-18 01:22:30', '2019-05-18 01:22:30', NULL, NULL, NULL, NULL),
+(3075, 2, 2130, NULL, '2019-05-18', 14, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-19 05:19:19', '2019-05-18 23:34:19', '5920', '5920', NULL, NULL),
+(3076, 2, 2125, '12:55: PM', '2019-05-18', 17, '2', NULL, 'Friends', 'Business', 'Account on 201', '2019-05-18 08:21:34', '2019-05-18 02:36:34', NULL, NULL, NULL, NULL),
+(3077, 2, 2132, '2:45: PM', '2019-05-18', 9, '1', '1', 'Family', 'Visit', NULL, '2019-05-18 03:15:11', '2019-05-18 03:15:11', NULL, NULL, NULL, NULL),
+(3078, 2, 2133, '3:25: PM', '2019-05-18', 8, '1', NULL, NULL, 'Visit', NULL, '2019-05-19 05:20:02', '2019-05-18 23:35:02', '870', '770', NULL, '100'),
+(3079, 2, 2134, '10:12: PM', '2019-05-18', 6, '2', NULL, 'Friends', 'Visit', '106,107,203,205,306', '2019-05-19 05:07:17', '2019-05-18 23:22:17', '11530', '10230', NULL, '1300 commission'),
+(3080, 2, 2134, '10:13: PM', '2019-05-18', 5, '1', NULL, 'Single', 'Visit', '106,107,203,205,306', '2019-05-19 05:07:51', '2019-05-18 23:22:51', NULL, NULL, NULL, NULL),
+(3081, 2, 2134, '10:13: PM', '2019-05-18', 9, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-18 10:43:26', '2019-05-18 10:43:26', NULL, NULL, NULL, NULL),
+(3082, 2, 2134, '10:13: PM', '2019-05-18', 11, '2', NULL, 'Friends', 'Visit', '106,107,203,205,306', '2019-05-19 05:08:09', '2019-05-18 23:23:09', NULL, NULL, NULL, NULL),
+(3083, 2, 2134, '10:13: PM', '2019-05-18', 17, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-18 10:43:59', '2019-05-18 10:43:59', NULL, NULL, NULL, NULL),
+(3084, 2, 2135, '11:05: AM', '2019-05-19', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-19 12:57:43', '2019-05-19 07:12:43', '860', '860', NULL, NULL),
+(3085, 2, 2124, '11:22: AM', '2019-05-19', 14, '1', NULL, 'Single', 'Visit', NULL, '2019-05-20 08:36:14', '2019-05-20 02:51:14', '1030', '1000', NULL, '30'),
+(3086, 2, 2068, NULL, '2019-05-19', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-19 03:13:10', '2019-05-19 03:13:10', NULL, NULL, NULL, NULL),
+(3087, 2, 2136, '5:33: PM', '2019-05-19', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-19 13:33:09', '2019-05-19 07:48:09', '600', '600', NULL, NULL),
+(3088, 2, 2042, '6:26: PM', '2019-05-19', 16, '1', NULL, 'Single', 'Visit', NULL, '2019-05-20 06:55:43', '2019-05-20 01:10:43', '1030', '1000', NULL, '30'),
+(3089, 2, 2133, '6:34: PM', '2019-05-19', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-05-20 08:26:36', '2019-05-20 02:41:36', '1280', '1090', NULL, '190'),
+(3090, 2, 1318, '6:41: PM', '2019-05-19', 6, '1', '1', 'Family', 'Visit', NULL, '2019-05-20 08:27:24', '2019-05-20 02:42:24', '1030', '1000', NULL, '30'),
+(3091, 2, 2137, '7:53: PM', '2019-05-19', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-05-20 08:35:31', '2019-05-20 02:50:31', '2310', '2300', NULL, '10'),
+(3092, 2, 1242, '8:42: PM', '2019-05-19', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-20 08:31:18', '2019-05-20 02:46:18', '1370', NULL, '1370', NULL),
+(3093, 2, 1532, '10:46: PM', '2019-05-19', 12, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-20 08:34:43', '2019-05-20 02:49:43', '730', '680', NULL, '50'),
+(3095, 2, 1032, '12:42: PM', '2019-05-20', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-20 08:39:05', '2019-05-20 02:54:05', '800', '800', NULL, NULL),
+(3096, 2, 2138, '12:45: PM', '2019-05-20', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-05-21 12:46:56', '2019-05-21 07:01:56', '1750', '1750', NULL, NULL),
+(3097, 2, 2068, NULL, '2019-05-20', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-20 05:33:11', '2019-05-20 05:33:11', NULL, NULL, NULL, NULL),
+(3098, 2, 1700, '5:06: PM', '2019-05-20', 1, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-21 08:49:42', '2019-05-21 03:04:42', '1170', '870', NULL, '300'),
+(3099, 2, 2068, NULL, '2019-05-21', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-21 03:04:58', '2019-05-21 03:04:58', NULL, NULL, NULL, NULL),
+(3101, 2, 2139, '6:31: PM', '2019-05-21', 5, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-21 07:01:23', '2019-05-21 07:01:23', NULL, NULL, NULL, NULL),
+(3102, 2, 2140, '9:05: PM', '2019-05-21', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-22 04:49:42', '2019-05-21 23:04:42', '1260', '1150', NULL, '110'),
+(3103, 2, 1648, '11:55: PM', '2019-05-21', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-05-22 04:15:34', '2019-05-21 22:30:34', '760', '750', NULL, '10'),
+(3104, 2, 2140, '7:33: AM', '2019-05-22', 4, '2', NULL, 'Family', 'Visit', NULL, '2019-05-21 20:03:54', '2019-05-21 20:03:54', NULL, NULL, NULL, NULL),
+(3105, 2, 2086, '8:59: AM', '2019-05-22', 16, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-21 21:29:12', '2019-05-21 21:29:12', NULL, NULL, NULL, NULL),
+(3106, 2, 2141, '10:03: AM', '2019-05-22', 4, '2', NULL, 'Family', 'Visit', NULL, '2019-05-23 09:17:42', '2019-05-23 03:32:42', '1190', '1090', NULL, '100'),
+(3107, 2, 2068, NULL, '2019-05-22', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-22 04:02:05', '2019-05-22 04:02:05', NULL, NULL, NULL, NULL),
+(3108, 2, 2139, NULL, '2019-05-22', 5, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-22 04:02:14', '2019-05-22 04:02:14', NULL, NULL, NULL, NULL),
+(3109, 2, 1023, '6:04: PM', '2019-05-22', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-22 06:34:03', '2019-05-22 06:34:03', NULL, NULL, NULL, NULL),
+(3110, 2, 2000, '6:30: PM', '2019-05-22', 17, '4', NULL, 'Friends', 'Visit', NULL, '2019-05-23 00:46:08', '2019-05-22 19:01:08', '1920', '1920', NULL, NULL),
+(3111, 2, 1114, '9:03: PM', '2019-05-22', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-23 04:13:52', '2019-05-22 22:28:52', '1890', '1890', NULL, NULL),
+(3112, 2, 2142, '9:57: AM', '2019-05-23', 3, '2', NULL, 'Friends', 'Official', NULL, '2019-05-23 16:07:15', '2019-05-23 10:22:15', '1460', '1150', '210', '100'),
+(3113, 2, 2143, '12:17: PM', '2019-05-23', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-23 16:08:22', '2019-05-23 10:23:22', '800', '800', NULL, NULL),
+(3114, 2, 2074, '1:58: PM', '2019-05-23', 1, '1', '1', 'Family', 'Visit', NULL, '2019-05-23 16:09:25', '2019-05-23 10:24:25', '990', '990', NULL, NULL),
+(3115, 2, 2068, NULL, '2019-05-23', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-23 03:24:48', '2019-05-23 03:24:48', NULL, NULL, NULL, NULL),
+(3116, 2, 2139, NULL, '2019-05-23', 5, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-23 03:25:02', '2019-05-23 03:25:02', NULL, NULL, NULL, NULL),
+(3117, 2, 1023, NULL, '2019-05-23', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-23 03:33:01', '2019-05-23 03:33:01', NULL, NULL, NULL, NULL),
+(3118, 2, 2086, NULL, '2019-05-23', 16, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-24 06:54:23', '2019-05-24 01:09:23', '2920', '2920', NULL, NULL),
+(3119, 2, 1039, '3:04: PM', '2019-05-23', 8, '1', '1', 'Family', 'Visit', NULL, '2019-05-23 10:53:44', '2019-05-23 05:08:44', '1400', '1300', NULL, '100'),
+(3120, 2, 2144, '3:44: PM', '2019-05-23', 15, '1', '1', 'Family', 'Visit', NULL, '2019-05-24 04:50:31', '2019-05-23 23:05:31', '880', '880', NULL, NULL),
+(3121, 2, 2125, '4:35: PM', '2019-05-23', 7, '2', NULL, 'Family', 'Visit', NULL, '2019-05-24 04:51:26', '2019-05-23 23:06:26', '1760', '1700', NULL, '60'),
+(3122, 2, 2145, '5:13: PM', '2019-05-23', 12, '1', '1', 'Family', 'Hospital', NULL, '2019-05-24 05:12:32', '2019-05-23 23:27:32', '1000', '1000', NULL, NULL),
+(3123, 2, 2146, '5:32: PM', '2019-05-23', 4, '2', NULL, 'Family', 'Visit', NULL, '2019-05-24 04:52:21', '2019-05-23 23:07:21', '1160', '1160', NULL, NULL),
+(3124, 2, 2147, '5:37: PM', '2019-05-23', 18, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-24 03:46:17', '2019-05-23 22:01:17', '680', '630', NULL, '50'),
+(3125, 2, 1447, '9:40: PM', '2019-05-23', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-05-24 13:14:42', '2019-05-24 07:29:42', '7900', NULL, '7900', NULL),
+(3126, 2, 2148, '9:32: AM', '2019-05-24', 18, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-23 22:02:06', '2019-05-23 22:02:06', NULL, NULL, NULL, NULL),
+(3127, 2, 2149, '12:37: PM', '2019-05-24', 4, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 05:03:09', '2019-05-24 23:18:09', '800', '800', NULL, NULL),
+(3128, 2, 2150, '12:50: PM', '2019-05-24', 3, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-25 04:53:41', '2019-05-24 23:08:41', '1610', '1600', NULL, '10'),
+(3129, 2, 2068, NULL, '2019-05-24', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-24 01:20:38', '2019-05-24 01:20:38', NULL, NULL, NULL, NULL),
+(3130, 2, 2139, NULL, '2019-05-24', 5, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-25 10:08:30', '2019-05-25 04:23:30', '11745', '11500', NULL, '245'),
+(3131, 2, 1023, NULL, '2019-05-24', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-24 02:59:54', '2019-05-24 02:59:54', NULL, NULL, NULL, NULL),
+(3132, 2, 2152, '5:40: PM', '2019-05-24', 6, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-25 05:01:02', '2019-05-24 23:16:02', '3900', '3900', NULL, NULL),
+(3133, 2, 2151, '5:41: PM', '2019-05-24', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-24 06:11:14', '2019-05-24 06:11:14', NULL, NULL, NULL, NULL),
+(3134, 2, 2153, '5:41: PM', '2019-05-24', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 04:52:09', '2019-05-24 23:07:09', '2250', '2250', NULL, NULL),
+(3135, 2, 2154, '6:43: PM', '2019-05-24', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 05:01:54', '2019-05-24 23:16:54', '1300', '1300', NULL, NULL),
+(3136, 2, 2155, '10:43: AM', '2019-05-25', 16, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 09:21:41', '2019-05-25 03:36:41', '790', '790', NULL, NULL),
+(3137, 2, 2001, '10:50: AM', '2019-05-24', 1, '3', NULL, 'Friends', 'Official', NULL, '2019-05-25 05:05:42', '2019-05-24 23:20:42', '6440', '6400', NULL, '40'),
+(3138, 2, 2156, '11:34: AM', '2019-05-25', 15, '1', '1', 'Family', 'Visit', 'Police dharmasthali', '2019-05-25 09:22:42', '2019-05-25 03:37:42', '630', '600', NULL, '30'),
+(3139, 2, 2157, '2:23: PM', '2019-05-25', 11, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-25 02:53:44', '2019-05-25 02:53:44', NULL, NULL, NULL, NULL),
+(3140, 2, 2068, NULL, '2019-05-25', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-05-26 06:11:18', '2019-05-26 00:26:18', '2980', '2980', NULL, NULL),
+(3141, 2, 2151, NULL, '2019-05-25', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-25 03:35:48', '2019-05-25 03:35:48', NULL, NULL, NULL, NULL),
+(3142, 2, 1023, NULL, '2019-05-25', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-26 06:19:06', '2019-05-26 00:34:06', '14705', NULL, '14705', NULL),
+(3143, 2, 2148, NULL, '2019-05-25', 18, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-25 03:36:05', '2019-05-25 03:36:05', NULL, NULL, NULL, NULL),
+(3144, 2, 2158, '3:17: PM', '2019-05-25', 8, '2', NULL, 'Friends', 'Foreign Employment', NULL, '2019-05-26 06:16:46', '2019-05-26 00:31:46', '8030', '7800', NULL, '230'),
+(3146, 2, 2159, '3:54: PM', '2019-05-25', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 13:44:07', '2019-05-25 07:59:07', '1020', '1000', NULL, '20'),
+(3147, 2, 2160, '4:11: PM', '2019-05-25', 10, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 16:03:06', '2019-05-25 10:18:06', '630', '630', NULL, NULL),
+(3148, 2, 2037, '6:42: PM', '2019-05-25', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-25 07:12:51', '2019-05-25 07:12:51', NULL, NULL, NULL, NULL),
+(3150, 2, 2162, '8:29: PM', '2019-05-25', 3, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-26 06:12:37', '2019-05-26 00:27:37', '2980', '2980', NULL, NULL),
+(3151, 2, 2161, '8:30: PM', '2019-05-25', 15, '1', NULL, 'Single', 'AGENT', NULL, '2019-05-26 06:19:48', '2019-05-26 00:34:48', '1030', '1030', NULL, NULL),
+(3152, 2, 2099, '8:31: PM', '2019-05-25', 6, '1', '1', 'Family', 'Medicine', NULL, '2019-05-26 06:16:04', '2019-05-26 00:31:04', '1040', '1040', NULL, NULL),
+(3153, 2, 2152, '9:24: PM', '2019-05-25', 9, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-25 09:54:52', '2019-05-25 09:54:52', NULL, NULL, NULL, NULL),
+(3154, 2, 2162, '9:48: PM', '2019-05-25', 10, '1', '1', 'Family', 'Visit', NULL, '2019-05-25 10:18:43', '2019-05-25 10:18:43', NULL, NULL, NULL, NULL),
+(3155, 2, 2163, '10:04: PM', '2019-05-25', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-26 09:27:09', '2019-05-26 03:42:09', '1770', '1570', NULL, '200'),
+(3156, 2, 2135, '9:55: AM', '2019-05-26', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-26 09:35:05', '2019-05-26 03:50:05', '1210', '1200', NULL, '10'),
+(3157, 2, 2068, '11:57: AM', '2019-05-26', 2, '1', NULL, NULL, 'Visit', NULL, '2019-05-26 00:27:21', '2019-05-26 00:27:21', NULL, NULL, NULL, NULL),
+(3158, 2, 2164, '12:02: PM', '2019-05-26', 10, '2', '2', 'Family', 'Visit', NULL, '2019-05-26 13:55:38', '2019-05-26 08:10:38', '985', '985', NULL, NULL),
+(3159, 2, 1631, '2:26: PM', '2019-05-26', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-05-27 06:47:07', '2019-05-27 01:02:07', '930', '930', NULL, NULL),
+(3160, 2, 2152, NULL, '2019-05-26', 9, '2', NULL, 'Friends', 'Visit', 'sift 101', '2019-05-27 05:08:18', '2019-05-26 23:23:18', '5500', '5500', NULL, NULL),
+(3161, 2, 2157, NULL, '2019-05-26', 11, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-28 01:38:48', '2019-05-27 19:53:48', '1710', '1700', NULL, '10'),
+(3162, 2, 2151, NULL, '2019-05-26', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-05-28 08:11:44', '2019-05-28 02:26:44', '8235', '7900', NULL, '335'),
+(3163, 2, 2037, NULL, '2019-05-26', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-26 03:43:37', '2019-05-26 03:43:37', NULL, NULL, NULL, NULL),
+(3164, 2, 2148, NULL, '2019-05-26', 18, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-26 03:43:44', '2019-05-26 03:43:44', NULL, NULL, NULL, NULL),
+(3165, 2, 2165, '7:41: PM', '2019-05-26', 10, '1', NULL, 'Single', 'Visit', NULL, '2019-05-26 08:11:20', '2019-05-26 08:11:20', NULL, NULL, NULL, NULL),
+(3166, 2, 2166, '11:27: PM', '2019-05-26', 14, '1', '1', 'Family', 'Visit', NULL, '2019-05-27 05:28:05', '2019-05-26 23:43:05', '1030', '1030', NULL, NULL),
+(3167, 2, 2072, '11:34: PM', '2019-05-26', 8, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-26 12:04:13', '2019-05-26 12:04:13', NULL, NULL, NULL, NULL),
+(3168, 2, 1278, '7:05: AM', '2019-05-27', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-28 00:36:57', '2019-05-27 18:51:56', '1070', '1070', NULL, NULL),
+(3169, 2, 2152, '10:54: AM', '2019-05-27', 1, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-26 23:24:36', '2019-05-26 23:24:36', NULL, NULL, NULL, NULL),
+(3170, 2, 2167, '11:12: AM', '2019-05-27', 17, '1', NULL, NULL, 'Visit', NULL, '2019-05-28 02:28:21', '2019-05-27 20:43:21', '1110', '1100', NULL, '10'),
+(3171, 2, 1514, '11:13: AM', '2019-05-27', 9, '1', NULL, 'Single', 'Business', NULL, '2019-05-26 23:43:59', '2019-05-26 23:43:59', NULL, NULL, NULL, NULL),
+(3172, 2, 2169, '12:13: PM', '2019-05-27', 6, '2', '2', 'Family', 'Visit', NULL, '2019-05-27 00:43:38', '2019-05-27 00:43:38', NULL, NULL, NULL, NULL),
+(3173, 2, 2168, '12:16: PM', '2019-05-27', 14, '2', NULL, 'Friends', 'Foreign Employment', 'Lalu vai friends', '2019-05-27 00:46:28', '2019-05-27 00:46:28', NULL, NULL, NULL, NULL),
+(3174, 2, 2170, '12:31: PM', '2019-05-27', 5, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-27 01:01:52', '2019-05-27 01:01:52', NULL, NULL, NULL, NULL),
+(3175, 2, 2026, '6:30: AM', '2019-05-28', 4, '5', NULL, 'Friends', 'Visit', NULL, '2019-05-27 19:00:54', '2019-05-27 19:00:54', NULL, NULL, NULL, NULL),
+(3176, 2, 2152, NULL, '2019-05-28', 1, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-28 02:24:02', '2019-05-28 02:24:02', NULL, NULL, NULL, NULL),
+(3177, 2, 2068, NULL, '2019-05-28', 2, '1', NULL, NULL, 'Visit', NULL, '2019-05-28 02:24:09', '2019-05-28 02:24:09', NULL, NULL, NULL, NULL),
+(3178, 2, 2170, NULL, '2019-05-28', 5, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-29 05:41:29', '2019-05-28 23:56:29', '2490', '2450', NULL, '40'),
+(3179, 2, 2169, NULL, '2019-05-28', 6, '2', '2', 'Family', 'Visit', NULL, '2019-05-28 02:24:27', '2019-05-28 02:24:27', NULL, NULL, NULL, NULL),
+(3180, 2, 2072, NULL, '2019-05-28', 8, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-30 01:53:14', '2019-05-29 20:08:14', '8015', '8015', NULL, NULL),
+(3181, 2, 1514, NULL, '2019-05-28', 9, '1', NULL, 'Single', 'Business', NULL, '2019-05-28 02:25:33', '2019-05-28 02:25:33', NULL, NULL, NULL, NULL),
+(3182, 2, 2165, NULL, '2019-05-28', 10, '1', NULL, 'Single', 'Visit', NULL, '2019-05-29 05:42:22', '2019-05-28 23:57:22', '1530', '1230', NULL, '300'),
+(3183, 2, 2168, NULL, '2019-05-28', 14, '2', NULL, 'Friends', 'Foreign Employment', 'Lalu vai friends', '2019-05-29 09:58:25', '2019-05-29 04:13:25', '3700', '3700', NULL, NULL),
+(3184, 2, 2037, NULL, '2019-05-28', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-28 02:30:00', '2019-05-28 02:30:00', NULL, NULL, NULL, NULL),
+(3185, 2, 2148, NULL, '2019-05-28', 18, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-28 02:30:07', '2019-05-28 02:30:07', NULL, NULL, NULL, NULL),
+(3186, 2, 2171, '3:56: PM', '2019-05-28', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-28 04:26:07', '2019-05-28 04:26:07', NULL, NULL, NULL, NULL),
+(3187, 2, 1809, '3:56: PM', '2019-05-28', 17, '1', '1', 'Family', 'Visit', NULL, '2019-05-29 09:59:21', '2019-05-29 04:14:21', '1510', '1500', NULL, '10'),
+(3188, 2, 2172, '4:39: PM', '2019-05-28', 11, '2', NULL, 'Family', 'Visit', NULL, '2019-05-29 05:43:10', '2019-05-28 23:58:10', '1260', '1260', NULL, NULL),
+(3189, 2, 1536, '5:56: PM', '2019-05-28', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-29 09:52:41', '2019-05-29 04:07:41', '2060', '2060', NULL, NULL),
+(3190, 2, 1142, '7:25: PM', '2019-05-28', 13, '1', '1', 'Family', 'Visit', NULL, '2019-05-29 10:00:32', '2019-05-29 04:15:32', '1140', '1140', NULL, NULL),
+(3191, 2, 2152, NULL, '2019-05-29', 1, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-30 01:09:35', '2019-05-29 19:24:35', '9900', '9900', NULL, NULL),
+(3192, 2, 2068, NULL, '2019-05-29', 2, '1', NULL, NULL, 'Visit', NULL, '2019-05-29 01:49:38', '2019-05-29 01:49:38', NULL, NULL, NULL, NULL),
+(3193, 2, 2026, NULL, '2019-05-29', 4, '5', NULL, 'Friends', 'Visit', NULL, '2019-05-30 12:40:53', '2019-05-30 06:55:53', '6440', '6140', NULL, '300'),
+(3194, 2, 2169, NULL, '2019-05-29', 6, '2', '2', 'Family', 'Visit', NULL, '2019-05-29 01:49:54', '2019-05-29 01:49:54', NULL, NULL, NULL, NULL),
+(3195, 2, 1514, '3:40: PM', '2019-05-29', 10, '1', NULL, 'Single', 'Visit', NULL, '2019-05-29 04:10:49', '2019-05-29 04:10:49', NULL, NULL, NULL, NULL),
+(3196, 2, 2171, '3:42: PM', '2019-05-29', 8, '1', '3', 'Family', 'Visit', NULL, '2019-05-29 04:12:31', '2019-05-29 04:12:31', NULL, NULL, NULL, NULL),
+(3197, 2, 2037, NULL, '2019-05-29', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-29 04:13:48', '2019-05-29 04:13:48', NULL, NULL, NULL, NULL),
+(3198, 2, 2148, '3:44: PM', '2019-05-29', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-29 04:14:57', '2019-05-29 04:14:57', NULL, NULL, NULL, NULL),
+(3199, 2, 1698, '3:47: PM', '2019-05-29', 17, '3', '1', 'Family', 'Hospital', NULL, '2019-05-29 04:17:02', '2019-05-29 04:17:02', NULL, NULL, NULL, NULL),
+(3200, 2, 2173, '3:58: PM', '2019-05-29', 11, '1', '1', 'Friends', 'Visit', NULL, '2019-05-29 11:03:55', '2019-05-29 05:18:55', '500', '500', NULL, NULL),
+(3201, 2, 1999, '4:09: PM', '2019-05-29', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-29 04:40:00', '2019-05-29 04:40:00', NULL, NULL, NULL, NULL),
+(3202, 2, 2174, '4:10: PM', '2019-05-29', 3, '1', '1', 'Family', 'Visit', NULL, '2019-05-29 10:26:47', '2019-05-29 04:41:47', '810', '800', NULL, '10'),
+(3203, 2, 2072, '6:28: PM', '2019-05-29', 12, '2', NULL, 'Friends', 'Business', NULL, '2019-05-30 01:52:23', '2019-05-29 20:07:23', '1660', '1585', NULL, '75'),
+(3204, 2, 2175, '6:34: PM', '2019-05-29', 18, '1', NULL, 'Single', 'Job', NULL, '2019-05-29 07:04:49', '2019-05-29 07:04:49', NULL, NULL, NULL, NULL),
+(3206, 2, 2176, '8:15: PM', '2019-05-29', 7, '2', '1', 'Family', 'Medicine', NULL, '2019-05-30 02:01:56', '2019-05-29 20:16:56', '1680', '1660', NULL, '20'),
+(3207, 2, 1917, '8:42: PM', '2019-05-29', 11, '1', NULL, 'Single', 'Visit', NULL, '2019-05-30 02:03:07', '2019-05-29 20:18:07', '680', '680', NULL, NULL),
+(3208, 2, 1294, '8:55: PM', '2019-05-29', 9, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-05-30 01:16:19', '2019-05-29 19:31:19', '1180', '1150', NULL, '30'),
+(3209, 2, 2177, '10:03: PM', '2019-05-29', 5, '1', '1', 'Family', 'Visit', NULL, '2019-05-30 12:42:04', '2019-05-30 06:57:04', '930', '930', NULL, NULL),
+(3210, 2, 2068, NULL, '2019-05-30', 2, '1', NULL, NULL, 'Visit', NULL, '2019-05-30 06:54:56', '2019-05-30 06:54:56', NULL, NULL, NULL, NULL),
+(3211, 2, 2169, NULL, '2019-05-30', 6, '2', '2', 'Family', 'Visit', NULL, '2019-05-31 11:26:12', '2019-05-31 05:41:12', '2415', '2215', NULL, '200'),
+(3212, 2, 2171, NULL, '2019-05-30', 8, '1', '3', 'Family', 'Visit', NULL, '2019-05-31 01:51:04', '2019-05-30 20:06:04', '4705', '4600', NULL, '105'),
+(3213, 2, 1514, NULL, '2019-05-30', 10, '1', NULL, 'Single', 'Visit', NULL, '2019-05-30 06:57:42', '2019-05-30 06:57:42', NULL, NULL, NULL, NULL),
+(3214, 2, 2148, NULL, '2019-05-30', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-30 06:57:48', '2019-05-30 06:57:48', NULL, NULL, NULL, NULL),
+(3215, 2, 2037, NULL, '2019-05-30', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-30 06:57:55', '2019-05-30 06:57:55', NULL, NULL, NULL, NULL),
+(3216, 2, 1698, NULL, '2019-05-30', 17, '3', '1', 'Family', 'Hospital', NULL, '2019-05-31 01:53:02', '2019-05-30 20:08:02', '4580', '4400', NULL, '180'),
+(3217, 2, 2175, NULL, '2019-05-30', 18, '1', NULL, 'Single', 'Job', NULL, '2019-05-30 06:58:07', '2019-05-30 06:58:07', NULL, NULL, NULL, NULL),
+(3218, 2, 2178, '6:31: PM', '2019-05-30', 11, '1', '1', 'Family', 'Visit', NULL, '2019-05-31 06:44:19', '2019-05-31 00:59:19', '1160', '1160', NULL, NULL),
+(3219, 2, 2179, '6:58: PM', '2019-05-30', 3, '1', NULL, NULL, 'Visit', NULL, '2019-05-31 03:27:56', '2019-05-30 21:42:56', '1180', '1180', NULL, NULL),
+(3220, 2, 1793, '7:16: PM', '2019-05-30', 12, '1', '1', 'Family', 'Visit', NULL, '2019-05-31 03:24:57', '2019-05-30 21:39:57', '1760', '1760', NULL, NULL),
+(3221, 2, 1917, '7:51: PM', '2019-05-30', 1, '3', NULL, 'Friends', 'Visit', NULL, '2019-05-31 01:41:37', '2019-05-30 19:56:37', '1580', '1580', NULL, NULL),
+(3222, 2, 2020, '8:50: PM', '2019-05-30', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-05-31 01:43:47', '2019-05-30 19:58:47', '1280', '1180', NULL, '100'),
+(3223, 2, 1536, '10:05: PM', '2019-05-30', 7, '1', '1', 'Family', 'Visit', NULL, '2019-05-30 10:35:40', '2019-05-30 10:35:40', NULL, NULL, NULL, NULL),
+(3224, 2, 2180, '10:35: AM', '2019-05-31', 3, '1', '1', 'Family', 'Visit', NULL, '2019-06-01 04:24:18', '2019-05-31 22:39:18', '1510', '1510', NULL, NULL),
+(3226, 2, 2181, '11:42: AM', '2019-05-31', 1, '3', NULL, 'Friends', 'Foreign Employment', 'SAROT 402', '2019-06-01 10:05:28', '2019-06-01 04:20:28', NULL, NULL, NULL, NULL),
+(3227, 2, 2182, '11:43: AM', '2019-05-31', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-05-31 00:13:11', '2019-05-31 00:13:11', NULL, NULL, NULL, NULL),
+(3228, 2, 2068, NULL, '2019-05-31', 2, '1', NULL, NULL, 'Visit', NULL, '2019-05-31 05:39:53', '2019-05-31 05:39:53', NULL, NULL, NULL, NULL),
+(3229, 2, 1536, NULL, '2019-05-31', 7, '1', '1', 'Family', 'Visit', NULL, '2019-06-01 04:37:22', '2019-05-31 22:52:22', '6100', '6100', NULL, NULL),
+(3230, 2, 1514, NULL, '2019-05-31', 10, '1', NULL, 'Single', 'Visit', NULL, '2019-06-01 04:01:52', '2019-05-31 22:16:52', '3450', '3450', NULL, NULL),
+(3231, 2, 2148, NULL, '2019-05-31', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-05-31 05:42:25', '2019-05-31 05:42:25', NULL, NULL, NULL, NULL),
+(3232, 2, 2037, NULL, '2019-05-31', 16, '1', NULL, NULL, 'Visit', NULL, '2019-05-31 05:42:32', '2019-05-31 05:42:32', NULL, NULL, NULL, NULL),
+(3233, 2, 2175, NULL, '2019-05-31', 18, '1', NULL, 'Single', 'Job', 'DIPOJIT MOBIL', '2019-06-01 10:36:51', '2019-06-01 04:51:51', NULL, NULL, NULL, NULL),
+(3234, 2, 1245, '9:49: PM', '2019-05-31', 8, '2', NULL, 'Friends', 'Job', NULL, '2019-06-01 04:05:20', '2019-05-31 22:20:20', '700', '600', NULL, '100'),
+(3235, 2, 2183, '9:53: PM', '2019-05-31', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-01 04:03:54', '2019-05-31 22:18:54', '1030', '1030', NULL, NULL),
+(3236, 2, 2184, '11:02: PM', '2019-05-31', 17, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-01 03:57:56', '2019-05-31 22:12:56', '1800', '1800', NULL, NULL),
+(3237, 2, 2135, '10:36: AM', '2019-06-01', 5, '1', '1', 'Family', 'Visit', NULL, '2019-06-01 09:51:41', '2019-06-01 04:06:41', '1130', '1130', NULL, NULL),
+(3238, 2, 1147, '10:39: AM', '2019-06-01', 13, '1', '1', 'Family', 'Visit', NULL, '2019-06-01 11:08:17', '2019-06-01 05:23:17', '1170', '1170', NULL, NULL),
+(3239, 2, 2185, '11:17: AM', '2019-06-01', 17, '1', NULL, 'Single', 'Foreign Employment', 'Elite suwarna friend', '2019-05-31 23:47:30', '2019-05-31 23:47:30', NULL, NULL, NULL, NULL),
+(3240, 2, 1039, '12:11: PM', '2019-06-01', 8, '1', '1', 'Family', 'Visit', NULL, '2019-06-01 10:17:45', '2019-06-01 04:32:45', '1260', '1150', NULL, '110'),
+(3241, 2, 2131, '12:45: PM', '2019-06-01', 7, '1', '1', 'Family', 'Visit', NULL, '2019-06-02 09:09:24', '2019-06-02 03:24:24', '2630', '2400', NULL, '230'),
+(3242, 2, 2068, NULL, '2019-06-01', 2, '1', NULL, NULL, 'Visit', NULL, '2019-06-02 02:47:59', '2019-06-01 21:02:59', '37975', '33890', NULL, '4085'),
+(3243, 2, 2148, NULL, '2019-06-01', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-01 04:02:56', '2019-06-01 04:02:56', NULL, NULL, NULL, NULL),
+(3244, 2, 2037, NULL, '2019-06-01', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-01 04:03:05', '2019-06-01 04:03:05', NULL, NULL, NULL, NULL),
+(3245, 2, 2181, '4:32: PM', '2019-06-01', 18, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-01 05:02:35', '2019-06-01 05:02:35', NULL, NULL, NULL, NULL),
+(3246, 2, 2180, '6:41: PM', '2019-06-01', 18, '1', NULL, 'Single', 'Visit', NULL, '2019-06-02 09:08:36', '2019-06-02 03:23:36', '400', '400', NULL, NULL),
+(3247, 2, 2181, '6:43: PM', '2019-06-01', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-01 07:13:38', '2019-06-01 07:13:38', NULL, NULL, NULL, NULL),
+(3248, 2, 1913, '7:33: PM', '2019-06-01', 6, '6', NULL, 'Friends', 'Visit', NULL, '2019-06-02 09:00:47', '2019-06-02 03:15:47', '1320', '1300', NULL, '20'),
+(3249, 2, 2186, '2:46: PM', '2019-06-02', 6, '1', NULL, 'Single', 'Official', NULL, '2019-06-03 05:50:40', '2019-06-03 00:05:40', '750', '750', NULL, NULL),
+(3250, 2, 2185, NULL, '2019-06-02', 17, '1', NULL, 'Single', 'Foreign Employment', 'Elite suwarna friend', '2019-06-02 03:18:31', '2019-06-02 03:18:31', NULL, NULL, NULL, NULL),
+(3251, 2, 2037, NULL, '2019-06-02', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-02 03:19:33', '2019-06-02 03:19:33', NULL, NULL, NULL, NULL),
+(3252, 2, 2148, NULL, '2019-06-02', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-02 03:20:49', '2019-06-02 03:20:49', NULL, NULL, NULL, NULL),
+(3253, 2, 2181, NULL, '2019-06-02', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-02 03:21:57', '2019-06-02 03:21:57', NULL, NULL, NULL, NULL),
+(3254, 2, 2135, '6:41: PM', '2019-06-02', 3, '1', '1', 'Family', 'Visit', NULL, '2019-06-02 07:11:19', '2019-06-02 07:11:19', NULL, NULL, NULL, NULL),
+(3255, 2, 2135, '6:46: PM', '2019-06-02', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-03 05:54:06', '2019-06-03 00:09:06', '950', '900', NULL, '50'),
+(3256, 2, 1318, '7:25: PM', '2019-06-02', 3, '1', '1', 'Family', 'Visit', NULL, '2019-06-03 10:13:15', '2019-06-03 04:28:15', '1610', '1600', NULL, '10'),
+(3257, 2, 1204, '9:55: PM', '2019-06-02', 8, '1', NULL, 'Single', 'Official', NULL, '2019-06-02 10:25:32', '2019-06-02 10:25:32', NULL, NULL, NULL, NULL),
+(3258, 2, 2137, '5:44: AM', '2019-06-02', 11, '1', '1', 'Single', 'Visit', NULL, '2019-06-02 18:14:45', '2019-06-02 18:14:45', NULL, NULL, NULL, NULL),
+(3259, 2, 2181, NULL, '2019-06-03', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-03 04:28:42', '2019-06-03 04:28:42', NULL, NULL, NULL, NULL),
+(3260, 2, 1204, NULL, '2019-06-03', 8, '1', NULL, 'Single', 'Official', NULL, '2019-06-03 04:28:52', '2019-06-03 04:28:52', NULL, NULL, NULL, NULL),
+(3261, 2, 2137, NULL, '2019-06-03', 11, '1', '1', 'Single', 'Visit', NULL, '2019-06-03 11:30:13', '2019-06-03 05:45:13', '855', '855', NULL, NULL),
+(3262, 2, 2037, NULL, '2019-06-03', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-03 04:30:09', '2019-06-03 04:30:09', NULL, NULL, NULL, NULL),
+(3263, 2, 2185, '4:00: PM', '2019-06-03', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-03 04:30:31', '2019-06-03 04:30:31', NULL, NULL, NULL, NULL),
+(3264, 2, 2188, '5:08: PM', '2019-06-03', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-06-04 07:08:43', '2019-06-04 01:23:43', '900', '900', NULL, NULL),
+(3265, 2, 2189, '5:14: PM', '2019-06-03', 7, '1', '2', 'Family', 'Visit', NULL, '2019-06-04 07:02:00', '2019-06-04 01:17:00', '2440', '2250', NULL, '190'),
+(3266, 2, 2187, '6:48: PM', '2019-06-02', 13, '1', '1', 'Family', 'Visit', NULL, '2019-06-03 13:03:41', '2019-06-03 07:18:41', '1200', '1200', NULL, NULL),
+(3267, 2, 2187, '6:49: PM', '2019-06-03', 17, '1', '1', 'Family', 'Visit', NULL, '2019-06-04 07:03:42', '2019-06-04 01:18:42', '830', '830', NULL, NULL),
+(3268, 2, 1076, '6:57: PM', '2019-06-03', 13, '1', '2', 'Family', 'Official', NULL, '2019-06-04 07:02:59', '2019-06-04 01:17:59', '1920', '1920', NULL, NULL),
+(3269, 2, 1318, '8:08: PM', '2019-06-03', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-04 07:10:05', '2019-06-04 01:25:05', '760', '760', NULL, NULL),
+(3270, 2, 2180, '8:16: PM', '2019-06-03', 18, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-06-04 07:04:17', '2019-06-04 01:19:17', '430', '430', NULL, NULL),
+(3271, 2, 1917, '8:22: PM', '2019-06-03', 15, '1', NULL, 'Single', 'Visit', NULL, '2019-06-04 07:05:16', '2019-06-04 01:20:16', '880', '880', NULL, NULL),
+(3272, 2, 1245, '10:02: PM', '2019-06-03', 2, '1', NULL, 'Single', 'Job', NULL, '2019-06-04 07:06:20', '2019-06-04 01:21:20', '850', '850', NULL, NULL),
+(3273, 2, 2148, '10:03: PM', '2019-06-03', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-03 10:33:08', '2019-06-03 10:33:08', NULL, NULL, NULL, NULL),
+(3274, 2, 2190, '12:45: PM', '2019-06-04', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-06-05 05:33:42', '2019-06-04 23:48:42', '1200', '1200', NULL, NULL),
+(3275, 2, 1764, '3:28: PM', '2019-06-04', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-04 03:58:15', '2019-06-04 03:58:15', NULL, NULL, NULL, NULL),
+(3276, 2, 2181, NULL, '2019-06-04', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-04 03:58:25', '2019-06-04 03:58:25', NULL, NULL, NULL, NULL),
+(3277, 2, 2148, NULL, '2019-06-04', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-04 03:59:50', '2019-06-04 03:59:50', NULL, NULL, NULL, NULL),
+(3278, 2, 2185, NULL, '2019-06-04', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-04 03:59:56', '2019-06-04 03:59:56', NULL, NULL, NULL, NULL),
+(3279, 2, 2037, NULL, '2019-06-04', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-04 04:00:02', '2019-06-04 04:00:02', NULL, NULL, NULL, NULL),
+(3280, 2, 2180, '6:11: PM', '2019-06-04', 18, '1', NULL, NULL, 'Visit', NULL, '2019-06-04 06:41:18', '2019-06-04 06:41:18', NULL, NULL, NULL, NULL),
+(3281, 2, 1999, '6:12: PM', '2019-06-04', 2, '1', NULL, 'Family', 'Visit', NULL, '2019-06-04 06:42:37', '2019-06-04 06:42:37', NULL, NULL, NULL, NULL),
+(3282, 2, 1989, '7:52: PM', '2019-06-04', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-06-05 05:36:41', '2019-06-04 23:51:41', '930', '930', NULL, NULL),
+(3283, 2, 1381, '8:54: PM', '2019-06-04', 14, '1', NULL, 'Single', 'Visit', NULL, '2019-06-04 09:24:24', '2019-06-04 09:24:24', NULL, NULL, NULL, NULL),
+(3284, 2, 2138, '11:17: AM', '2019-06-05', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-06-04 23:47:58', '2019-06-04 23:47:58', NULL, NULL, NULL, NULL),
+(3285, 2, 2181, NULL, '2019-06-05', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-04 23:48:07', '2019-06-04 23:48:07', NULL, NULL, NULL, NULL),
+(3286, 2, 2148, NULL, '2019-06-05', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-04 23:51:57', '2019-06-04 23:51:57', NULL, NULL, NULL, NULL),
+(3287, 2, 2037, '11:22: AM', '2019-06-05', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-04 23:52:57', '2019-06-04 23:52:57', NULL, NULL, NULL, NULL),
+(3288, 2, 1516, '11:24: AM', '2019-06-05', 15, '1', NULL, 'Single', 'Visit', NULL, '2019-06-05 14:24:56', '2019-06-05 08:39:56', '830', '800', NULL, '30'),
+(3289, 2, 2185, NULL, '2019-06-05', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-05 02:57:21', '2019-06-05 02:57:21', NULL, NULL, NULL, NULL),
+(3290, 2, 1381, NULL, '2019-06-05', 14, '1', NULL, 'Single', 'Visit', NULL, '2019-06-05 02:57:28', '2019-06-05 02:57:28', NULL, NULL, NULL, NULL),
+(3291, 2, 2180, NULL, '2019-06-05', 18, '1', NULL, NULL, 'Visit', NULL, '2019-06-05 02:57:41', '2019-06-05 02:57:41', NULL, NULL, NULL, NULL),
+(3292, 2, 2191, '4:12: PM', '2019-06-05', 16, '1', '1', 'Family', 'Visit', NULL, '2019-06-05 04:42:59', '2019-06-05 04:42:59', NULL, NULL, NULL, NULL),
+(3293, 2, 2192, '4:25: PM', '2019-06-05', 9, '1', '1', 'Family', 'Visit', NULL, '2019-06-06 04:14:43', '2019-06-05 22:29:43', '2610', '2600', NULL, '10'),
+(3294, 2, 1499, '7:26: PM', '2019-06-05', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-06 03:52:55', '2019-06-05 22:07:55', '940', '940', NULL, NULL),
+(3295, 2, 1309, '8:09: PM', '2019-06-05', 17, '1', '1', 'Family', 'Visit', NULL, '2019-06-06 04:09:24', '2019-06-05 22:24:24', '1790', '1790', NULL, NULL),
+(3296, 2, 2193, '8:27: PM', '2019-06-05', 13, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-05 08:57:07', '2019-06-05 08:57:07', NULL, NULL, NULL, NULL),
+(3297, 2, 1951, '9:02: PM', '2019-06-05', 15, '1', NULL, 'Single', 'Visit', NULL, '2019-06-06 03:53:50', '2019-06-05 22:08:50', '1450', '1450', NULL, NULL),
+(3298, 2, 2194, '11:26: AM', '2019-06-06', 7, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-07 08:06:54', '2019-06-07 02:21:54', '4410', '4410', NULL, NULL),
+(3299, 2, 1642, '12:23: PM', '2019-06-06', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-07 08:13:10', '2019-06-07 02:28:10', '1800', '1800', NULL, NULL),
+(3300, 2, 2195, '7:28: PM', '2019-06-06', 11, '1', '1', 'Family', 'Visit', NULL, '2019-06-07 08:09:52', '2019-06-07 02:24:52', '970', '970', NULL, NULL);
+INSERT INTO `room_checks` (`id`, `user_id`, `customer_id`, `time`, `date`, `room_id`, `male`, `female`, `relation`, `purpose`, `remarks`, `created_at`, `updated_at`, `total_transaction`, `guest_paid`, `guest_due`, `guest_discount`) VALUES
+(3301, 2, 1381, '7:29: PM', '2019-06-06', 2, '1', NULL, 'Single', 'Official', NULL, '2019-06-06 07:59:05', '2019-06-06 07:59:05', NULL, NULL, NULL, NULL),
+(3302, 2, 1613, '7:30: PM', '2019-06-06', 15, '1', '1', 'Family', 'Visit', NULL, '2019-06-06 08:00:50', '2019-06-06 08:00:50', NULL, NULL, NULL, NULL),
+(3303, 2, 1381, NULL, '2019-06-07', 2, '1', NULL, 'Single', 'Official', NULL, '2019-06-08 05:37:20', '2019-06-07 23:52:20', '2520', '2520', NULL, NULL),
+(3304, 2, 2138, NULL, '2019-06-07', 3, '1', NULL, 'Single', 'Visit', NULL, '2019-06-07 12:36:40', '2019-06-07 06:51:40', '3120', '3120', NULL, NULL),
+(3305, 2, 2181, NULL, '2019-06-07', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-07 02:21:42', '2019-06-07 02:21:42', NULL, NULL, NULL, NULL),
+(3306, 2, 2037, NULL, '2019-06-07', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-07 02:23:34', '2019-06-07 02:23:34', NULL, NULL, NULL, NULL),
+(3307, 2, 2148, NULL, '2019-06-07', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-07 02:23:46', '2019-06-07 02:23:46', NULL, NULL, NULL, NULL),
+(3308, 2, 2185, NULL, '2019-06-07', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-07 02:25:17', '2019-06-07 02:25:17', NULL, NULL, NULL, NULL),
+(3309, 2, 2193, NULL, '2019-06-07', 13, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-07 02:26:09', '2019-06-07 02:26:09', NULL, NULL, NULL, NULL),
+(3310, 2, 1613, NULL, '2019-06-07', 15, '1', '1', 'Family', 'Visit', NULL, '2019-06-07 08:40:09', '2019-06-07 02:55:09', '1720', '1700', NULL, '20'),
+(3311, 2, 2191, NULL, '2019-06-07', 16, '1', '1', 'Family', 'Visit', NULL, '2019-06-07 02:30:27', '2019-06-07 02:30:27', NULL, NULL, NULL, NULL),
+(3312, 2, 2196, '2:13: PM', '2019-06-07', 9, '1', '1', 'Family', 'Job', NULL, '2019-06-07 12:35:40', '2019-06-07 06:50:40', '600', '600', NULL, NULL),
+(3313, 2, 2197, '2:13: PM', '2019-06-07', 1, '1', '1', 'Family', 'Visit', NULL, '2019-06-08 11:27:35', '2019-06-08 05:42:35', '8540', '8500', NULL, '40'),
+(3314, 2, 2198, '2:24: PM', '2019-06-07', 14, '1', NULL, NULL, 'Visit', NULL, '2019-06-07 02:54:16', '2019-06-07 02:54:16', NULL, NULL, NULL, NULL),
+(3315, 2, 2199, '6:20: PM', '2019-06-07', 15, '1', NULL, 'Single', 'Visit', NULL, '2019-06-08 02:29:20', '2019-06-07 20:44:20', '600', '600', NULL, NULL),
+(3316, 2, 2200, '8:39: PM', '2019-06-07', 5, '1', '1', 'Family', 'Visit', NULL, '2019-06-08 02:27:24', '2019-06-07 20:42:24', '1830', '1730', NULL, '100'),
+(3317, 2, 2201, '9:19: PM', '2019-06-07', 18, '4', NULL, 'Friends', 'Foreign Employment', NULL, '2019-06-08 11:29:46', '2019-06-08 05:44:46', '6820', '6800', NULL, '20'),
+(3318, 2, 1879, '8:24: AM', '2019-06-08', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-06-07 20:54:29', '2019-06-07 20:54:29', NULL, NULL, NULL, NULL),
+(3319, 2, 2202, '9:22: AM', '2019-06-08', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-07 21:52:08', '2019-06-07 21:52:08', NULL, NULL, NULL, NULL),
+(3320, 2, 2182, '1:09: PM', '2019-06-08', 11, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-09 08:20:03', '2019-06-09 02:35:03', '60', '600', NULL, NULL),
+(3321, 2, 2181, NULL, '2019-06-08', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-08 01:40:17', '2019-06-08 01:40:17', NULL, NULL, NULL, NULL),
+(3322, 2, 2037, NULL, '2019-06-08', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-09 08:18:29', '2019-06-09 02:33:29', '18860', '18860', NULL, NULL),
+(3323, 2, 2148, NULL, '2019-06-08', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-08 01:40:40', '2019-06-08 01:40:40', NULL, NULL, NULL, NULL),
+(3324, 2, 2185, NULL, '2019-06-08', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-08 01:40:49', '2019-06-08 01:40:49', NULL, NULL, NULL, NULL),
+(3325, 2, 2193, NULL, '2019-06-08', 13, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-09 06:56:04', '2019-06-09 01:11:04', '5100', '4900', NULL, '200'),
+(3326, 2, 2191, NULL, '2019-06-08', 16, '1', '1', 'Family', 'Visit', NULL, '2019-06-08 01:41:14', '2019-06-08 01:41:14', NULL, NULL, NULL, NULL),
+(3327, 2, 1376, '2:05: PM', '2019-06-08', 9, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-08 02:35:21', '2019-06-08 02:35:21', NULL, NULL, NULL, NULL),
+(3328, 2, 2203, '5:13: PM', '2019-06-08', 14, '1', '2', 'Family', 'Visit', NULL, '2019-06-09 01:27:53', '2019-06-08 19:42:53', '1210', '1210', NULL, NULL),
+(3329, 2, 2204, '6:37: PM', '2019-06-08', 3, NULL, '2', NULL, 'Visit', NULL, '2019-06-08 07:07:22', '2019-06-08 07:07:22', NULL, NULL, NULL, NULL),
+(3330, 2, 2205, '6:40: PM', '2019-06-08', 2, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-06-09 04:47:41', '2019-06-08 23:02:41', '2290', '2180', NULL, '110'),
+(3331, 2, 1039, '11:46: AM', '2019-06-09', 14, '1', '1', 'Family', 'Visit', NULL, '2019-06-09 08:54:26', '2019-06-09 03:09:26', '780', '680', NULL, '100'),
+(3332, 2, 1313, '12:39: PM', '2019-06-09', 17, '4', NULL, 'Friends', 'Job', NULL, '2019-06-10 04:33:24', '2019-06-09 22:48:24', '2170', '2170', NULL, NULL),
+(3333, 2, 1423, '1:56: PM', '2019-06-09', 3, '1', '1', 'brother sister', 'Visit', NULL, '2019-06-09 02:26:22', '2019-06-09 02:26:22', NULL, NULL, NULL, NULL),
+(3334, 2, 2181, NULL, '2019-06-09', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-09 02:29:51', '2019-06-09 02:29:51', NULL, NULL, NULL, NULL),
+(3335, 2, 1879, NULL, '2019-06-09', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-06-09 02:29:59', '2019-06-09 02:29:59', NULL, NULL, NULL, NULL),
+(3336, 2, 1376, NULL, '2019-06-09', 9, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-09 02:34:39', '2019-06-09 02:34:39', NULL, NULL, NULL, NULL),
+(3337, 2, 2148, NULL, '2019-06-09', 10, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-10 13:59:34', '2019-06-10 08:14:34', '24950', '24950', NULL, NULL),
+(3338, 2, 2185, NULL, '2019-06-09', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-09 02:35:22', '2019-06-09 02:35:22', NULL, NULL, NULL, NULL),
+(3339, 2, 2202, NULL, '2019-06-09', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-09 02:35:29', '2019-06-09 02:35:29', NULL, NULL, NULL, NULL),
+(3340, 2, 2191, NULL, '2019-06-09', 16, '1', '1', 'Family', 'Visit', NULL, '2019-06-09 10:42:54', '2019-06-09 04:57:54', '4860', '4850', NULL, '10'),
+(3341, 2, 2207, '2:43: PM', '2019-06-09', 11, '1', NULL, 'Single', 'Visit', NULL, '2019-06-10 04:52:28', '2019-06-09 23:07:28', '1620', '1620', NULL, NULL),
+(3342, 2, 2206, '2:43: PM', '2019-06-09', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-09 03:13:57', '2019-06-09 03:13:57', NULL, NULL, NULL, NULL),
+(3343, 2, 1700, '3:46: PM', '2019-06-09', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-06-09 11:46:32', '2019-06-09 06:01:32', '820', '820', NULL, NULL),
+(3344, 2, 2208, '4:27: PM', '2019-06-09', 8, '2', '1', 'Family', 'Visit', NULL, '2019-06-09 04:57:04', '2019-06-09 04:57:04', NULL, NULL, NULL, NULL),
+(3345, 2, 2208, '6:46: PM', '2019-06-09', 18, '2', '1', 'Family', 'Visit', NULL, '2019-06-10 04:26:56', '2019-06-09 22:41:56', '430', '430', NULL, NULL),
+(3346, 2, 2209, '7:30: PM', '2019-06-09', 16, '1', NULL, 'Single', 'Educational', NULL, '2019-06-10 04:54:36', '2019-06-09 23:09:36', '910', '860', NULL, '50'),
+(3347, 2, 2210, '8:45: PM', '2019-06-09', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-06-09 09:15:42', '2019-06-09 09:15:42', NULL, NULL, NULL, NULL),
+(3348, 2, 1603, '8:46: PM', '2019-06-09', 13, '2', '1', 'Family', 'Visit', NULL, '2019-06-09 09:16:26', '2019-06-09 09:16:26', NULL, NULL, NULL, NULL),
+(3349, 2, 1031, '9:29: PM', '2019-06-09', 1, '3', NULL, 'Friends', 'Visit', NULL, '2019-06-10 04:21:08', '2019-06-09 22:36:08', '2340', '2140', NULL, '200'),
+(3350, 2, 1026, '10:07: AM', '2019-06-10', 1, '1', '4', 'Family', 'Visit', NULL, '2019-06-11 12:01:15', '2019-06-11 06:16:15', '3000', '3000', NULL, NULL),
+(3351, 2, 2138, '10:41: AM', '2019-06-10', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-09 23:11:10', '2019-06-09 23:11:10', NULL, NULL, NULL, NULL),
+(3352, 2, 2211, '10:41: AM', '2019-06-10', 17, '1', '1', 'Family', 'Official', NULL, '2019-06-09 23:11:33', '2019-06-09 23:11:33', NULL, NULL, NULL, NULL),
+(3353, 2, 2210, NULL, '2019-06-10', 2, '1', NULL, 'Single', 'Visit', NULL, '2019-06-11 03:16:35', '2019-06-10 21:31:35', '2490', '2490', NULL, NULL),
+(3354, 2, 1423, NULL, '2019-06-10', 3, '1', '1', 'brother sister', 'Visit', NULL, '2019-06-10 08:11:23', '2019-06-10 08:11:23', NULL, NULL, NULL, NULL),
+(3355, 2, 2181, NULL, '2019-06-10', 4, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-11 03:17:48', '2019-06-10 21:32:48', '14860', '13770', NULL, '1090'),
+(3356, 2, 1879, NULL, '2019-06-10', 5, '1', NULL, 'Single', 'Visit', NULL, '2019-06-11 12:02:19', '2019-06-11 06:17:19', '9680', '9680', NULL, NULL),
+(3357, 2, 1376, NULL, '2019-06-10', 9, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-11 12:03:00', '2019-06-11 06:18:00', '1500', '1500', NULL, NULL),
+(3358, 2, 2185, NULL, '2019-06-10', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-10 08:15:14', '2019-06-10 08:15:14', NULL, NULL, NULL, NULL),
+(3359, 2, 1603, NULL, '2019-06-10', 13, '2', '1', 'Family', 'Visit', NULL, '2019-06-11 06:45:22', '2019-06-11 01:00:22', '4270', '4270', NULL, NULL),
+(3360, 2, 2206, NULL, '2019-06-10', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-10 08:15:38', '2019-06-10 08:15:38', NULL, NULL, NULL, NULL),
+(3361, 2, 2202, NULL, '2019-06-10', 15, '1', '1', 'Family', 'Foreign Employment', NULL, '2019-06-10 14:05:38', '2019-06-10 08:20:38', '5425', '5400', NULL, '25'),
+(3362, 2, 2026, '7:49: PM', '2019-06-10', 6, '1', NULL, 'Single', 'Foreign Employment', NULL, '2019-06-11 06:43:50', '2019-06-11 00:58:50', '3160', '2900', NULL, '260'),
+(3363, 2, 1026, NULL, '2019-06-11', 1, '1', '4', 'Family', 'Visit', NULL, '2019-06-12 09:58:14', '2019-06-12 04:13:14', '3000', '3000', NULL, NULL),
+(3364, 2, 1423, NULL, '2019-06-11', 3, '1', '1', 'brother sister', 'Visit', NULL, '2019-06-11 06:16:34', '2019-06-11 06:16:34', NULL, NULL, NULL, NULL),
+(3365, 2, 2138, NULL, '2019-06-11', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-11 06:17:37', '2019-06-11 06:17:37', NULL, NULL, NULL, NULL),
+(3366, 2, 2185, NULL, '2019-06-11', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-11 06:18:21', '2019-06-11 06:18:21', NULL, NULL, NULL, NULL),
+(3367, 2, 2206, NULL, '2019-06-11', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-11 06:18:26', '2019-06-11 06:18:26', NULL, NULL, NULL, NULL),
+(3368, 2, 2211, NULL, '2019-06-11', 17, '1', '1', 'Family', 'Official', NULL, '2019-06-11 06:18:32', '2019-06-11 06:18:32', NULL, NULL, NULL, NULL),
+(3369, 2, 1078, '7:26: PM', '2019-06-11', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-11 07:56:56', '2019-06-11 07:56:56', NULL, NULL, NULL, NULL),
+(3370, 2, 2138, NULL, '2019-06-12', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-12 04:13:54', '2019-06-12 04:13:54', NULL, NULL, NULL, NULL),
+(3371, 2, 2185, NULL, '2019-06-12', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-12 04:14:02', '2019-06-12 04:14:02', NULL, NULL, NULL, NULL),
+(3372, 2, 1423, NULL, '2019-06-12', 3, '1', '1', 'brother sister', 'Visit', NULL, '2019-06-12 04:14:07', '2019-06-12 04:14:07', NULL, NULL, NULL, NULL),
+(3373, 2, 2206, NULL, '2019-06-12', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-12 04:14:16', '2019-06-12 04:14:16', NULL, NULL, NULL, NULL),
+(3374, 2, 1078, NULL, '2019-06-12', 16, '1', NULL, NULL, 'Visit', NULL, '2019-06-13 06:24:59', '2019-06-13 00:39:59', '6235', '6235', NULL, NULL),
+(3375, 2, 1489, '5:05: PM', '2019-06-12', 6, '2', NULL, 'f', 'Friends', 'room 107   */room 106 baki', '2019-06-13 01:22:18', '2019-06-12 19:37:18', '10395', '4000', '6395', NULL),
+(3376, 2, 1071, '6:18: PM', '2019-06-11', 2, '3', NULL, 'Family', 'Hospital', NULL, '2019-06-12 06:47:10', '2019-06-12 06:47:10', NULL, NULL, NULL, NULL),
+(3377, 2, 1071, NULL, '2019-06-12', 2, '3', NULL, 'Family', 'Hospital', NULL, '2019-06-12 13:32:54', '2019-06-12 07:47:54', '3370', '3300', NULL, '70'),
+(3378, 2, 1500, '7:11: PM', '2019-06-12', 5, '1', '1', 'Family', 'Visit', NULL, '2019-06-13 06:20:40', '2019-06-13 00:35:40', '2740', '2740', NULL, NULL),
+(3379, 2, 1500, '7:11: PM', '2019-06-12', 15, '3', NULL, 'Friends', 'Visit', NULL, '2019-06-12 07:41:57', '2019-06-12 07:41:57', NULL, NULL, NULL, NULL),
+(3380, 2, 2212, '7:17: PM', '2019-06-12', 18, '2', NULL, 'Family', 'Visit', NULL, '2019-06-13 06:23:49', '2019-06-13 00:38:49', '830', '800', NULL, '30'),
+(3381, 2, 1764, '7:18: PM', '2019-06-12', 17, '1', '1', 'Family', 'Visit', NULL, '2019-06-12 13:34:04', '2019-06-12 07:49:04', '1180', '1180', NULL, NULL),
+(3382, 2, 2213, '7:36: PM', '2019-06-12', 9, '1', NULL, 'Single', 'Visit', NULL, '2019-06-13 06:21:38', '2019-06-13 00:36:38', '880', '880', NULL, NULL),
+(3383, 2, 2214, '12:02: PM', '2019-06-13', 4, '2', '2', 'Family', 'Visit', NULL, '2019-06-13 00:32:53', '2019-06-13 00:32:53', NULL, NULL, NULL, NULL),
+(3384, 2, 1254, '12:25: PM', '2019-06-13', 16, '1', '1', 'Family', 'Visit', NULL, '2019-06-13 00:55:04', '2019-06-13 00:55:04', NULL, NULL, NULL, NULL),
+(3385, 2, 2138, NULL, '2019-06-13', 8, '1', NULL, 'Single', 'Visit', NULL, '2019-06-13 01:00:30', '2019-06-13 01:00:30', NULL, NULL, NULL, NULL),
+(3386, 2, 1423, NULL, '2019-06-13', 3, '1', '1', 'brother sister', 'Visit', NULL, '2019-06-13 03:19:04', '2019-06-13 03:19:04', NULL, NULL, NULL, NULL),
+(3387, 2, 2185, NULL, '2019-06-13', 12, '1', NULL, NULL, 'Foreign Employment', NULL, '2019-06-13 03:19:25', '2019-06-13 03:19:25', NULL, NULL, NULL, NULL),
+(3388, 2, 2206, NULL, '2019-06-13', 14, '2', NULL, 'Friends', 'Visit', NULL, '2019-06-13 03:19:32', '2019-06-13 03:19:32', NULL, NULL, NULL, NULL),
+(3389, 2, 1536, '3:24: PM', '2019-06-13', 7, '1', '1', 'Family', 'Visit', NULL, '2019-06-13 03:54:17', '2019-06-13 03:54:17', NULL, NULL, NULL, NULL),
+(3390, 2, 1591, '4:21: PM', '2019-06-13', 13, '1', NULL, 'Single', 'Visit', NULL, '2019-06-13 04:51:27', '2019-06-13 04:51:27', NULL, NULL, NULL, NULL),
+(3391, 2, 1500, '4:46: PM', '2019-06-13', 5, '1', '1', 'Family', 'Visit', NULL, '2019-06-13 05:16:18', '2019-06-13 05:16:18', NULL, NULL, NULL, NULL),
+(3392, 2, 1500, '4:46: PM', '2019-06-13', 6, '3', NULL, 'Brothers', 'Visit', NULL, '2019-06-13 05:16:48', '2019-06-13 05:16:48', NULL, NULL, NULL, NULL),
+(3393, 2, 2088, '6:15: PM', '2019-06-13', 17, '1', '1', 'Family', 'Visit', NULL, '2019-06-13 06:45:06', '2019-06-13 06:45:06', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8361,7 +9737,7 @@ ALTER TABLE `countries`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2018;
+  MODIFY `id` int(191) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2216;
 
 --
 -- AUTO_INCREMENT for table `districts`
@@ -8397,13 +9773,13 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `room_books`
 --
 ALTER TABLE `room_books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=877;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1069;
 
 --
 -- AUTO_INCREMENT for table `room_checks`
 --
 ALTER TABLE `room_checks`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2655;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3394;
 
 --
 -- AUTO_INCREMENT for table `room_types`
@@ -8428,6 +9804,11 @@ ALTER TABLE `users`
 --
 ALTER TABLE `zones`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+--
+-- Database: `test`
+--
+CREATE DATABASE IF NOT EXISTS `test` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `test`;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
