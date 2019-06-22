@@ -77,6 +77,7 @@
                                             <option value="Driving License">Driving License</option>
                                             <option value="Voter Card">Voter Card</option>
                                             <option value="Vehicle No.">Vehicle No.</option>
+                                            <option value="National Id">National Id</option>
                                             <option value="Others">Others</option>
                                         </select>
                                     </div>

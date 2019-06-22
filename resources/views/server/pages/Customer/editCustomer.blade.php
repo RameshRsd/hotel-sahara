@@ -71,6 +71,7 @@
                                             <option value="Driving License" @if($updateCustomer->id_type=='Driving License') selected @endif>Driving License</option>
                                             <option value="Voter Card" @if($updateCustomer->id_type=='Voter Card') selected @endif>Voter Card</option>
                                             <option value="Vehicle No." @if($updateCustomer->id_type=='Vehicle No.') selected @endif>Vehicle No.</option>
+                                            <option value="National Id" @if($updateCustomer->id_type=='National Id') selected @endif>National Id</option>
                                             <option value="Others" @if($updateCustomer->id_type=='Others') selected @endif>Others</option>
                                         </select>
                                     </div>
