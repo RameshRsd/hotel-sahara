@@ -141,7 +141,7 @@
                                         <input type="text" class="form-control" name="contact_2" placeholder="Mobile Number">
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
-                                        <input type="text" class="form-control" name="contact_3" placeholder="Mobile Number">
+                                        <input type="email" class="form-control" name="email" placeholder="Email Address">
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12" style="margin:5px 0;">
                                         <input type="text" class="form-control" name="fb_link" placeholder="Insert Facebook Link">

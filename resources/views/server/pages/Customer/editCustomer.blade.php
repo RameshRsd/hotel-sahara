@@ -161,7 +161,7 @@
                                         <input type="text" class="form-control" name="contact_2"  value="{{$updateCustomer->contact_2}}">
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12" style="margin:5px 0;">
-                                        <input type="text" class="form-control" name="contact_3" value="{{$updateCustomer->contact_3}}">
+                                        <input type="email" class="form-control" name="email" value="{{$updateCustomer->email}}">
                                     </div>
                                     <div class="col-md-4 col-sm-4 col-xs-12" style="margin:5px 0;">
                                         <input type="text" class="form-control" name="fb_link" value="{{$updateCustomer->fb_link}}">

@@ -75,7 +75,7 @@ class CustomerController extends ServerController
             $data['customer_id_no'] = $request->customer_id_no;
             $data['contact_1'] = $request->contact_1;
             $data['contact_2'] = $request->contact_2;
-            $data['contact_3'] = $request->contact_3;
+            $data['email'] = $request->email;
             $data['fb_link'] = $request->fb_link;
 
             if (Customer::create($data)) {
@@ -180,7 +180,7 @@ class CustomerController extends ServerController
         $Customer->customer_id_no = \request('customer_id_no');
         $Customer->contact_1 = \request('contact_1');
         $Customer->contact_2 = \request('contact_2');
-        $Customer->contact_3 = \request('contact_3');
+        $Customer->email = \request('email');
         $Customer->fb_link = \request('fb_link');
 
         if($request->hasFile('photo')){
