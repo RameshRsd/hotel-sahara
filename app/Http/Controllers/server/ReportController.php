@@ -84,6 +84,9 @@ class ReportController extends ServerController
             if (\request('year')) {
                 $RoomData->where('date', 'like', '%' . \request('year') . '%');
             }
+            if (\request('room_id')) {
+                $RoomData->where('room_id', \request('room_id'));
+            }
             $RoomData = $RoomData->paginate(10000);
 
 //            $countRoom = $RoomData->count();
